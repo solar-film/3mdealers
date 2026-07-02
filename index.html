@@ -1,0 +1,1449 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Goodfilm Dealer Registration | สมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M</title>
+  <meta name="description" content="แบบฟอร์มลงทะเบียนสมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M กับ Goodfilm สำหรับร้านค้า ผู้รับเหมา ช่างติดตั้ง Interior Designer และธุรกิจวัสดุอาคาร" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --gfs-navy: #1b437c;
+      --gfs-blue: #005eb8;
+      --gfs-sky: #eaf4ff;
+      --gfs-red: #e31b23;
+      --gfs-ink: #162033;
+      --gfs-muted: #64748b;
+      --gfs-soft: #f5f8fc;
+      --gfs-card: #ffffff;
+      --gfs-line: #dbe7f5;
+      --gfs-success: #0f9f6e;
+      --gfs-warning: #f59e0b;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --shadow: 0 18px 45px rgba(27, 67, 124, .13);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Sarabun', Arial, Helvetica, sans-serif;
+      color: var(--gfs-ink);
+      background:
+        radial-gradient(circle at top left, rgba(0, 94, 184, .14), transparent 34rem),
+        radial-gradient(circle at 85% 8%, rgba(227, 27, 35, .09), transparent 22rem),
+        linear-gradient(180deg, #ffffff 0%, #f6f9fd 42%, #ffffff 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .gfs-page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .gfs-hero {
+      position: relative;
+      overflow: hidden;
+      margin: 24px auto 18px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(27,67,124,.98), rgba(0,94,184,.90) 55%, rgba(6,29,58,.98)),
+        linear-gradient(90deg, #1b437c, #005eb8);
+      color: #fff;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .gfs-hero::before,
+    .gfs-hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      z-index: -1;
+    }
+
+    .gfs-hero::before {
+      width: 360px;
+      height: 360px;
+      right: -120px;
+      top: -120px;
+    }
+
+    .gfs-hero::after {
+      width: 260px;
+      height: 260px;
+      right: 22%;
+      bottom: -160px;
+    }
+
+    .gfs-hero-inner {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 28px;
+      align-items: center;
+      min-height: 410px;
+      padding: 42px;
+    }
+
+    .gfs-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      margin-bottom: 26px;
+    }
+
+    .gfs-brand img {
+      height: 44px;
+      width: auto;
+      max-width: 148px;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 12px rgba(0,0,0,.12));
+    }
+
+    .gfs-brand span {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.92);
+    }
+
+    .gfs-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .gfs-hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      font-weight: 800;
+    }
+
+    .gfs-hero h1 span {
+      display: block;
+      color: #bfe3ff;
+      font-size: .58em;
+      margin-top: 10px;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .gfs-lead {
+      max-width: 670px;
+      margin: 0 0 28px;
+      color: rgba(255,255,255,.88);
+      font-size: clamp(17px, 2vw, 20px);
+    }
+
+    .gfs-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .gfs-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--gfs-navy);
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    .gfs-btn:hover { transform: translateY(-2px); }
+
+    .gfs-btn-red {
+      background: var(--gfs-red);
+      color: #fff;
+    }
+
+    .gfs-btn-outline {
+      background: rgba(255,255,255,.10);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.28);
+      box-shadow: none;
+    }
+
+    .gfs-visual {
+      position: relative;
+      min-height: 320px;
+      display: grid;
+      align-items: center;
+    }
+
+    .gfs-panel {
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.13);
+      backdrop-filter: blur(14px);
+      border-radius: 30px;
+      padding: 22px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.18);
+    }
+
+    .gfs-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .gfs-metric {
+      min-height: 112px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.92);
+      color: var(--gfs-ink);
+      box-shadow: 0 10px 25px rgba(0,0,0,.10);
+    }
+
+    .gfs-metric b {
+      display: block;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--gfs-blue);
+      margin-bottom: 8px;
+      letter-spacing: -.03em;
+    }
+
+    .gfs-metric span {
+      display: block;
+      font-size: 14px;
+      color: var(--gfs-muted);
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .gfs-info-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 30px;
+    }
+
+    .gfs-info-card {
+      padding: 20px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid var(--gfs-line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .gfs-info-card strong {
+      display: block;
+      color: var(--gfs-navy);
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .gfs-info-card p {
+      margin: 0;
+      color: var(--gfs-muted);
+      font-size: 15px;
+    }
+
+    .gfs-layout {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 42px;
+    }
+
+    .gfs-sidebar {
+      position: sticky;
+      top: 18px;
+      padding: 22px;
+      border-radius: 28px;
+      background: #fff;
+      border: 1px solid var(--gfs-line);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .gfs-sidebar h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      line-height: 1.25;
+      color: var(--gfs-navy);
+    }
+
+    .gfs-sidebar p {
+      margin: 0 0 18px;
+      font-size: 15px;
+      color: var(--gfs-muted);
+    }
+
+    .gfs-progress-wrap { margin: 18px 0; }
+
+    .gfs-progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gfs-navy);
+      margin-bottom: 8px;
+    }
+
+    .gfs-progress {
+      height: 10px;
+      background: #e8f0fa;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .gfs-progress span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gfs-blue), var(--gfs-red));
+      transition: width .25s ease;
+    }
+
+    .gfs-side-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .gfs-side-list a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      color: var(--gfs-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      background: #f7fafd;
+      border: 1px solid transparent;
+    }
+
+    .gfs-side-list a:hover {
+      border-color: var(--gfs-line);
+      color: var(--gfs-navy);
+      background: #fff;
+    }
+
+    .gfs-contact-card {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f3f8ff, #fff);
+      border: 1px solid var(--gfs-line);
+      font-size: 14px;
+      color: var(--gfs-muted);
+    }
+
+    .gfs-contact-card strong {
+      display: block;
+      color: var(--gfs-navy);
+      margin-bottom: 8px;
+    }
+
+    .gfs-form-card {
+      background: #fff;
+      border: 1px solid var(--gfs-line);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .gfs-form-head {
+      padding: 28px 28px 22px;
+      background: linear-gradient(135deg, #ffffff, #f0f7ff);
+      border-bottom: 1px solid var(--gfs-line);
+    }
+
+    .gfs-form-head h2 {
+      margin: 0 0 8px;
+      color: var(--gfs-navy);
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+
+    .gfs-form-head p {
+      margin: 0;
+      color: var(--gfs-muted);
+      font-size: 16px;
+    }
+
+    form { padding: 4px 28px 30px; }
+
+    .gfs-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--gfs-line);
+      scroll-margin-top: 18px;
+    }
+
+    .gfs-section:last-of-type { border-bottom: 0; }
+
+    .gfs-section-title {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .gfs-step {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--gfs-navy);
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(27, 67, 124, .20);
+    }
+
+    .gfs-section-title h3 {
+      margin: 0;
+      color: var(--gfs-ink);
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .gfs-section-title p {
+      margin: 5px 0 0;
+      color: var(--gfs-muted);
+      font-size: 15px;
+    }
+
+    .gfs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .gfs-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .gfs-field { display: grid; gap: 8px; }
+
+    .gfs-full { grid-column: 1 / -1; }
+
+    label.gfs-label {
+      font-weight: 800;
+      color: #24324a;
+      font-size: 15px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .gfs-required { color: var(--gfs-red); }
+
+    input[type='text'],
+    input[type='tel'],
+    input[type='email'],
+    input[type='url'],
+    input[type='number'],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 50px;
+      border-radius: 16px;
+      border: 1px solid #cfdbeb;
+      background: #fff;
+      color: var(--gfs-ink);
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 16px;
+      outline: none;
+      transition: border .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    textarea { min-height: 112px; resize: vertical; }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gfs-blue);
+      box-shadow: 0 0 0 4px rgba(0, 94, 184, .12);
+    }
+
+    .gfs-help {
+      margin: 0;
+      color: var(--gfs-muted);
+      font-size: 13px;
+    }
+
+    .gfs-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .gfs-choice-grid.gfs-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .gfs-choice {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-height: 56px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      border: 1px solid #d5e2f1;
+      background: #fbfdff;
+      cursor: pointer;
+      transition: border .2s ease, background .2s ease, transform .2s ease;
+      font-weight: 700;
+      color: #26364e;
+    }
+
+    .gfs-choice:hover {
+      border-color: var(--gfs-blue);
+      background: #f2f8ff;
+      transform: translateY(-1px);
+    }
+
+    .gfs-choice input {
+      margin: 4px 0 0;
+      accent-color: var(--gfs-blue);
+      flex: 0 0 auto;
+    }
+
+    .gfs-choice small {
+      display: block;
+      color: var(--gfs-muted);
+      font-weight: 500;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    .gfs-alert {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: #f0f7ff;
+      border: 1px solid var(--gfs-line);
+      color: #315071;
+      font-size: 15px;
+      margin-top: 18px;
+    }
+
+    .gfs-upload {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      border: 1px dashed #aac1dd;
+      border-radius: 20px;
+      background: #fbfdff;
+    }
+
+    .gfs-upload input {
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .gfs-consent {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--gfs-line);
+      background: linear-gradient(135deg, #fbfdff, #f4f9ff);
+    }
+
+    .gfs-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+    }
+
+    .gfs-submit {
+      min-height: 56px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 0;
+      background: linear-gradient(135deg, var(--gfs-red), #b61017);
+      color: #fff;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 14px 28px rgba(227, 27, 35, .23);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .gfs-submit:hover { transform: translateY(-2px); box-shadow: 0 18px 34px rgba(227, 27, 35, .28); }
+
+    .gfs-note {
+      margin: 0;
+      max-width: 470px;
+      color: var(--gfs-muted);
+      font-size: 14px;
+    }
+
+    .gfs-success-box {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(15, 159, 110, .25);
+      background: rgba(15, 159, 110, .08);
+      color: #0d6b4d;
+      font-weight: 700;
+    }
+
+    .gfs-footer {
+      margin: 40px auto 24px;
+      padding: 26px;
+      border-radius: 28px;
+      background: #0f284f;
+      color: rgba(255,255,255,.86);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .gfs-footer img {
+      width: 170px;
+      height: auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 10px;
+    }
+
+    .gfs-footer h2 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: 22px;
+    }
+
+    .gfs-footer p { margin: 0; font-size: 15px; }
+
+    .gfs-hidden { display: none !important; }
+
+    @media (max-width: 980px) {
+      .gfs-hero-inner,
+      .gfs-layout,
+      .gfs-info-strip { grid-template-columns: 1fr; }
+      .gfs-sidebar { position: static; }
+      .gfs-visual { min-height: auto; }
+    }
+
+    @media (max-width: 720px) {
+      .gfs-side-list, .gfs-sidebar h2, .gfs-sidebar p { display: none; }
+      .gfs-progress-wrap {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 16px 20px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 -8px 32px rgba(0, 11, 40, 0.08);
+        border-top: 1px solid rgba(255, 255, 255, 0.6);
+        z-index: 1000;
+        box-sizing: border-box;
+        border-radius: 24px 24px 0 0;
+      }
+      body { padding-bottom: 80px; }
+      .gfs-page { width: min(100% - 24px, 1180px); }
+      .gfs-hero { margin-top: 12px; border-radius: 26px; }
+      .gfs-hero-inner { padding: 26px 20px; }
+      .gfs-brand { border-radius: 18px; align-items: flex-start; }
+      .gfs-brand img { height: 34px; max-width: 118px; }
+      .gfs-hero-actions { align-items: stretch; }
+      .gfs-btn { width: 100%; }
+      .gfs-metric-grid,
+      .gfs-grid,
+      .gfs-grid-3,
+      .gfs-choice-grid,
+      .gfs-choice-grid.gfs-3 { grid-template-columns: 1fr; }
+      .gfs-form-head { padding: 24px 18px 18px; }
+      form { padding: 2px 18px 24px; }
+      .gfs-section-title { gap: 10px; }
+      .gfs-step { width: 36px; height: 36px; border-radius: 12px; }
+      .gfs-section-title h3 { font-size: 20px; }
+      .gfs-actions { align-items: stretch; }
+      .gfs-submit { width: 100%; }
+      .gfs-footer { grid-template-columns: 1fr; text-align: left; }
+    }
+
+    @media print {
+      .gfs-sidebar, .gfs-hero-actions, .gfs-submit { display: none; }
+      body { background: #fff; }
+      .gfs-hero, .gfs-form-card, .gfs-footer { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="gfs-page">
+    <section class="gfs-hero" aria-label="Goodfilm Dealer Registration Hero">
+      <div class="gfs-hero-inner">
+        <div>
+          <div class="gfs-brand">
+            <img src="images/LOGO-GFS2024-ขาว.png" alt="3M Authorized Distributor Building Film" />
+            <span>Authorized Distributor of 3M™ Window Film</span>
+          </div>
+          <div class="gfs-eyebrow">✨ Dealer Registration Program</div>
+          <h1>สมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M <span>Goodfilm Dealer Registration</span></h1>
+          <p class="gfs-lead">
+            ลงทะเบียนเพื่อรับข้อมูลราคาตัวแทน สินค้าพร้อมขาย การอบรมสินค้า สื่อการขาย และแนวทางสนับสนุนสำหรับร้านค้า ช่างติดตั้ง ผู้รับเหมา และธุรกิจวัสดุอาคารทั่วประเทศ
+          </p>
+          <div class="gfs-hero-actions">
+            <a class="gfs-btn gfs-btn-red" href="#dealer-form">เริ่มลงทะเบียนเลย</a>
+            <a class="gfs-btn gfs-btn-outline" href="https://lin.ee/Rd4zLQY" target="_blank" rel="noopener">สอบถามผ่าน LINE @goodfilm</a>
+          </div>
+        </div>
+        <div class="gfs-visual" aria-hidden="true">
+          <div class="gfs-panel">
+            <strong style="font-size: 22px; display:block; margin-bottom: 6px;">ต่อยอดธุรกิจฟิล์มอาคารให้ขายง่ายขึ้น</strong>
+            <span style="color: rgba(255,255,255,.78);">เหมาะสำหรับธุรกิจที่ต้องการเพิ่มสินค้า 3M Building Film เข้าสู่พอร์ตการขาย</span>
+            <div class="gfs-metric-grid">
+              <div class="gfs-metric"><b>3M</b><span>สินค้าแบรนด์ชั้นนำ ลูกค้ารู้จักง่าย</span></div>
+              <div class="gfs-metric"><b>B2B</b><span>รองรับร้านค้า ช่าง และงานโครงการ</span></div>
+              <div class="gfs-metric"><b>Stock</b><span>มีสินค้าหลากหลาย พร้อมสนับสนุน</span></div>
+              <div class="gfs-metric"><b>Support</b><span>ทีม Goodfilm ช่วยดูแลหลังลงทะเบียน</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="gfs-layout">
+      <aside class="gfs-sidebar" aria-label="Form Navigation">
+        <h2>Dealer Qualification Form</h2>
+        <p>กรอกประมาณ 3–5 นาที ข้อมูลครบ ทีม Goodfilm ประเมินและติดต่อกลับได้ไวขึ้น</p>
+        <div class="gfs-progress-wrap">
+          <div class="gfs-progress-label"><span>ความครบถ้วนของข้อมูล</span><span id="progressText">0%</span></div>
+          <div class="gfs-progress"><span id="progressBar"></span></div>
+        </div>
+        <nav class="gfs-side-list" aria-label="ไปยังส่วนต่าง ๆ ของฟอร์ม">
+          <a href="#s1">01 ข้อมูลผู้ติดต่อ</a>
+          <a href="#s2">02 ข้อมูลธุรกิจ</a>
+          <a href="#s3">03 พื้นที่ให้บริการ</a>
+          <a href="#s4">04 ความพร้อมทีมขาย/ติดตั้ง</a>
+          <a href="#s5">05 สินค้าที่สนใจ</a>
+          <a href="#s6">06 เป้าหมายการขาย</a>
+          <a href="#s7">07 เอกสารประกอบ</a>
+          <a href="#s8">08 ช่องทางที่ทราบข่าว</a>
+          <a href="#s9">09 Consent / PDPA</a>
+        </nav>
+
+      </aside>
+
+      <section class="gfs-form-card" id="dealer-form" aria-label="Dealer Registration Form">
+        <div class="gfs-form-head">
+          <h2>ลงทะเบียนสมัครตัวแทนจำหน่าย</h2>
+          <p>กรุณากรอกข้อมูลให้ครบถ้วน เพื่อให้ทีมงานแนะนำรูปแบบการเป็นตัวแทนและการสนับสนุนที่เหมาะสม</p>
+        </div>
+
+        <!-- หมายเหตุสำหรับทีมเว็บ: เปลี่ยน action="#" เป็น URL Backend / CRM / Google Apps Script / Formspree ที่ต้องการรับข้อมูล -->
+        <form id="dealerForm" action="#" method="post" enctype="multipart/form-data">
+          <section class="gfs-section" id="s1">
+            <div class="gfs-section-title">
+              <span class="gfs-step">01</span>
+              <div>
+                <h3>ข้อมูลผู้ติดต่อหลัก</h3>
+                <p>ข้อมูลสำหรับให้ทีม Goodfilm ติดต่อกลับและประสานงานเบื้องต้น</p>
+              </div>
+            </div>
+            <div class="gfs-grid">
+              <div class="gfs-field">
+                <label class="gfs-label" for="fullName">ชื่อ-นามสกุล <span class="gfs-required">*</span></label>
+                <input id="fullName" name="full_name" type="text" placeholder="เช่น คุณสมชาย ใจดี" required />
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="phone">เบอร์โทรศัพท์ <span class="gfs-required">*</span></label>
+                <input id="phone" name="phone" type="tel" placeholder="เช่น 081-234-5678" required />
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="lineId">Line ID <span class="gfs-required">*</span></label>
+                <input id="lineId" name="line_id" type="text" placeholder="เช่น @ร้านของคุณ หรือ Line ID ส่วนตัว" required />
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="email">อีเมล <span class="gfs-required">*</span></label>
+                <input id="email" name="email" type="email" placeholder="example@email.com" required />
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label" for="role">ตำแหน่ง / บทบาทในธุรกิจ <span class="gfs-required">*</span></label>
+                <select id="role" name="role" required onchange="toggleOtherInput(this, 'roleOther')">
+                  <option value="">กรุณาเลือก</option>
+                  <option>เจ้าของกิจการ</option>
+                  <option>ผู้จัดการร้าน</option>
+                  <option>ฝ่ายขาย</option>
+                  <option>ช่างติดตั้ง</option>
+                  <option>Interior Designer / Architect</option>
+                  <option>ผู้รับเหมา</option>
+                  <option>อื่น ๆ</option>
+                </select>
+                <input type="text" id="roleOther" name="role_other" class="gfs-hidden" placeholder="โปรดระบุ" style="margin-top: 10px;" />
+              </div>
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s2">
+            <div class="gfs-section-title">
+              <span class="gfs-step">02</span>
+              <div>
+                <h3>ข้อมูลธุรกิจ / Business Profile</h3>
+                <p>ช่วยให้ทีมงานประเมินรูปแบบตัวแทนและแพ็กเกจสนับสนุนที่เหมาะกับคุณ</p>
+              </div>
+            </div>
+            <div class="gfs-grid">
+              <div class="gfs-field">
+                <label class="gfs-label" for="businessName">ชื่อร้านค้า / บริษัท <span class="gfs-required">*</span></label>
+                <input id="businessName" name="business_name" type="text" placeholder="เช่น บริษัท/ร้านค้า/ทีมงาน" required />
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="taxId">เลขประจำตัวผู้เสียภาษี</label>
+                <input id="taxId" name="tax_id" type="text" placeholder="ถ้ามี" />
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label">ประเภทธุรกิจของคุณ <span class="gfs-required">*</span></label>
+                <div class="gfs-choice-grid gfs-3">
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ร้านฟิล์มรถยนต์" required /> ร้านฟิล์มรถยนต์</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ร้านวัสดุก่อสร้าง" /> ร้านวัสดุก่อสร้าง</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ผู้รับเหมา/ช่างติดตั้ง" /> ผู้รับเหมา / ช่างติดตั้ง</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="บริษัทตกแต่งภายใน" /> บริษัทตกแต่งภายใน</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="สถาปนิก/Interior Designer" /> สถาปนิก / Interior Designer</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ร้านกระจก/อลูมิเนียม" /> ร้านกระจก / อลูมิเนียม</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ตัวแทนขายวัสดุอาคาร" /> ตัวแทนขายวัสดุอาคาร</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="Developer/เจ้าของโครงการ" /> Developer / เจ้าของโครงการ</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="อื่น ๆ" onchange="toggleOtherInput(this, 'businessTypeOther')" /> อื่น ๆ</label>
+                </div>
+                <input type="text" id="businessTypeOther" name="business_type_other" class="gfs-hidden" placeholder="โปรดระบุ" style="margin-top: 10px; width: 100%;" />
+                <p class="gfs-help">เลือกได้มากกว่า 1 ข้อ</p>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="businessAge">อายุธุรกิจ / ประสบการณ์ <span class="gfs-required">*</span></label>
+                <select id="businessAge" name="business_age" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>เริ่มต้นใหม่</option>
+                  <option>น้อยกว่า 1 ปี</option>
+                  <option>1–3 ปี</option>
+                  <option>4–7 ปี</option>
+                  <option>มากกว่า 7 ปี</option>
+                </select>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="hasStore">มีหน้าร้านหรือสำนักงานหรือไม่ <span class="gfs-required">*</span></label>
+                <select id="hasStore" name="has_store" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>มีหน้าร้าน</option>
+                  <option>มีสำนักงาน</option>
+                  <option>ทำงานแบบทีมช่าง/ฟรีแลนซ์</option>
+                  <option>ยังไม่มีสถานที่ชัดเจน</option>
+                </select>
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label" for="onlineChannels">ช่องทางออนไลน์ของธุรกิจ</label>
+                <textarea id="onlineChannels" name="online_channels" placeholder="เช่น Facebook Page, Website, TikTok, Shopee, Lazada หรือช่องทางอื่น ๆ"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s3">
+            <div class="gfs-section-title">
+              <span class="gfs-step">03</span>
+              <div>
+                <h3>พื้นที่ให้บริการ / Service Area</h3>
+                <p>ใช้สำหรับจัดพื้นที่ขาย วางแผน Territory และลดการซ้ำซ้อนของตัวแทนในอนาคต</p>
+              </div>
+            </div>
+            <div class="gfs-grid">
+              <div class="gfs-field">
+                <label class="gfs-label" for="province">จังหวัดหลักที่ต้องการเป็นตัวแทน <span class="gfs-required">*</span></label>
+                <select id="province" name="main_province" required>
+                  <option value="">กรุณาเลือกจังหวัด</option>
+                  <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+<option value="กระบี่">กระบี่</option>
+<option value="กาญจนบุรี">กาญจนบุรี</option>
+<option value="กาฬสินธุ์">กาฬสินธุ์</option>
+<option value="กำแพงเพชร">กำแพงเพชร</option>
+<option value="ขอนแก่น">ขอนแก่น</option>
+<option value="จันทบุรี">จันทบุรี</option>
+<option value="ฉะเชิงเทรา">ฉะเชิงเทรา</option>
+<option value="ชลบุรี">ชลบุรี</option>
+<option value="ชัยนาท">ชัยนาท</option>
+<option value="ชัยภูมิ">ชัยภูมิ</option>
+<option value="ชุมพร">ชุมพร</option>
+<option value="เชียงราย">เชียงราย</option>
+<option value="เชียงใหม่">เชียงใหม่</option>
+<option value="ตรัง">ตรัง</option>
+<option value="ตราด">ตราด</option>
+<option value="ตาก">ตาก</option>
+<option value="นครนายก">นครนายก</option>
+<option value="นครปฐม">นครปฐม</option>
+<option value="นครพนม">นครพนม</option>
+<option value="นครราชสีมา">นครราชสีมา</option>
+<option value="นครศรีธรรมราช">นครศรีธรรมราช</option>
+<option value="นครสวรรค์">นครสวรรค์</option>
+<option value="นนทบุรี">นนทบุรี</option>
+<option value="นราธิวาส">นราธิวาส</option>
+<option value="น่าน">น่าน</option>
+<option value="บึงกาฬ">บึงกาฬ</option>
+<option value="บุรีรัมย์">บุรีรัมย์</option>
+<option value="ปทุมธานี">ปทุมธานี</option>
+<option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์</option>
+<option value="ปราจีนบุรี">ปราจีนบุรี</option>
+<option value="ปัตตานี">ปัตตานี</option>
+<option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา</option>
+<option value="พะเยา">พะเยา</option>
+<option value="พังงา">พังงา</option>
+<option value="พัทลุง">พัทลุง</option>
+<option value="พิจิตร">พิจิตร</option>
+<option value="พิษณุโลก">พิษณุโลก</option>
+<option value="เพชรบุรี">เพชรบุรี</option>
+<option value="เพชรบูรณ์">เพชรบูรณ์</option>
+<option value="แพร่">แพร่</option>
+<option value="ภูเก็ต">ภูเก็ต</option>
+<option value="มหาสารคาม">มหาสารคาม</option>
+<option value="มุกดาหาร">มุกดาหาร</option>
+<option value="แม่ฮ่องสอน">แม่ฮ่องสอน</option>
+<option value="ยโสธร">ยโสธร</option>
+<option value="ยะลา">ยะลา</option>
+<option value="ร้อยเอ็ด">ร้อยเอ็ด</option>
+<option value="ระนอง">ระนอง</option>
+<option value="ระยอง">ระยอง</option>
+<option value="ราชบุรี">ราชบุรี</option>
+<option value="ลพบุรี">ลพบุรี</option>
+<option value="ลำปาง">ลำปาง</option>
+<option value="ลำพูน">ลำพูน</option>
+<option value="เลย">เลย</option>
+<option value="ศรีสะเกษ">ศรีสะเกษ</option>
+<option value="สกลนคร">สกลนคร</option>
+<option value="สงขลา">สงขลา</option>
+<option value="สตูล">สตูล</option>
+<option value="สมุทรปราการ">สมุทรปราการ</option>
+<option value="สมุทรสงคราม">สมุทรสงคราม</option>
+<option value="สมุทรสาคร">สมุทรสาคร</option>
+<option value="สระแก้ว">สระแก้ว</option>
+<option value="สระบุรี">สระบุรี</option>
+<option value="สิงห์บุรี">สิงห์บุรี</option>
+<option value="สุโขทัย">สุโขทัย</option>
+<option value="สุพรรณบุรี">สุพรรณบุรี</option>
+<option value="สุราษฎร์ธานี">สุราษฎร์ธานี</option>
+<option value="สุรินทร์">สุรินทร์</option>
+<option value="หนองคาย">หนองคาย</option>
+<option value="หนองบัวลำภู">หนองบัวลำภู</option>
+<option value="อ่างทอง">อ่างทอง</option>
+<option value="อำนาจเจริญ">อำนาจเจริญ</option>
+<option value="อุดรธานี">อุดรธานี</option>
+<option value="อุตรดิตถ์">อุตรดิตถ์</option>
+<option value="อุทัยธานี">อุทัยธานี</option>
+<option value="อุบลราชธานี">อุบลราชธานี</option>
+                </select>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="district">อำเภอ / เขต <span class="gfs-required">*</span></label>
+                <input id="district" name="district" type="text" placeholder="เช่น บางนา / เมืองเชียงใหม่" required />
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="serviceRange">รับงานต่างจังหวัดได้หรือไม่ <span class="gfs-required">*</span></label>
+                <select id="serviceRange" name="service_range" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>รับเฉพาะจังหวัดตัวเอง</option>
+                  <option>รับจังหวัดใกล้เคียง</option>
+                  <option>รับงานทั่วประเทศ</option>
+                  <option>ขึ้นอยู่กับขนาดงาน</option>
+                </select>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="targetArea">พื้นที่ที่สามารถให้บริการได้ <span class="gfs-required">*</span></label>
+                <input id="targetArea" name="target_area" type="text" placeholder="เช่น กรุงเทพฯ-ปริมณฑล / ภาคตะวันออก" required />
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label" for="address">ที่อยู่ร้านค้า / บริษัท / สำนักงาน</label>
+                <textarea id="address" name="address" placeholder="กรอกที่อยู่สำหรับประเมินพื้นที่และจัดส่งเอกสาร/ตัวอย่างสินค้า"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s4">
+            <div class="gfs-section-title">
+              <span class="gfs-step">04</span>
+              <div>
+                <h3>ความพร้อมด้านงานขายและงานติดตั้ง</h3>
+                <p>แยกกลุ่ม Dealer / Installer / Project Partner ได้ชัดเจนและส่งต่อทีมที่เหมาะสม</p>
+              </div>
+            </div>
+            <div class="gfs-grid">
+              <div class="gfs-field">
+                <label class="gfs-label" for="currentFilmBusiness">ปัจจุบันขายหรือติดตั้งฟิล์มอยู่แล้วหรือไม่ <span class="gfs-required">*</span></label>
+                <select id="currentFilmBusiness" name="current_film_business" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>ขายฟิล์มอยู่แล้ว</option>
+                  <option>ติดตั้งฟิล์มอยู่แล้ว</option>
+                  <option>ทั้งขายและติดตั้ง</option>
+                  <option>ยังไม่เคย แต่มีฐานลูกค้าเกี่ยวข้อง</option>
+                  <option>ยังไม่เคย ต้องการเริ่มต้นธุรกิจนี้</option>
+                </select>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="hasInstallerTeam">มีทีมช่างติดตั้งเองหรือไม่ <span class="gfs-required">*</span></label>
+                <select id="hasInstallerTeam" name="has_installer_team" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option value="yes">มีทีมช่างเอง</option>
+                  <option value="outsource">มีทีม Outsource/ช่างประจำ</option>
+                  <option value="no">ยังไม่มีทีมช่าง</option>
+                </select>
+              </div>
+              <div class="gfs-field gfs-hidden" id="teamCountWrap">
+                <label class="gfs-label" for="teamCount">จำนวนทีมช่าง / จำนวนคน</label>
+                <input id="teamCount" name="team_count" type="text" placeholder="เช่น 1 ทีม / 3 คน" />
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="installExperience">ประสบการณ์ติดตั้งฟิล์มอาคาร <span class="gfs-required">*</span></label>
+                <select id="installExperience" name="install_experience" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>ยังไม่มีประสบการณ์</option>
+                  <option>น้อยกว่า 1 ปี</option>
+                  <option>1–3 ปี</option>
+                  <option>4–7 ปี</option>
+                  <option>มากกว่า 7 ปี</option>
+                </select>
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label">กลุ่มลูกค้าหลักของคุณ <span class="gfs-required">*</span></label>
+                <div class="gfs-choice-grid gfs-3">
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="บ้านพักอาศัย" required /> บ้านพักอาศัย</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="คอนโด" /> คอนโด</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="อาคารสำนักงาน" /> อาคารสำนักงาน</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="ร้านค้า/โชว์รูม" /> ร้านค้า / โชว์รูม</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="โรงงาน" /> โรงงาน</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="โรงแรม/รีสอร์ต" /> โรงแรม / รีสอร์ต</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="หน่วยงานราชการ" /> หน่วยงานราชการ</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="งานโครงการ" /> งานโครงการ</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="อื่น ๆ" onchange="toggleOtherInput(this, 'customerGroupOther')" /> อื่น ๆ</label>
+                </div>
+                <input type="text" id="customerGroupOther" name="customer_group_other" class="gfs-hidden" placeholder="โปรดระบุ" style="margin-top: 10px; width: 100%;" />
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label">ต้องการอบรมสินค้าและงานติดตั้งจาก Goodfilm หรือไม่ <span class="gfs-required">*</span></label>
+                <div class="gfs-choice-grid">
+                  <label class="gfs-choice"><input type="radio" name="training_need" value="ต้องการอบรมสินค้า" required /> ต้องการอบรมสินค้า</label>
+                  <label class="gfs-choice"><input type="radio" name="training_need" value="ต้องการอบรมติดตั้ง" /> ต้องการอบรมติดตั้ง</label>
+                  <label class="gfs-choice"><input type="radio" name="training_need" value="ต้องการทั้งสองอย่าง" /> ต้องการทั้งสินค้าและติดตั้ง</label>
+                  <label class="gfs-choice"><input type="radio" name="training_need" value="ยังไม่ต้องการ" /> ยังไม่ต้องการ</label>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s5">
+            <div class="gfs-section-title">
+              <span class="gfs-step">05</span>
+              <div>
+                <h3>สินค้าที่สนใจ</h3>
+                <p>เลือกกลุ่มสินค้าที่ต้องการขายหรือขอข้อมูลราคาเพิ่มเติม</p>
+              </div>
+            </div>
+            <div class="gfs-field">
+              <label class="gfs-label">กลุ่มสินค้าที่สนใจ <span class="gfs-required">*</span></label>
+              <div class="gfs-choice-grid">
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="ฟิล์มกรองแสงอาคาร 3M ลดความร้อน" required /> ฟิล์มกรองแสงอาคาร 3M ลดความร้อน</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M Prestige Series / Prestige Exterior" /> 3M Prestige / Prestige Exterior</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M Night Vision Series" /> 3M Night Vision Series</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M Ceramic IR / Ceramic Architectural" /> 3M Ceramic IR / Ceramic Architectural</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M Reflective Series" /> 3M Reflective Series</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M Safety & Security Films" /> 3M Safety & Security Films</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="ฟิล์มฝ้า 3M 5525 / 7725SE" /> ฟิล์มฝ้า 3M 5525 / 7725SE</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M FASARA Decorative Film" /> 3M FASARA Decorative Film</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M DI-NOC Surface Finish" /> 3M DI-NOC Surface Finish</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M DICHROIC Film" /> 3M DICHROIC Film</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ" /> ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ</label>
+              </div>
+            </div>
+            <div class="gfs-grid" style="margin-top:18px;">
+              <div class="gfs-field">
+                <label class="gfs-label" for="sellingType">ต้องการเริ่มขายสินค้าแบบใด <span class="gfs-required">*</span></label>
+                <select id="sellingType" name="selling_type" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>ซื้อยกกล่อง</option>
+                  <option>ซื้อเป็นเมตร / ตามหน้างาน</option>
+                  <option>ต้องการราคาตัวแทน</option>
+                  <option>ต้องการให้ทีม Goodfilm ช่วยแนะนำ</option>
+                </select>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="modelNeed">รุ่นสินค้าที่ต้องการข้อมูลราคาเพิ่มเติม</label>
+                <input id="modelNeed" name="model_need" type="text" placeholder="เช่น PR40, PR20ex, NV25, S40, 7725SE" />
+              </div>
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s6">
+            <div class="gfs-section-title">
+              <span class="gfs-step">06</span>
+              <div>
+                <h3>เป้าหมายการขาย / Dealer Potential</h3>
+                <p>ช่วยให้ทีมขายจัดลำดับความสำคัญและเสนอแนวทางที่เหมาะสม</p>
+              </div>
+            </div>
+            <div class="gfs-grid">
+              <div class="gfs-field">
+                <label class="gfs-label" for="startTime">คาดว่าจะเริ่มสั่งซื้อเมื่อไหร่ <span class="gfs-required">*</span></label>
+                <select id="startTime" name="start_time" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>ทันที</option>
+                  <option>ภายใน 1 เดือน</option>
+                  <option>ภายใน 3 เดือน</option>
+                  <option>ยังศึกษาอยู่</option>
+                </select>
+              </div>
+              <div class="gfs-field">
+                <label class="gfs-label" for="monthlyVolume">ปริมาณการสั่งซื้อที่คาดการณ์ต่อเดือน <span class="gfs-required">*</span></label>
+                <select id="monthlyVolume" name="monthly_volume" required>
+                  <option value="">กรุณาเลือก</option>
+                  <option>ยังไม่แน่ใจ</option>
+                  <option>1–3 งานต่อเดือน</option>
+                  <option>4–10 งานต่อเดือน</option>
+                  <option>มากกว่า 10 งานต่อเดือน</option>
+                  <option>ซื้อเป็นสต็อก / ซื้อยกกล่องต่อเนื่อง</option>
+                </select>
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label">ต้องการให้ Goodfilm สนับสนุนด้านใด <span class="gfs-required">*</span></label>
+                <div class="gfs-choice-grid">
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="ราคาตัวแทน" required /> ราคาตัวแทน</label>
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="สื่อการขาย / Catalog / Sample" /> สื่อการขาย / Catalog / Sample</label>
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="อบรมสินค้า" /> อบรมสินค้า</label>
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="อบรมงานติดตั้ง" /> อบรมงานติดตั้ง</label>
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="ทีมติดตั้งสนับสนุน" /> ทีมติดตั้งสนับสนุน</label>
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="ช่วยประเมินหน้างาน/BOQ" /> ช่วยประเมินหน้างาน / BOQ</label>
+                </div>
+              </div>
+              <div class="gfs-field gfs-full">
+                <label class="gfs-label" for="note">รายละเอียดเพิ่มเติม / ความต้องการเฉพาะ</label>
+                <textarea id="note" name="note" placeholder="เช่น มีลูกค้าโครงการอยู่แล้ว ต้องการใบเสนอราคา ต้องการตัวอย่างฟิล์ม หรือต้องการให้ทีมงานโทรแนะนำ"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s7">
+            <div class="gfs-section-title">
+              <span class="gfs-step">07</span>
+              <div>
+                <h3>เอกสารหรือรูปภาพประกอบ</h3>
+                <p>ไม่บังคับ แต่ช่วยให้ทีมงานพิจารณาและวางแผนสนับสนุนได้แม่นขึ้น</p>
+              </div>
+            </div>
+            <div class="gfs-grid">
+              <div class="gfs-upload">
+                <label class="gfs-label" for="businessFile">แนบนามบัตร / รูปหน้าร้าน / ผลงานที่ผ่านมา</label>
+                <input id="businessFile" name="business_file" type="file" accept="image/*,.pdf" />
+                <p class="gfs-help">รองรับไฟล์ภาพหรือ PDF</p>
+              </div>
+              <div class="gfs-upload">
+                <label class="gfs-label" for="companyFile">แนบเอกสารบริษัท ถ้ามี</label>
+                <input id="companyFile" name="company_file" type="file" accept="image/*,.pdf" />
+                <p class="gfs-help">เช่น หนังสือรับรอง ภ.พ.20 หรือเอกสารธุรกิจ</p>
+              </div>
+            </div>
+            <div class="gfs-alert">💡 เอกสารแนบไม่ใช่ข้อบังคับ แต่ช่วยให้ทีม Goodfilm ประเมินศักยภาพ Dealer และแนวทางดูแลได้ตรงจุดมากขึ้น</div>
+          </section>
+
+          <section class="gfs-section" id="s8">
+            <div class="gfs-section-title">
+              <span class="gfs-step">08</span>
+              <div>
+                <h3>ช่องทางที่ทราบข่าว</h3>
+                <p>คุณรู้จัก Goodfilm หรือทราบข่าวการรับสมัครตัวแทนจากช่องทางใด?</p>
+              </div>
+            </div>
+            <div class="gfs-field gfs-full">
+              <div class="gfs-choice-grid gfs-3">
+                <label class="gfs-choice"><input type="checkbox" name="source" value="Google" /> Google</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="Facebook" /> Facebook</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="TikTok" /> TikTok</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="YouTube" /> YouTube</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="Website Goodfilm" /> Website Goodfilm</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="LINE OA" /> LINE OA</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="Sales Goodfilm ติดต่อแนะนำ" /> Sales Goodfilm ติดต่อแนะนำ</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="เพื่อน / ลูกค้าแนะนำ" /> เพื่อน / ลูกค้าแนะนำ</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="งานอบรม / งานสัมมนา" /> งานอบรม / งานสัมมนา</label>
+                <label class="gfs-choice"><input type="checkbox" name="source" value="อื่น ๆ" onchange="toggleOtherInput(this, 'sourceOther')" /> อื่น ๆ</label>
+              </div>
+              <input type="text" id="sourceOther" name="source_other" class="gfs-hidden" placeholder="โปรดระบุ" style="margin-top: 10px; width: 100%;" />
+            </div>
+          </section>
+
+          <section class="gfs-section" id="s9">
+            <div class="gfs-section-title">
+              <span class="gfs-step">09</span>
+              <div>
+                <h3>การยินยอมให้ติดต่อกลับ / Consent</h3>
+                <p>เพื่อให้บริษัทสามารถให้ข้อมูลสินค้า ราคา โปรโมชั่น และการสนับสนุนที่เกี่ยวข้อง</p>
+              </div>
+            </div>
+            <div class="gfs-consent">
+              <label class="gfs-choice">
+                <input type="checkbox" name="consent_contact" required />
+                <span>ข้าพเจ้ายินยอมให้บริษัท กู๊ดฟิล์ม จำกัด ติดต่อกลับเพื่อให้ข้อมูลเกี่ยวกับการสมัครตัวแทนจำหน่าย โปรโมชั่น ราคา สินค้า การอบรม และบริการที่เกี่ยวข้อง <span class="gfs-required">*</span></span>
+              </label>
+              <label class="gfs-choice">
+                <input type="checkbox" name="consent_truth" required />
+                <span>ข้าพเจ้ารับรองว่าข้อมูลที่กรอกเป็นความจริง และสามารถใช้ประกอบการพิจารณาเบื้องต้นได้ <span class="gfs-required">*</span></span>
+              </label>
+            </div>
+            <div class="gfs-actions">
+              <p class="gfs-note">หลังส่งข้อมูล ทีมงานจะตรวจสอบและติดต่อกลับตามช่องทางที่ระบุไว้ กรุณาตรวจสอบเบอร์โทรและ Line ID ให้ถูกต้อง</p>
+              <button class="gfs-submit" type="submit">ส่งข้อมูลลงทะเบียน</button>
+            </div>
+            <div class="gfs-success-box" id="successBox" style="display: none;">
+              <!-- Message will be injected via JS -->
+            </div>
+          </section>
+        </form>
+      </section>
+    </div>
+
+    <footer class="gfs-footer">
+      <div>
+        <h2>บริษัท กู๊ดฟิล์ม จำกัด (สำนักงานใหญ่)</h2>
+        <p>914/10-11 ถนนลาซาล แขวงบางนา เขตบางนา กรุงเทพฯ 10260</p>
+        <p>Call Center: 02-096-3424 | Mobile: 097-097 2103 | Email: goodfilmshop@gmail.com | Line ID: @goodfilm</p>
+      </div>
+      <img src="images/LOGO-GFS2024.png" alt="3M Authorized Distributor" />
+    </footer>
+  </main>
+
+  <script>
+    function toggleOtherInput(element, targetId) {
+      const targetInput = document.getElementById(targetId);
+      if (element.type === 'select-one') {
+        if (element.value === 'อื่น ๆ') {
+          targetInput.classList.remove('gfs-hidden');
+          targetInput.setAttribute('required', 'required');
+        } else {
+          targetInput.classList.add('gfs-hidden');
+          targetInput.removeAttribute('required');
+          targetInput.value = '';
+        }
+      } else if (element.type === 'checkbox') {
+        if (element.checked) {
+          targetInput.classList.remove('gfs-hidden');
+          targetInput.setAttribute('required', 'required');
+        } else {
+          targetInput.classList.add('gfs-hidden');
+          targetInput.removeAttribute('required');
+          targetInput.value = '';
+        }
+      }
+    }
+
+    (function () {
+      const form = document.getElementById('dealerForm');
+      const progressBar = document.getElementById('progressBar');
+      const progressText = document.getElementById('progressText');
+      const teamSelect = document.getElementById('hasInstallerTeam');
+      const teamWrap = document.getElementById('teamCountWrap');
+      const successBox = document.getElementById('successBox');
+
+      function checkboxGroupValid(name) {
+        const boxes = Array.from(form.querySelectorAll(`input[type="checkbox"][name="${name}"]`));
+        if (!boxes.length) return true;
+        return boxes.some(box => box.checked);
+      }
+
+      function updateProgress() {
+        const requiredControls = Array.from(form.querySelectorAll('[required]'));
+        const groupedCheckboxNames = new Set();
+        let total = 0;
+        let filled = 0;
+
+        requiredControls.forEach(control => {
+          if (control.type === 'checkbox' && ['business_type', 'customer_group', 'product_interest', 'support_need'].includes(control.name)) {
+            if (!groupedCheckboxNames.has(control.name)) {
+              groupedCheckboxNames.add(control.name);
+              total += 1;
+              if (checkboxGroupValid(control.name)) filled += 1;
+            }
+          } else if (control.type === 'radio') {
+            if (!groupedCheckboxNames.has(control.name)) {
+              groupedCheckboxNames.add(control.name);
+              total += 1;
+              if (form.querySelector(`input[name="${control.name}"]:checked`)) filled += 1;
+            }
+          } else if (control.type === 'checkbox') {
+            total += 1;
+            if (control.checked) filled += 1;
+          } else {
+            total += 1;
+            if (String(control.value || '').trim()) filled += 1;
+          }
+        });
+
+        const percent = total ? Math.round((filled / total) * 100) : 0;
+        progressBar.style.width = percent + '%';
+        progressText.textContent = percent + '%';
+      }
+
+      function toggleTeamField() {
+        const val = teamSelect.value;
+        const show = val === 'yes' || val === 'outsource';
+        teamWrap.classList.toggle('gfs-hidden', !show);
+        document.getElementById('teamCount').toggleAttribute('required', show);
+        updateProgress();
+      }
+
+      form.addEventListener('input', updateProgress);
+      form.addEventListener('change', updateProgress);
+      teamSelect.addEventListener('change', toggleTeamField);
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const requiredGroups = ['business_type', 'customer_group', 'product_interest', 'support_need'];
+        const invalidGroup = requiredGroups.find(name => !checkboxGroupValid(name));
+        if (invalidGroup) {
+          alert('กรุณาเลือกข้อมูลในหัวข้อที่จำเป็นให้ครบถ้วน');
+          updateProgress();
+          return;
+        }
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          updateProgress();
+          return;
+        }
+
+        const submitBtn = form.querySelector('.gfs-submit');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = 'กำลังส่งข้อมูล...';
+        submitBtn.disabled = true;
+        successBox.style.display = 'none';
+
+        const formData = new FormData(form);
+        const data = {};
+
+        formData.forEach((value, key) => {
+          if (value instanceof File && value.name === '') return;
+          if (data[key]) {
+            if (!Array.isArray(data[key])) data[key] = [data[key]];
+            data[key].push(value);
+          } else {
+            data[key] = value;
+          }
+        });
+
+        Object.keys(data).forEach(key => {
+          if (Array.isArray(data[key])) {
+            data[key] = data[key].join(', ');
+          }
+        });
+
+        const filePromises = [];
+        ['business_file', 'company_file'].forEach(fileKey => {
+          const file = formData.get(fileKey);
+          if (file && file.name) {
+            filePromises.push(
+              new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  data[fileKey] = {
+                    name: file.name,
+                    mimeType: file.type,
+                    base64: reader.result.split(',')[1]
+                  };
+                  resolve();
+                };
+                reader.readAsDataURL(file);
+              })
+            );
+          } else {
+            data[fileKey] = null;
+          }
+        });
+
+        Promise.all(filePromises).then(() => {
+          const webAppUrl = "https://script.google.com/macros/s/AKfycbznRjinbJmnw8ayD5ZMona3qIZ1Acuar3F8brUT6a-Sm4ncpAJrnEbLXMaVmNFM68z5Cg/exec"; 
+          
+          if (webAppUrl === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
+            console.log('Dealer Registration Payload (Preview):', data);
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+            successBox.innerHTML = '✅ ระบบยังไม่ได้เชื่อมต่อ Google Apps Script (กำลังรอ Web App URL)<br/>ข้อมูลจำลองถูกประมวลผลแล้ว (ดูได้ใน Console)';
+            successBox.style.display = 'block';
+            successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
+          fetch(webAppUrl, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            }
+          })
+          .then(response => response.json())
+          .then(res => {
+            if (res.status === 'success') {
+              successBox.innerHTML = '✅ ส่งข้อมูลลงทะเบียนสำเร็จ! ทีมงานจะติดต่อกลับโดยเร็วที่สุด';
+              successBox.style.display = 'block';
+              successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              form.reset();
+              updateProgress();
+            } else {
+              alert('เกิดข้อผิดพลาดในการส่งข้อมูล: ' + res.message);
+            }
+          })
+          .catch(error => {
+            alert('ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง');
+            console.error(error);
+          })
+          .finally(() => {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+          });
+        });
+      });
+
+      toggleTeamField();
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>
