@@ -1093,7 +1093,7 @@
                 <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M FASARA Decorative Film" /> 3M FASARA Decorative Film</label>
                 <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M DI-NOC Surface Finish" /> 3M DI-NOC Surface Finish</label>
                 <label class="gfs-choice"><input type="checkbox" name="product_interest" value="3M DICHROIC Film" /> 3M DICHROIC Film</label>
-                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ" onchange="toggleUnsure(this)" /> ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ</label>
+                <label class="gfs-choice"><input type="checkbox" name="product_interest" value="ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ" /> ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ</label>
               </div>
             </div>
             <div class="gfs-grid" style="margin-top:18px;">
@@ -1251,12 +1251,7 @@
   </main>
 
   <script>
-    function toggleUnsure(unsureCheckbox) {
-      const allBoxes = document.querySelectorAll('input[name="product_interest"]');
-      if (unsureCheckbox.checked) {
-        allBoxes.forEach(box => { if (box !== unsureCheckbox) box.checked = false; });
-      }
-    }
+
 
     function toggleOtherInput(element, targetId) {
       const targetInput = document.getElementById(targetId);
@@ -1448,16 +1443,18 @@
         });
       });
 
-      // Product interest: uncheck others when "unsure" is selected
-      document.querySelectorAll('input[name="product_interest"]').forEach(box => {
-        if (box.value !== 'ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ') {
-          box.addEventListener('change', function() {
-            if (this.checked) {
-              const unsure = document.querySelector('input[name="product_interest"][value="ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ"]');
-              if (unsure) unsure.checked = false;
-            }
-          });
-        }
+      // Product interest: mutual exclusion with "unsure" option
+      const unsureValue = 'ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ';
+      const productBoxes = Array.from(form.querySelectorAll('input[name="product_interest"]'));
+      productBoxes.forEach(function(box) {
+        box.addEventListener('change', function() {
+          if (this.value === unsureValue && this.checked) {
+            productBoxes.forEach(function(b) { if (b.value !== unsureValue) b.checked = false; });
+          } else if (this.value !== unsureValue && this.checked) {
+            productBoxes.forEach(function(b) { if (b.value === unsureValue) b.checked = false; });
+          }
+          updateProgress();
+        });
       });
 
       toggleTeamField();
