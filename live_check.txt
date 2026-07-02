@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="th">
 <head>
   <meta charset="utf-8" />
@@ -1251,8 +1251,6 @@
   </main>
 
   <script>
-
-
     function toggleOtherInput(element, targetId) {
       const targetInput = document.getElementById(targetId);
       if (element.type === 'select-one') {
@@ -1401,7 +1399,7 @@
         });
 
         Promise.all(filePromises).then(() => {
-          const webAppUrl = "https://script.google.com/macros/s/AKfycbzVzSe2sxgJHWJ2g7lnq9ubRme_7-tbdUqE_E3NFSaXzcxYIxjJf4Zs6hNEx0vBQwbQhQ/exec"; 
+          const webAppUrl = "https://script.google.com/macros/s/AKfycbznRjinbJmnw8ayD5ZMona3qIZ1Acuar3F8brUT6a-Sm4ncpAJrnEbLXMaVmNFM68z5Cg/exec"; 
           
           if (webAppUrl === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
             console.log('Dealer Registration Payload (Preview):', data);
@@ -1443,23 +1441,10 @@
         });
       });
 
-      // Product interest: mutual exclusion with "unsure" option
-      const unsureValue = 'ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ';
-      const productBoxes = Array.from(form.querySelectorAll('input[name="product_interest"]'));
-      productBoxes.forEach(function(box) {
-        box.addEventListener('change', function() {
-          if (this.value === unsureValue && this.checked) {
-            productBoxes.forEach(function(b) { if (b.value !== unsureValue) b.checked = false; });
-          } else if (this.value !== unsureValue && this.checked) {
-            productBoxes.forEach(function(b) { if (b.value === unsureValue) b.checked = false; });
-          }
-          updateProgress();
-        });
-      });
-
       toggleTeamField();
       updateProgress();
     })();
   </script>
 </body>
 </html>
+
