@@ -795,7 +795,7 @@
               </div>
               <div class="gfs-field">
                 <label class="gfs-label" for="phone">เบอร์โทรศัพท์ <span class="gfs-required">*</span></label>
-                <input id="phone" name="phone" type="tel" placeholder="เช่น 081-234-5678" required />
+                <input id="phone" name="phone" type="tel" pattern="[0-9-]+" oninput="this.value = this.value.replace(/[^0-9-]/g, '')" placeholder="เช่น 081-234-5678" required />
               </div>
               <div class="gfs-field">
                 <label class="gfs-label" for="lineId">Line ID <span class="gfs-required">*</span></label>
