@@ -1257,16 +1257,6 @@
         allBoxes.forEach(box => { if (box !== unsureCheckbox) box.checked = false; });
       }
     }
-    document.querySelectorAll('input[name="product_interest"]').forEach(box => {
-      if (box.value !== 'ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ') {
-        box.addEventListener('change', function() {
-          if (this.checked) {
-            const unsure = document.querySelector('input[name="product_interest"][value="ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ"]');
-            if (unsure) unsure.checked = false;
-          }
-        });
-      }
-    });
 
     function toggleOtherInput(element, targetId) {
       const targetInput = document.getElementById(targetId);
@@ -1456,6 +1446,18 @@
             submitBtn.disabled = false;
           });
         });
+      });
+
+      // Product interest: uncheck others when "unsure" is selected
+      document.querySelectorAll('input[name="product_interest"]').forEach(box => {
+        if (box.value !== 'ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ') {
+          box.addEventListener('change', function() {
+            if (this.checked) {
+              const unsure = document.querySelector('input[name="product_interest"][value="ยังไม่แน่ใจ ต้องการให้ทีมงานแนะนำ"]');
+              if (unsure) unsure.checked = false;
+            }
+          });
+        }
       });
 
       toggleTeamField();
