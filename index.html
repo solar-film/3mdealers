@@ -228,14 +228,38 @@
       background: rgba(255,255,255,.92);
       color: var(--gfs-ink);
       box-shadow: 0 10px 25px rgba(0,0,0,.10);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gfs-metric:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.15);
+    }
+
+    .gfs-metric-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .gfs-metric-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(10, 88, 202, 0.1);
+      color: var(--gfs-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .gfs-metric b {
       display: block;
-      font-size: 28px;
+      font-size: 24px;
       line-height: 1;
       color: var(--gfs-blue);
-      margin-bottom: 8px;
       letter-spacing: -.03em;
     }
 
@@ -740,10 +764,42 @@
             <strong style="font-size: 22px; display:block; margin-bottom: 6px;">ต่อยอดธุรกิจฟิล์มอาคารให้ขายง่ายขึ้น</strong>
             <span style="color: rgba(255,255,255,.78);">เหมาะสำหรับธุรกิจที่ต้องการเพิ่มสินค้า 3M Building Film เข้าสู่พอร์ตการขาย</span>
             <div class="gfs-metric-grid">
-              <div class="gfs-metric"><b>3M</b><span>สินค้าแบรนด์ชั้นนำ ลูกค้ารู้จักง่าย</span></div>
-              <div class="gfs-metric"><b>B2B</b><span>รองรับร้านค้า ช่าง และงานโครงการ</span></div>
-              <div class="gfs-metric"><b>Stock</b><span>มีสินค้าหลากหลาย พร้อมสนับสนุน</span></div>
-              <div class="gfs-metric"><b>Support</b><span>ทีม Goodfilm ช่วยดูแลหลังลงทะเบียน</span></div>
+              <div class="gfs-metric">
+                <div class="gfs-metric-header">
+                  <div class="gfs-metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                  </div>
+                  <b>3M</b>
+                </div>
+                <span>สินค้าแบรนด์ชั้นนำ ลูกค้ารู้จักง่าย</span>
+              </div>
+              <div class="gfs-metric">
+                <div class="gfs-metric-header">
+                  <div class="gfs-metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <b>B2B</b>
+                </div>
+                <span>รองรับร้านค้า ช่าง และงานโครงการ</span>
+              </div>
+              <div class="gfs-metric">
+                <div class="gfs-metric-header">
+                  <div class="gfs-metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                  </div>
+                  <b>Stock</b>
+                </div>
+                <span>มีสินค้าหลากหลาย พร้อมสนับสนุน</span>
+              </div>
+              <div class="gfs-metric">
+                <div class="gfs-metric-header">
+                  <div class="gfs-metric-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg>
+                  </div>
+                  <b>Support</b>
+                </div>
+                <span>ทีม Goodfilm ช่วยดูแลหลังลงทะเบียน</span>
+              </div>
             </div>
           </div>
         </div>

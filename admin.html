@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard | 3M Dealer Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gfs-navy: #1b437c;
+      --gfs-blue: #005eb8;
+      --gfs-sky: #eaf4ff;
+      --gfs-red: #e31b23;
+      --gfs-ink: #162033;
+      --gfs-muted: #64748b;
+      --gfs-soft: #f5f8fc;
+      --gfs-card: #ffffff;
+      --gfs-line: #dbe7f5;
+      --gfs-success: #0f9f6e;
+      --gfs-warning: #f59e0b;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --shadow: 0 18px 45px rgba(27, 67, 124, .13);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, .08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: 'Sarabun', Arial, Helvetica, sans-serif;
+      color: var(--gfs-ink);
+      background: var(--gfs-soft);
+      line-height: 1.65;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .spinner {
+      border: 3px solid rgba(0, 94, 184, 0.1);
+      border-top: 3px solid var(--gfs-blue);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, var(--gfs-navy), var(--gfs-blue));
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 32px 24px;
+      box-shadow: var(--shadow);
+      z-index: 10;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-sidebar.collapsed {
+      width: 88px;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .admin-brand img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+
+    .admin-brand span, .admin-nav-item span {
+      transition: opacity 0.2s, width 0.2s;
+    }
+
+    .admin-sidebar.collapsed .admin-brand span,
+    .admin-sidebar.collapsed .admin-nav-item span {
+      opacity: 0;
+      width: 0;
+      pointer-events: none;
+    }
+
+    .admin-brand span {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .admin-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .admin-nav-item svg {
+      flex-shrink: 0;
+    }
+
+    .admin-nav-item:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .admin-nav-item.active {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      font-weight: 600;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Main Content */
+    .admin-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .admin-header {
+      height: 80px;
+      background: white;
+      border-bottom: 1px solid var(--gfs-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      z-index: 5;
+    }
+
+    .admin-header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sidebar-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gfs-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .sidebar-toggle:hover {
+      background: var(--gfs-sky);
+    }
+
+    .admin-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+      display: flex;
+      gap: 32px;
+    }
+
+    /* Table Area */
+    .table-container {
+      flex: 1;
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .table-toolbar {
+      padding: 24px;
+      border-bottom: 1px solid var(--gfs-line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafcff;
+    }
+
+    .table-toolbar input {
+      padding: 12px 18px;
+      border: 1px solid var(--gfs-line);
+      border-radius: 999px;
+      font-family: inherit;
+      width: 300px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .table-toolbar input:focus {
+      border-color: var(--gfs-blue);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      padding: 16px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gfs-muted);
+      border-bottom: 2px solid var(--gfs-line);
+    }
+
+    td {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gfs-line);
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    tr:hover td {
+      background: var(--gfs-sky);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    .status-new { background: #e0e7ff; color: #4338ca; }
+    .status-contacting { background: #fef3c7; color: #d97706; }
+    .status-inprogress { background: #dbeafe; color: #1d4ed8; }
+    .status-approved { background: #d1fae5; color: #059669; }
+    .status-rejected { background: #fee2e2; color: #b91c1c; }
+
+    /* Detail Panel */
+    .detail-panel {
+      width: 450px;
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateX(120%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .detail-panel.open {
+      transform: translateX(0);
+    }
+
+    .detail-header {
+      padding: 24px;
+      background: linear-gradient(135deg, var(--gfs-navy), var(--gfs-blue));
+      color: white;
+      position: relative;
+    }
+
+    .detail-header h2 {
+      margin: 0 0 4px;
+      font-size: 20px;
+    }
+
+    .detail-header p {
+      margin: 0;
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .close-btn:hover { background: rgba(255,255,255,0.3); }
+
+    .detail-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .info-group {
+      margin-bottom: 24px;
+    }
+
+    .info-group h3 {
+      font-size: 14px;
+      color: var(--gfs-muted);
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: var(--gfs-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-val {
+      font-weight: 500;
+      color: var(--gfs-ink);
+    }
+
+    .action-group {
+      background: #f8fafc;
+      padding: 24px;
+      border-top: 1px solid var(--gfs-line);
+    }
+
+    .action-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--gfs-navy);
+    }
+
+    .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--gfs-line);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gfs-blue);
+      box-shadow: 0 0 0 3px var(--gfs-sky);
+    }
+
+    .save-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      background: var(--gfs-red);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .save-btn:hover { background: #cc181f; }
+    .save-btn:active { transform: translateY(2px); }
+
+    /* Empty state */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: var(--gfs-muted);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <span>GOODFILM ADMIN</span>
+    </div>
+    <nav class="admin-nav">
+      <a class="admin-nav-item active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Dealer Leads</span>
+      </a>
+      <a class="admin-nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <header class="admin-header">
+      <div class="header-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <h1>Dealer Registrations Tracker</h1>
+      </div>
+    </header>
+    
+    <div class="admin-content">
+      <!-- Data Table -->
+      <div class="table-container">
+        <div class="table-toolbar">
+          <input type="text" id="searchInput" placeholder="ค้นหาชื่อบริษัท หรือ เบอร์โทรศัพท์..." />
+          <div style="font-size: 14px; color: var(--gfs-muted);">ข้อมูลจำลองสำหรับการทดสอบ UI</div>
+        </div>
+        <div style="overflow-y: auto; flex: 1;">
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th>บริษัท / นิติบุคคล</th>
+                <th>ผู้ติดต่อ</th>
+                <th>เบอร์โทรศัพท์</th>
+                <th>สถานะ</th>
+                <th>วันที่ลงทะเบียน</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+          <div class="empty-state" id="emptyState">ไม่พบข้อมูล</div>
+        </div>
+      </div>
+
+      <!-- Detail Panel -->
+      <div class="detail-panel" id="detailPanel">
+        <button class="close-btn" onclick="closePanel()">×</button>
+        <div class="detail-header">
+          <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
+          <p id="dhContact">คุณสมชาย ใจดี</p>
+        </div>
+        <div class="detail-body">
+          <div class="info-group">
+            <h3>ข้อมูลการติดต่อ</h3>
+            <div class="info-row">
+              <span class="info-label">เบอร์โทรศัพท์</span>
+              <span class="info-val" id="dPhone">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">อีเมล</span>
+              <span class="info-val" id="dEmail">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">ที่อยู่ร้านค้า / บริษัท</span>
+              <span class="info-val" id="dAddress">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Link ผลงาน / Website</span>
+              <span class="info-val"><a href="#" id="dLink" target="_blank" style="color:var(--gfs-blue)">-</a></span>
+            </div>
+          </div>
+          <div class="info-group">
+            <h3>ข้อมูลธุรกิจ</h3>
+            <div class="info-row">
+              <span class="info-label">ประเภทธุรกิจ</span>
+              <span class="info-val" id="dBusiness">-</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">ทีมช่างติดตั้ง</span>
+              <span class="info-val" id="dTeam">-</span>
+            </div>
+          </div>
+        </div>
+        <div class="action-group">
+          <label for="statusSelect">อัพเดทสถานะ</label>
+          <select id="statusSelect" class="form-select" style="margin-bottom: 20px;">
+            <option value="new">🆕 รอดำเนินการ (New)</option>
+            <option value="contacting">☎️ กำลังติดต่อ (Contacting)</option>
+            <option value="inprogress">⏳ กำลังพิจารณา (In Progress)</option>
+            <option value="approved">✅ อนุมัติแล้ว (Approved)</option>
+            <option value="rejected">❌ ไม่อนุมัติ (Rejected)</option>
+          </select>
+          
+          <label for="adminNotes">คำถามเพิ่มเติม / บันทึกของแอดมิน (Admin Notes)</label>
+          <textarea id="adminNotes" class="form-textarea" placeholder="พิมพ์ข้อความที่ต้องสอบถามลูกค้าเพิ่มเติม หรือบันทึกสถานะการติดต่อ..."></textarea>
+          
+          <button class="save-btn" onclick="saveAdminData()">บันทึกข้อมูล</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script>
+    let leadsData = [];
+    let currentLeadId = null;
+
+    function toggleSidebar() {
+      document.querySelector('.admin-sidebar').classList.toggle('collapsed');
+    }
+
+    function processRows(rows) {
+      const stored = localStorage.getItem('gfsAdminLeads');
+      let localData = {};
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            parsed.forEach(p => { localData[p.id] = { status: p.status, notes: p.notes }; });
+          } else {
+            localData = parsed;
+          }
+        } catch(e) {}
+      }
+
+      leadsData = [];
+      
+      rows.forEach(row => {
+        if (!row['ประทับเวลา']) return; // Skip empty rows
+        const id = row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'] || row['ประทับเวลา'];
+        const localLead = localData[id] || { status: 'new', notes: '' };
+        
+        leadsData.push({
+          id: id,
+          company: row['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || row['ชื่อ-นามสกุล'],
+          contact: row['ชื่อ-นามสกุล'] || '-',
+          phone: row['เบอร์โทรศัพท์'] || '-',
+          email: row['Email'] || '-',
+          address: row['ที่อยู่สำหรับจัดส่งเอกสาร'] || '-',
+          link: row['ช่องทางออนไลน์ที่ใช้งาน'] || '-',
+          business: row['ประเภทธุรกิจ'] || '-',
+          team: row['มีทีมช่างติดตั้งของตนเองหรือไม่'] || '-',
+          date: (row['ประทับเวลา'] || '').split(' ')[0], 
+          status: localLead.status || 'new',
+          notes: localLead.notes || ''
+        });
+      });
+      
+      leadsData.reverse(); // Newest first
+      renderTable(leadsData);
+    }
+
+    // Load data from Google Sheets CSV
+    function loadData() {
+      const csvUrl = 'https://docs.google.com/spreadsheets/d/1FA0JTGrfWO8LfMWUS1xpfrc_Uvdi0PkUIaecCoMTNJI/gviz/tq?tqx=out:csv&sheet=New%20Dealer%20Report';
+      const emptyState = document.getElementById('emptyState');
+      
+      // Fast Render (Stale-While-Revalidate)
+      const cachedData = sessionStorage.getItem('gfsAdminCachedRows');
+      if (cachedData) {
+        try {
+          processRows(JSON.parse(cachedData));
+          document.querySelector('.table-toolbar div').innerHTML = `<span style="color:#f59e0b;font-weight:600;">กำลังอัปเดตข้อมูล...</span>`;
+        } catch(e) {}
+      } else {
+        emptyState.innerHTML = '<div class="spinner"></div>กำลังโหลดข้อมูล...';
+        emptyState.style.display = 'block';
+      }
+      
+      // Fetch fresh data in background
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        complete: function(results) {
+          sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(results.data));
+          processRows(results.data);
+          document.querySelector('.table-toolbar div').textContent = `ข้อมูลจาก Google Sheets (${leadsData.length} รายการ)`;
+        },
+        error: function(err) {
+          console.error("Error fetching data:", err);
+          if (!cachedData) {
+             emptyState.innerHTML = 'เกิดข้อผิดพลาดในการโหลดข้อมูล โปรดตรวจสอบการตั้งค่าแชร์ Google Sheets';
+          }
+        }
+      });
+    }
+
+    function saveToLocalStorage() {
+      const localData = {};
+      leadsData.forEach(l => {
+        if(l.status !== 'new' || l.notes !== '') {
+           localData[l.id] = { status: l.status, notes: l.notes };
+        }
+      });
+      localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
+    }
+
+    const statusMap = {
+      'new': { text: 'รอดำเนินการ', class: 'status-new' },
+      'contacting': { text: 'กำลังติดต่อ', class: 'status-contacting' },
+      'inprogress': { text: 'พิจารณา', class: 'status-inprogress' },
+      'approved': { text: 'อนุมัติ', class: 'status-approved' },
+      'rejected': { text: 'ไม่อนุมัติ', class: 'status-rejected' }
+    };
+
+    function renderTable(data) {
+      const tbody = document.getElementById('tableBody');
+      const emptyState = document.getElementById('emptyState');
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+      emptyState.style.display = 'none';
+
+      data.forEach(lead => {
+        const tr = document.createElement('tr');
+        const st = statusMap[lead.status] || statusMap['new'];
+        
+        tr.innerHTML = `
+          <td style="font-weight: 600;">${lead.company}</td>
+          <td>${lead.contact}</td>
+          <td>${lead.phone}</td>
+          <td><span class="status-badge ${st.class}">${st.text}</span></td>
+          <td style="color: var(--gfs-muted);">${lead.date}</td>
+        `;
+        
+        tr.onclick = () => openPanel(lead.id);
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Panel Logic
+    const panel = document.getElementById('detailPanel');
+    
+    function openPanel(id) {
+      const lead = leadsData.find(l => l.id === id);
+      if(!lead) return;
+      currentLeadId = id;
+
+      // Populate data
+      document.getElementById('dhCompany').textContent = lead.company;
+      document.getElementById('dhContact').textContent = lead.contact;
+      document.getElementById('dPhone').textContent = lead.phone;
+      document.getElementById('dEmail').textContent = lead.email;
+      document.getElementById('dAddress').textContent = lead.address;
+      
+      const linkEl = document.getElementById('dLink');
+      linkEl.textContent = lead.link;
+      if (lead.link !== '-') {
+        linkEl.href = lead.link;
+      } else {
+        linkEl.removeAttribute('href');
+      }
+
+      document.getElementById('dBusiness').textContent = lead.business;
+      document.getElementById('dTeam').textContent = lead.team;
+
+      // Populate Action Group
+      document.getElementById('statusSelect').value = lead.status;
+      document.getElementById('adminNotes').value = lead.notes || '';
+
+      panel.classList.add('open');
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      currentLeadId = null;
+    }
+
+    function saveAdminData() {
+      if(!currentLeadId) return;
+      const btn = document.querySelector('.save-btn');
+      const originalText = btn.textContent;
+      
+      const newStatus = document.getElementById('statusSelect').value;
+      const newNotes = document.getElementById('adminNotes').value;
+
+      // Update data array
+      const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
+      if(leadIndex > -1) {
+        leadsData[leadIndex].status = newStatus;
+        leadsData[leadIndex].notes = newNotes;
+        saveToLocalStorage();
+      }
+
+      btn.textContent = 'บันทึกสำเร็จ!';
+      btn.style.background = 'var(--gfs-success)';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        renderTable(leadsData); // re-render table to show updated status
+      }, 1000);
+    }
+
+    // Search Logic
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const filtered = leadsData.filter(l => 
+        l.company.toLowerCase().includes(term) || 
+        l.phone.includes(term) ||
+        l.contact.toLowerCase().includes(term)
+      );
+      renderTable(filtered);
+    });
+
+    // Init
+    loadData();
+
+  </script>
+</body>
+</html>
