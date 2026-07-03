@@ -738,6 +738,348 @@
       body { background: #fff; }
       .gfs-hero, .gfs-form-card, .gfs-footer { box-shadow: none; }
     }
+
+    /* --- Goodfilm Dealer System Marketing Sections CSS --- */
+    .gfs-features-section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--gfs-line);
+    }
+    .gfs-features-section:last-of-type {
+      border-bottom: none;
+    }
+    .gfs-section-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+    .gfs-section-header h2 {
+      color: var(--gfs-navy);
+      font-size: clamp(26px, 3.5vw, 36px);
+      margin: 0 0 10px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+    .gfs-section-header p {
+      color: var(--gfs-muted);
+      font-size: clamp(15px, 2vw, 17px);
+      margin: 0 auto;
+      max-width: 700px;
+    }
+    
+    /* Target Groups Grid */
+    .gfs-targets-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .gfs-target-card {
+      background: white;
+      border: 1px solid var(--gfs-line);
+      border-radius: 20px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+    }
+    .gfs-target-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: var(--gfs-blue);
+    }
+    .gfs-target-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--gfs-sky);
+      color: var(--gfs-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      transition: all 0.3s;
+    }
+    .gfs-target-card:hover .gfs-target-icon {
+      background: var(--gfs-navy);
+      color: white;
+    }
+    .gfs-target-card h4 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--gfs-navy);
+      font-weight: 800;
+    }
+    .gfs-target-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--gfs-muted);
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    /* Value Pillars Grid */
+    .gfs-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .gfs-pillar-card {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid var(--gfs-line);
+      border-radius: 20px;
+      padding: 24px 20px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      box-shadow: var(--shadow-soft);
+    }
+    .gfs-pillar-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gfs-red);
+      background: white;
+      box-shadow: 0 12px 30px rgba(227, 27, 35, 0.08);
+    }
+    .gfs-pillar-num {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gfs-red);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .gfs-pillar-card h4 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: var(--gfs-navy);
+      font-weight: 800;
+    }
+    .gfs-pillar-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--gfs-muted);
+      line-height: 1.5;
+    }
+
+    /* Onboarding Timeline */
+    .gfs-timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .gfs-timeline::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 7%;
+      right: 7%;
+      height: 2px;
+      background: var(--gfs-line);
+      z-index: 1;
+    }
+    .gfs-timeline-step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 8px;
+    }
+    .gfs-timeline-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--gfs-line);
+      color: var(--gfs-muted);
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-soft);
+    }
+    .gfs-timeline-step:hover .gfs-timeline-circle {
+      border-color: var(--gfs-navy);
+      color: var(--gfs-navy);
+      transform: scale(1.1);
+    }
+    .gfs-timeline-step.active .gfs-timeline-circle {
+      background: var(--gfs-navy);
+      border-color: var(--gfs-navy);
+      color: white;
+      box-shadow: 0 6px 15px rgba(27, 67, 124, 0.3);
+    }
+    .gfs-timeline-step h4 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: var(--gfs-navy);
+      font-weight: 800;
+    }
+    .gfs-timeline-step p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--gfs-muted);
+      line-height: 1.4;
+    }
+
+    /* Enablement Cards */
+    .gfs-enable-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .gfs-enable-card {
+      background: white;
+      border: 1px solid var(--gfs-line);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s;
+    }
+    .gfs-enable-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: var(--gfs-blue);
+    }
+    .gfs-enable-card h4 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--gfs-navy);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .gfs-enable-card h4 svg {
+      color: var(--gfs-blue);
+    }
+    .gfs-enable-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--gfs-muted);
+      line-height: 1.5;
+    }
+
+    /* Tiers Table Grid */
+    .gfs-tiers-container {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .gfs-tier-card {
+      background: white;
+      border: 1px solid var(--gfs-line);
+      border-radius: 26px;
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s;
+      position: relative;
+    }
+    .gfs-tier-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .gfs-tier-card.premium-tier {
+      border: 2px solid var(--gfs-navy);
+    }
+    .gfs-tier-badge {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--gfs-navy);
+      color: white;
+      padding: 4px 14px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    .gfs-tier-card h4 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      color: var(--gfs-navy);
+      font-weight: 800;
+    }
+    .gfs-tier-desc {
+      color: var(--gfs-muted);
+      font-size: 14px;
+      margin: 0 0 20px;
+    }
+    .gfs-tier-metrics {
+      background: var(--gfs-soft);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: grid;
+      gap: 12px;
+    }
+    .gfs-tier-metric-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    .gfs-tier-metric-item span:first-child {
+      color: var(--gfs-muted);
+    }
+    .gfs-tier-metric-item span:last-child {
+      font-weight: 700;
+      color: var(--gfs-ink);
+    }
+    .gfs-tier-benefits-list {
+      margin: 0;
+      padding: 0 0 0 18px;
+      display: grid;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gfs-ink);
+      flex-grow: 1;
+    }
+    .gfs-tier-benefits-list li {
+      line-height: 1.5;
+    }
+    
+    /* Responsive overrides for new marketing sections */
+    @media (max-width: 980px) {
+      .gfs-targets-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .gfs-pillars-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .gfs-timeline {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .gfs-timeline::before {
+        display: none;
+      }
+      .gfs-timeline-step {
+        margin-bottom: 20px;
+      }
+      .gfs-enable-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .gfs-tiers-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 720px) {
+      .gfs-targets-grid,
+      .gfs-pillars-grid,
+      .gfs-timeline,
+      .gfs-enable-grid,
+      .gfs-tiers-container {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .gfs-features-section {
+        padding: 40px 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -805,8 +1147,268 @@
         </div>
       </div>
     </section>
+    <!-- Section 1: Objectives & Value Propositions -->
+    <section class="gfs-features-section" id="dealer-about" aria-label="About Goodfilm Dealer Program">
+      <div class="gfs-section-header">
+        <h2>ทำไมต้องร่วมเป็นตัวแทนจำหน่ายฟิล์มอาคาร 3M กับ Goodfilm?</h2>
+        <p>ยกระดับธุรกิจเดิมของคุณด้วยผลิตภัณฑ์ฟิล์มกรองแสงระดับโลกจาก 3M พร้อมระบบสนับสนุนที่จะช่วยให้คุณปิดการขายได้ง่ายและรวดเร็วขึ้น</p>
+      </div>
 
+      <!-- 5 Pillars Grid (Value Proposition) -->
+      <div class="gfs-pillars-grid">
+        <div class="gfs-pillar-card">
+          <span class="gfs-pillar-num">Pillar 1</span>
+          <h4>ไม่ต้องสต๊อกสินค้า</h4>
+          <p>สั่งซื้อตามขนาดหน้างานหรือจำนวนที่ใช้งานจริง ลดความเสี่ยงในการลงทุนและลดปัญหาเงินจมในคลังสินค้า</p>
+        </div>
+        <div class="gfs-pillar-card">
+          <span class="gfs-pillar-num">Pillar 2</span>
+          <h4>ช่างติดตั้ง Sub-contract</h4>
+          <p>หากคุณไม่มีทีมช่างของตนเอง Goodfilm มีทีมช่างมาตรฐานสากลพร้อมให้บริการติดตั้งในนามธุรกิจของคุณ</p>
+        </div>
+        <div class="gfs-pillar-card">
+          <span class="gfs-pillar-num">Pillar 3</span>
+          <h4>ส่งตรงถึงหน้าร้าน</h4>
+          <p>ระบบโลจิสติกส์ที่รวดเร็วและปลอดภัย จัดส่งฟิล์มกรองแสงสเปกแท้ 100% ถึงมือคุณหรือหน้างานโดยตรง</p>
+        </div>
+        <div class="gfs-pillar-card">
+          <span class="gfs-pillar-num">Pillar 4</span>
+          <h4>สนับสนุนครบวงจร</h4>
+          <p>ฟรี! อุปกรณ์ Demo Kit, คู่มือการนำเสนอขาย, สื่อการตลาดสำเร็จรูป และโปรแกรมอบรมพัฒนาความรู้สินค้า</p>
+        </div>
+        <div class="gfs-pillar-card">
+          <span class="gfs-pillar-num">Pillar 5</span>
+          <h4>ของแท้ 100% + ประกัน</h4>
+          <p>สินค้าลิขสิทธิ์แท้จาก 3M ประเทศไทย พร้อมการออกใบรับประกันออนไลน์ (3M E-Warranty) ให้ลูกค้าปลายทาง</p>
+        </div>
+      </div>
+    </section>
 
+    <!-- Section 2: Target Groups -->
+    <section class="gfs-features-section" id="dealer-targets" aria-label="Target Partners">
+      <div class="gfs-section-header">
+        <h2>กลุ่มธุรกิจพาร์ทเนอร์ยอดนิยมของเรา</h2>
+        <p>ไม่ว่าคุณจะเป็นธุรกิจประเภทใด ก็สามารถเพิ่มโอกาสในการสร้างรายได้ต่อเนื่องแบบ Recurring จากฐานลูกค้าเดิมที่มีอยู่แล้วได้ทันที</p>
+      </div>
+
+      <div class="gfs-targets-grid">
+        <div class="gfs-target-card">
+          <div class="gfs-target-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M4 9h16"/><path d="M9 3v18"/></svg>
+          </div>
+          <h4>ร้านผ้าม่าน</h4>
+          <p>นำเสนอขายฟิล์มคู่กับผ้าม่าน สำหรับลูกค้าบ้านและคอนโดตกแต่งใหม่ ช่วยเพิ่มยอดขายต่อบิลโดยไม่ต้องหาลูกค้าเพิ่ม</p>
+        </div>
+        <div class="gfs-target-card">
+          <div class="gfs-target-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10H12V2Z"/><path d="M12 2a10 10 0 0 1 10 10h-10V2Z"/><path d="M12 12 2.7 6.4"/><path d="M12 12V22"/><path d="M12 12H22"/></svg>
+          </div>
+          <h4>ร้านกระจก-อลูมิเนียม</h4>
+          <p>เป็นสินค้าเสริมยอดนิยมที่สามารถเสนอควบคู่ไปกับงานติดตั้งกระจกประตูกระจกหน้าต่าง ไม่ต้องเพิ่มสต๊อกสินค้า</p>
+        </div>
+        <div class="gfs-target-card">
+          <div class="gfs-target-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h4>ผู้รับเหมารีโนเวท/สร้างบ้าน</h4>
+          <p>เพิ่มขอบเขตงานบริการให้กว้างขึ้น ปิดงบประมาณลูกค้าได้อย่างคุ้มค่า และสร้างมาตรฐานให้กับโครงการก่อสร้างของคุณ</p>
+        </div>
+        <div class="gfs-target-card">
+          <div class="gfs-target-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 3.02 1.25 0 3-.74 4-2 .92 1.24 2.75 2 4 2 1.66 0 3-1.35 3-3.02 0-3.02-6-3.02-6-3.02Z"/></svg>
+          </div>
+          <h4>สถาปนิก / Interior (ID)</h4>
+          <p>เลือกสเปกฟิล์มคุณภาพจริงลงในแบบแปลนและโมเดลสามมิติ ได้รับค่าคอมมิชชันแนะนำ และสร้างความพึงพอใจสูงสุดให้ลูกค้า</p>
+        </div>
+        <div class="gfs-target-card">
+          <div class="gfs-target-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>ช่างติดตั้ง/ตัวแทนอิสระ</h4>
+          <p>ไม่มีหน้าร้านก็ทำงานร่วมกันได้ รับงานตัดส่งตรงหรือเข้าอบรมช่างติดตั้งในเครือข่ายพันธมิตรของ Goodfilm ทั่วประเทศ</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Partner Tiers -->
+    <section class="gfs-features-section" id="dealer-tiers" aria-label="Partner Tiers">
+      <div class="gfs-section-header">
+        <h2>ระดับของพาร์ทเนอร์และสิทธิประโยชน์ (Partner Tiers)</h2>
+        <p>เพื่อตอบรับกลุ่มธุรกิจที่หลากหลาย เราจึงแยกโครงสร้างการสนับสนุนและสิทธิพิเศษออกเป็น 3 ระดับ เพื่อรองรับการเติบโตร่วมกันอย่างเป็นขั้นตอน</p>
+      </div>
+
+      <div class="gfs-tiers-container">
+        <!-- Tier 1: Registered -->
+        <div class="gfs-tier-card">
+          <h4>Registered Partner</h4>
+          <p class="gfs-tier-desc">ระดับเริ่มต้นสำหรับพันธมิตรร่วมแนะนำฟิล์มและร้านค้ารายย่อยทั่วไป</p>
+          <div class="gfs-tier-metrics">
+            <div class="gfs-tier-metric-item">
+              <span>ยอดขายขั้นต่ำ / ไตรมาส:</span>
+              <span id="tier-reg-target">ไม่มีขั้นต่ำ</span>
+            </div>
+            <div class="gfs-tier-metric-item">
+              <span>ส่วนลดตัวแทน (Discount):</span>
+              <span id="tier-reg-discount">10%</span>
+            </div>
+            <div class="gfs-tier-metric-item">
+              <span>เครดิตการค้า (Credit):</span>
+              <span id="tier-reg-credit">เงินสด (Cash)</span>
+            </div>
+          </div>
+          <ul class="gfs-tier-benefits-list">
+            <li>ราคาคู่ค้าสำหรับตัวแทนจำหน่ายเริ่มต้น</li>
+            <li>ทีมช่างติดตั้ง Sub-contractor คอยช่วยเหลือ</li>
+            <li>สิทธิ์รับเอกสารแคตตาล็อกและสเปกฟิล์มฟรี</li>
+            <li>คอร์สอบรมความรู้ผลิตภัณฑ์ฟิล์มขั้นพื้นฐาน</li>
+            <li>ระบบการออกใบรับประกันออนไลน์ให้ลูกค้า</li>
+          </ul>
+        </div>
+
+        <!-- Tier 2: Authorized -->
+        <div class="gfs-tier-card">
+          <span class="gfs-tier-badge">ยอดนิยม 🌟</span>
+          <h4>Authorized Partner</h4>
+          <p class="gfs-tier-desc">ระดับมาตรฐานสำหรับร้านค้าที่มียอดสั่งซื้อและนำเสนองานติดตั้งฟิล์มเป็นประจำ</p>
+          <div class="gfs-tier-metrics">
+            <div class="gfs-tier-metric-item">
+              <span>ยอดขายขั้นต่ำ / ไตรมาส:</span>
+              <span id="tier-auth-target">50,000 บาท</span>
+            </div>
+            <div class="gfs-tier-metric-item">
+              <span>ส่วนลดตัวแทน (Discount):</span>
+              <span id="tier-auth-discount">20%</span>
+            </div>
+            <div class="gfs-tier-metric-item">
+              <span>เครดิตการค้า (Credit):</span>
+              <span id="tier-auth-credit">30 วัน (30 Days)</span>
+            </div>
+          </div>
+          <ul class="gfs-tier-benefits-list">
+            <li>ราคาคู่ค้าระดับพิเศษ (ส่วนลดเพิ่มพิเศษจากรุ่นฟิล์มหลัก)</li>
+            <li>ยืมชุดสาธิตเครื่องทำความร้อน (Demo Kit) ไปใช้ที่ร้าน</li>
+            <li>จัดอบรมเชิงลึกเทคนิคการนำเสนอและการวิเคราะห์หน้างาน</li>
+            <li>สิทธิ์การตลาดร่วม (Co-branding) สื่อโฆษณา</li>
+            <li>จัดส่งรายชื่อ Lead ลูกค้าตามพื้นที่ให้บริการ</li>
+            <li>บัตรสมาชิกแสดงสถานะ Authorized Partner</li>
+          </ul>
+        </div>
+
+        <!-- Tier 3: Premium -->
+        <div class="gfs-tier-card premium-tier">
+          <span class="gfs-tier-badge" style="background:var(--gfs-red);">ระดับสูงสุด 🏆</span>
+          <h4>Premium Partner</h4>
+          <p class="gfs-tier-desc">ระดับสูงสุดสำหรับคู่ค้ารายใหญ่ โครงการ ผู้รับเหมา หรือผู้ผลิตเฟอร์นิเจอร์รายใหญ่</p>
+          <div class="gfs-tier-metrics">
+            <div class="gfs-tier-metric-item">
+              <span>ยอดขายขั้นต่ำ / ไตรมาส:</span>
+              <span id="tier-prem-target">150,000 บาท</span>
+            </div>
+            <div class="gfs-tier-metric-item">
+              <span>ส่วนลดตัวแทน (Discount):</span>
+              <span id="tier-prem-discount">30%</span>
+            </div>
+            <div class="gfs-tier-metric-item">
+              <span>เครดิตการค้า (Credit):</span>
+              <span id="tier-prem-credit">30/45 วัน</span>
+            </div>
+          </div>
+          <ul class="gfs-tier-benefits-list">
+            <li>ราคาคู่ค้าระดับสูงสุด (Best Price การันตี)</li>
+            <li>คิวทีมช่างติดตั้งระดับ Priority ด่วนพิเศษ</li>
+            <li>ได้รับชุดสาธิต Demo Kit ประจำหน้าร้านอย่างถาวร</li>
+            <li>แสดงชื่อเป็นตัวแทนแนะนำบนเว็บไซต์หลักของ Goodfilm</li>
+            <li>สิทธิ์เข้าชิงรางวัลและโปรโมชั่นท่องเที่ยวต่างประเทศประจำปี</li>
+            <li>อบรมความรู้ทางเทคนิคเชิงวิศวกรรมฟิล์มสเปกพิเศษ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Onboarding Timeline -->
+    <section class="gfs-features-section" id="dealer-onboarding" aria-label="Onboarding Process">
+      <div class="gfs-section-header">
+        <h2>7 ขั้นตอนสู่การเริ่มต้นเป็นตัวแทนจำหน่ายอย่างเป็นระบบ</h2>
+        <p>เราออกแบบขั้นตอนการเริ่มต้นงานให้กระชับ เพื่ออำนวยความสะดวกให้พาร์ทเนอร์เปิดการขายงานแรกได้เร็วที่สุด</p>
+      </div>
+
+      <div class="gfs-timeline">
+        <div class="gfs-timeline-step active">
+          <div class="gfs-timeline-circle">1</div>
+          <h4>สมัครเข้าร่วม</h4>
+          <p>กรอกแบบฟอร์มข้อมูลติดต่อและธุรกิจเบื้องต้นที่ด้านล่างนี้</p>
+        </div>
+        <div class="gfs-timeline-step">
+          <div class="gfs-timeline-circle">2</div>
+          <h4>คัดกรองเบื้องต้น</h4>
+          <p>ทีมฝ่ายขายตรวจสอบพื้นที่ให้บริการ ป้องกันไม่ให้ทับซ้อนคู่ค้าเดิม</p>
+        </div>
+        <div class="gfs-timeline-step">
+          <div class="gfs-timeline-circle">3</div>
+          <h4>เซ็นสัญญาคู่ค้า</h4>
+          <p>ตกลงเงื่อนไขระดับ Tier โครงสร้างราคา และความร่วมมือทางการค้า</p>
+        </div>
+        <div class="gfs-timeline-step">
+          <div class="gfs-timeline-circle">4</div>
+          <h4>รับ Partner Kit</h4>
+          <p>จัดส่งแคตตาล็อก ตัวอย่างฟิล์ม แผ่นพับราคา และสเปกสินค้า</p>
+        </div>
+        <div class="gfs-timeline-step">
+          <div class="gfs-timeline-circle">5</div>
+          <h4>เข้าอบรมเบื้องต้น</h4>
+          <p>เรียนรู้รายละเอียดสินค้า เทคนิคการนำเสนอ และวิธีการเช็กคิวช่าง</p>
+        </div>
+        <div class="gfs-timeline-step">
+          <div class="gfs-timeline-circle">6</div>
+          <h4>ออกคำสั่งซื้อแรก</h4>
+          <p>ทดลองเสนอราคาและสั่งช่างทีม Sub-con เข้าประเมินหน้างานจริง</p>
+        </div>
+        <div class="gfs-timeline-step">
+          <div class="gfs-timeline-circle">7</div>
+          <h4>ประเมินติดตามผล</h4>
+          <p>วิเคราะห์ผลงานแรก เก็บรวบรวม Feedback เพื่อการอัปเกรดระดับ Tier</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Enablement & Support Tools -->
+    <section class="gfs-features-section" id="dealer-enablement" aria-label="Support Tools">
+      <div class="gfs-section-header">
+        <h2>อาวุธการขายที่ Goodfilm เตรียมพร้อมสนับสนุนคุณ</h2>
+        <p>เรามอบสิทธิ์และชุดอุปกรณ์ช่วยขายที่จะช่วยให้ร้านค้าเปิดการนำเสนออย่างมืออาชีพ ปิดการขายได้ไวขึ้น 2 เท่า</p>
+      </div>
+
+      <div class="gfs-enable-grid">
+        <div class="gfs-enable-card">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            Partner Kit
+          </h4>
+          <p>แคตตาล็อกสินค้า, แผ่นโบรชัวร์สเปกแยกซีรีส์, ตัวอย่างใบรับประกัน และคู่มือขายฟิล์มอาคารฉบับสมบูรณ์สำหรับพนักงาน</p>
+        </div>
+        <div class="gfs-enable-card">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            ชุดกล่องสาธิต Demo Kit
+          </h4>
+          <p>ชุดไฟสปอตไลท์ทดสอบพลังงานความร้อนร่วมกับแผ่นฟิล์ม 3M จริง เพื่อให้ลูกค้าปลายทางสัมผัสประสิทธิภาพการกันร้อนด้วยตาตนเอง</p>
+        </div>
+        <div class="gfs-enable-card">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            กลุ่ม LINE พิเศษคู่ค้า
+          </h4>
+          <p>ช่องทางสื่อสารสำหรับส่งงานประเมินราคา ตรวจสอบคิวช่างติดตั้ง ขอใบเสนอราคาแบบรวดเร็ว และตอบคำถามปัญหาเทคนิคหน้างาน</p>
+        </div>
+        <div class="gfs-enable-card">
+          <h4>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+            สื่อการตลาดสำเร็จรูป
+          </h4>
+          <p>โบรชัวร์สำหรับแจก, ไฟล์โพสต์โฆษณา Facebook, ภาพงานติดตั้งจริง, วิดีโอรีวิวกันความร้อน และระบบสื่อ Co-branding ป้ายหน้าร้าน</p>
+        </div>
+      </div>
+    </section>
     <div class="gfs-layout">
       <aside class="gfs-sidebar" aria-label="Form Navigation">
         <h2>Dealer Qualification Form</h2>
@@ -1492,6 +2094,44 @@
       toggleTeamField();
       updateProgress();
     })();
+
+    // Sync commercial terms from localStorage (settings configured in admin.html)
+    function syncCommercialTerms() {
+      const storedSettings = localStorage.getItem('gfsAdminSettings');
+      if (storedSettings) {
+        try {
+          const settings = JSON.parse(storedSettings);
+          // Update Registered Partner
+          if (settings.registered) {
+            document.getElementById('tier-reg-target').textContent = settings.registered.target || 'ไม่มีขั้นต่ำ';
+            document.getElementById('tier-reg-discount').textContent = settings.registered.discount ? settings.registered.discount + '%' : '10%';
+            document.getElementById('tier-reg-credit').textContent = settings.registered.credit || 'เงินสด (Cash)';
+          }
+          // Update Authorized Partner
+          if (settings.authorized) {
+            document.getElementById('tier-auth-target').textContent = settings.authorized.target ? (isNaN(Number(settings.authorized.target)) ? settings.authorized.target : Number(settings.authorized.target).toLocaleString() + ' บาท') : '50,000 บาท';
+            document.getElementById('tier-auth-discount').textContent = settings.authorized.discount ? settings.authorized.discount + '%' : '20%';
+            document.getElementById('tier-auth-credit').textContent = settings.authorized.credit || '30 วัน (30 Days)';
+          }
+          // Update Premium Partner
+          if (settings.premium) {
+            document.getElementById('tier-prem-target').textContent = settings.premium.target ? (isNaN(Number(settings.premium.target)) ? settings.premium.target : Number(settings.premium.target).toLocaleString() + ' บาท') : '150,000 บาท';
+            document.getElementById('tier-prem-discount').textContent = settings.premium.discount ? settings.premium.discount + '%' : '30%';
+            document.getElementById('tier-prem-credit').textContent = settings.premium.credit || '30/45 วัน';
+          }
+        } catch (e) {
+          console.error('Error parsing gfsAdminSettings:', e);
+        }
+      }
+    }
+    // Run sync on load
+    syncCommercialTerms();
+    // Add event listener to storage change to update in real-time if open in split tabs
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'gfsAdminSettings') {
+        syncCommercialTerms();
+      }
+    });
   </script>
 </body>
 </html>

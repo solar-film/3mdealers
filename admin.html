@@ -425,6 +425,341 @@
       color: var(--gfs-muted);
     }
 
+    /* Tab Control styles */
+    .tab-panel {
+      display: none;
+      flex: 1;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    .tab-panel.active {
+      display: flex;
+    }
+
+    /* Dashboard View styles */
+    .dashboard-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+      padding: 40px;
+      width: 100%;
+    }
+    .dashboard-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .kpi-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 4px solid var(--gfs-blue);
+      transition: transform 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-card.kpi-approved { border-left-color: var(--gfs-success); }
+    .kpi-card.kpi-active { border-left-color: var(--gfs-warning); }
+    .kpi-card.kpi-onboarding { border-left-color: var(--gfs-navy); }
+    .kpi-title {
+      font-size: 14px;
+      color: var(--gfs-muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gfs-navy);
+      line-height: 1.2;
+    }
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--gfs-muted);
+      margin-top: 6px;
+    }
+
+    .dashboard-charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .chart-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+    }
+    .chart-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      margin: 0 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bar-chart-list {
+      display: grid;
+      gap: 14px;
+    }
+    .bar-chart-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label {
+      width: 160px;
+      font-size: 14px;
+      color: var(--gfs-ink);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-wrapper {
+      flex: 1;
+      height: 14px;
+      background: var(--gfs-soft);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gfs-blue), #007bff);
+      border-radius: inherit;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bar-value {
+      width: 40px;
+      text-align: right;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gfs-navy);
+    }
+
+    /* Onboarding Funnel styling */
+    .funnel-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .funnel-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 10px;
+    }
+    .funnel-step:not(:last-child)::after {
+      content: '➔';
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+      color: var(--gfs-line);
+      font-size: 16px;
+    }
+    .funnel-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gfs-sky);
+      color: var(--gfs-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      margin: 0 auto 8px;
+    }
+    .funnel-step.completed .funnel-num {
+      background: var(--gfs-success);
+      color: white;
+    }
+    .funnel-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      margin-bottom: 4px;
+    }
+    .funnel-count {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gfs-muted);
+    }
+
+    /* Settings View styles */
+    .settings-container {
+      flex: 1;
+      background: white;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      padding: 32px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin: 40px;
+      width: calc(100% - 80px);
+    }
+    .settings-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      border-bottom: 1px solid var(--gfs-line);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .settings-card {
+      background: var(--gfs-soft);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border: 1px solid var(--gfs-line);
+    }
+    .settings-card h3 {
+      margin: 0 0 16px;
+      color: var(--gfs-navy);
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .settings-card label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gfs-muted);
+      margin-bottom: 6px;
+    }
+    .settings-card input, .settings-card select {
+      margin-bottom: 14px;
+      background: white;
+    }
+
+    /* Checklist & Details Panel Enhancements */
+    .detail-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      margin: 20px 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--gfs-line);
+      padding-bottom: 6px;
+    }
+    .checklist-progress-bar {
+      height: 6px;
+      background: var(--gfs-line);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .checklist-progress-fill {
+      height: 100%;
+      background: var(--gfs-success);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .checklist-list {
+      display: grid;
+      gap: 8px;
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gfs-ink);
+      padding: 4px 0;
+    }
+    .checklist-item input {
+      accent-color: var(--gfs-success);
+      margin-top: 3px;
+      cursor: pointer;
+    }
+    .checklist-item.checked span {
+      color: var(--gfs-muted);
+      text-decoration: line-through;
+    }
+    .btn-action-shortcut {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--gfs-blue);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-right: 15px;
+    }
+    .btn-action-shortcut:hover {
+      text-decoration: underline;
+    }
+    .developer-box {
+      border: 1px dashed var(--gfs-warning);
+      background: #fffbeb;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .dev-btn-group {
+      display: flex;
+      gap: 12px;
+    }
+    .dev-btn {
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-family: inherit;
+    }
+    .dev-btn-primary {
+      background: var(--gfs-warning);
+      color: #78350f;
+      border-color: #f59e0b;
+    }
+    .dev-btn-primary:hover {
+      background: #f59e0b;
+    }
+    .dev-btn-secondary {
+      background: white;
+      color: var(--gfs-muted);
+      border-color: var(--gfs-line);
+    }
+    .dev-btn-secondary:hover {
+      background: var(--gfs-soft);
+    }
   </style>
 </head>
 <body>
@@ -435,12 +770,16 @@
       <span>GOODFILM ADMIN</span>
     </div>
     <nav class="admin-nav">
-      <a class="admin-nav-item active">
+      <a class="admin-nav-item active" onclick="switchTab('dashboard')" id="nav-dashboard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="admin-nav-item" onclick="switchTab('leads')" id="nav-leads">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
         <span>Dealer Leads</span>
       </a>
-      <a class="admin-nav-item">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      <a class="admin-nav-item" onclick="switchTab('settings')" id="nav-settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         <span>Settings</span>
       </a>
     </nav>
@@ -453,89 +792,286 @@
         <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
-        <h1>Dealer Registrations Tracker</h1>
+        <h1 id="pageTitle">Dealer Management Dashboard</h1>
       </div>
     </header>
     
-    <div class="admin-content">
-      <!-- Data Table -->
-      <div class="table-container">
-        <div class="table-toolbar">
-          <input type="text" id="searchInput" placeholder="ค้นหาชื่อบริษัท หรือ เบอร์โทรศัพท์..." />
-          <div style="font-size: 14px; color: var(--gfs-muted);">ข้อมูลจำลองสำหรับการทดสอบ UI</div>
-        </div>
-        <div style="overflow-y: auto; flex: 1;">
-          <table id="dataTable">
-            <thead>
-              <tr>
-                <th>บริษัท / นิติบุคคล</th>
-                <th>ผู้ติดต่อ</th>
-                <th>เบอร์โทรศัพท์</th>
-                <th>สถานะ</th>
-                <th>วันที่ลงทะเบียน</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              <!-- Rows injected by JS -->
-            </tbody>
-          </table>
-          <div class="empty-state" id="emptyState">ไม่พบข้อมูล</div>
+    <div class="admin-content" style="padding: 0; gap: 0;">
+      <!-- Panel 1: Dashboard -->
+      <div id="panel-dashboard" class="tab-panel active">
+        <div class="dashboard-container">
+          
+          <!-- Funnel / Onboarding Timeline overview -->
+          <div class="funnel-container">
+            <div class="funnel-step" id="funnel-s1">
+              <div class="funnel-num">1</div>
+              <div class="funnel-name">สมัคร (Apply)</div>
+              <div class="funnel-count" id="fun-count-1">0</div>
+            </div>
+            <div class="funnel-step" id="funnel-s2">
+              <div class="funnel-num">2</div>
+              <div class="funnel-name">คัดกรอง (Screen)</div>
+              <div class="funnel-count" id="fun-count-2">0</div>
+            </div>
+            <div class="funnel-step" id="funnel-s3">
+              <div class="funnel-num">3</div>
+              <div class="funnel-name">สัญญา (Agreement)</div>
+              <div class="funnel-count" id="fun-count-3">0</div>
+            </div>
+            <div class="funnel-step" id="funnel-s4">
+              <div class="funnel-num">4</div>
+              <div class="funnel-name">พาร์ทเนอร์คิต (Kit)</div>
+              <div class="funnel-count" id="fun-count-4">0</div>
+            </div>
+            <div class="funnel-step" id="funnel-s5">
+              <div class="funnel-num">5</div>
+              <div class="funnel-name">อบรม (Train)</div>
+              <div class="funnel-count" id="fun-count-5">0</div>
+            </div>
+            <div class="funnel-step" id="funnel-s6">
+              <div class="funnel-num">6</div>
+              <div class="funnel-name">บิลแรก (First Order)</div>
+              <div class="funnel-count" id="fun-count-6">0</div>
+            </div>
+            <div class="funnel-step" id="funnel-s7">
+              <div class="funnel-num">7</div>
+              <div class="funnel-name">ประเมิน (Review)</div>
+              <div class="funnel-count" id="fun-count-7">0</div>
+            </div>
+          </div>
+
+          <!-- KPI summary widgets -->
+          <div class="dashboard-kpi-grid">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">ผู้ลงทะเบียนทั้งหมด</div>
+                <div class="kpi-value" id="kpi-total-leads">0</div>
+              </div>
+              <div class="kpi-desc">พาร์ทเนอร์สมัครเข้ามาในระบบ</div>
+            </div>
+            <div class="kpi-card kpi-approved">
+              <div>
+                <div class="kpi-title">อนุมัติเป็นพาร์ทเนอร์แล้ว</div>
+                <div class="kpi-value" id="kpi-approved-leads">0</div>
+              </div>
+              <div class="kpi-desc">ผ่านขั้นตอนคัดกรอง & อนุมัติแล้ว</div>
+            </div>
+            <div class="kpi-card kpi-active">
+              <div>
+                <div class="kpi-title">กลุ่มพาร์ทเนอร์ทีแอคทีฟ</div>
+                <div class="kpi-value" id="kpi-active-rate">0%</div>
+              </div>
+              <div class="kpi-desc">อัตราเฉลี่ยความเคลื่อนไหว (Active)</div>
+            </div>
+            <div class="kpi-card kpi-onboarding">
+              <div>
+                <div class="kpi-title">ความคืบหน้า Onboarding เฉลี่ย</div>
+                <div class="kpi-value" id="kpi-avg-onboarding">0%</div>
+              </div>
+              <div class="kpi-desc">ของทุกร้านค้าที่เข้าร่วมทั้งหมด</div>
+            </div>
+          </div>
+
+          <!-- Charts visual breakdown -->
+          <div class="dashboard-charts-grid" style="margin-bottom: 24px;">
+            <div class="chart-card">
+              <div class="chart-title">
+                <span>สัดส่วนแยกตามประเภทธุรกิจ (Partner Segments)</span>
+                <small style="color:var(--gfs-muted);font-weight:normal;" id="lbl-total-biz">0 รายการ</small>
+              </div>
+              <div class="bar-chart-list" id="chart-business-type">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-title">
+                <span>พื้นที่ให้บริการหลัก (Main Service Provinces)</span>
+                <small style="color:var(--gfs-muted);font-weight:normal;" id="lbl-total-province">0 จังหวัด</small>
+              </div>
+              <div class="bar-chart-list" id="chart-province">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- Detail Panel -->
-      <div class="detail-panel" id="detailPanel">
-        <button class="close-btn" onclick="closePanel()">×</button>
-        <div class="detail-header">
-          <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
-          <p id="dhContact">คุณสมชาย ใจดี</p>
-        </div>
-        <div class="detail-body">
-          <div class="info-group">
-            <h3>ข้อมูลการติดต่อ</h3>
-            <div class="info-row">
-              <span class="info-label">เบอร์โทรศัพท์</span>
-              <span class="info-val" id="dPhone">-</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">อีเมล</span>
-              <span class="info-val" id="dEmail">-</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">ที่อยู่ร้านค้า / บริษัท</span>
-              <span class="info-val" id="dAddress">-</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Link ผลงาน / Website</span>
-              <span class="info-val"><a href="#" id="dLink" target="_blank" style="color:var(--gfs-blue)">-</a></span>
-            </div>
+      <!-- Panel 2: Leads List (Original table container + details panel) -->
+      <div id="panel-leads" class="tab-panel" style="padding: 40px; gap: 32px; width: 100%;">
+        <!-- Data Table -->
+        <div class="table-container">
+          <div class="table-toolbar">
+            <input type="text" id="searchInput" placeholder="ค้นหาชื่อบริษัท หรือ เบอร์โทรศัพท์..." />
+            <div style="font-size: 14px; color: var(--gfs-muted);">ข้อมูลจำลองสำหรับการทดสอบ UI</div>
           </div>
-          <div class="info-group">
-            <h3>ข้อมูลธุรกิจ</h3>
-            <div class="info-row">
-              <span class="info-label">ประเภทธุรกิจ</span>
-              <span class="info-val" id="dBusiness">-</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">ทีมช่างติดตั้ง</span>
-              <span class="info-val" id="dTeam">-</span>
-            </div>
+          <div style="overflow-y: auto; flex: 1;">
+            <table id="dataTable">
+              <thead>
+                <tr>
+                  <th>บริษัท / นิติบุคคล</th>
+                  <th>ผู้ติดต่อ</th>
+                  <th>เบอร์โทรศัพท์</th>
+                  <th>สถานะ</th>
+                  <th>วันที่ลงทะเบียน</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+            <div class="empty-state" id="emptyState">ไม่พบข้อมูล</div>
           </div>
         </div>
-        <div class="action-group">
-          <label for="statusSelect">อัพเดทสถานะ</label>
-          <select id="statusSelect" class="form-select" style="margin-bottom: 20px;">
-            <option value="new">🆕 รอดำเนินการ (New)</option>
-            <option value="contacting">☎️ กำลังติดต่อ (Contacting)</option>
-            <option value="inprogress">⏳ กำลังพิจารณา (In Progress)</option>
-            <option value="approved">✅ อนุมัติแล้ว (Approved)</option>
-            <option value="rejected">❌ ไม่อนุมัติ (Rejected)</option>
-          </select>
+
+        <!-- Detail Panel -->
+        <div class="detail-panel" id="detailPanel">
+          <button class="close-btn" onclick="closePanel()">×</button>
+          <div class="detail-header">
+            <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
+            <p id="dhContact">คุณสมชาย ใจดี</p>
+          </div>
+          <div class="detail-body">
+            <!-- Shortcut Actions -->
+            <div style="margin-bottom: 15px; border-bottom: 1px solid var(--gfs-line); padding-bottom: 10px;">
+              <a href="#" id="shortcutLine" target="_blank" class="btn-action-shortcut">💬 ทักไลน์พาร์ทเนอร์</a>
+              <a href="#" id="shortcutEmail" target="_blank" class="btn-action-shortcut">✉️ ส่งอีเมลหา</a>
+              <a href="#" id="shortcutPrint" onclick="printDealerProfile(); return false;" class="btn-action-shortcut">🖨️ พิมพ์ข้อมูลใบสมัคร</a>
+            </div>
+
+            <div class="info-group">
+              <h3>ข้อมูลการติดต่อ</h3>
+              <div class="info-row">
+                <span class="info-label">เบอร์โทรศัพท์</span>
+                <span class="info-val" id="dPhone">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">อีเมล</span>
+                <span class="info-val" id="dEmail">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">ที่อยู่ร้านค้า / บริษัท</span>
+                <span class="info-val" id="dAddress">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Link ผลงาน / Website</span>
+                <span class="info-val"><a href="#" id="dLink" target="_blank" style="color:var(--gfs-blue)">-</a></span>
+              </div>
+            </div>
+
+            <div class="info-group">
+              <h3>ข้อมูลธุรกิจ</h3>
+              <div class="info-row">
+                <span class="info-label">ประเภทธุรกิจ</span>
+                <span class="info-val" id="dBusiness">-</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">ทีมช่างติดตั้ง</span>
+                <span class="info-val" id="dTeam">-</span>
+              </div>
+            </div>
+
+            <!-- Onboarding Checklist Tracker inside details panel -->
+            <div class="info-group">
+              <div class="detail-section-title">ขั้นตอนการ Onboarding คู่ค้า</div>
+              <div class="checklist-progress-bar">
+                <div class="checklist-progress-fill" id="chkProgressFill" style="width: 0%"></div>
+              </div>
+              <div class="checklist-list" id="checklistList">
+                <label class="checklist-item"><input type="checkbox" data-index="0" onchange="toggleChecklistItem(this)" /> <span>1. สมัครเข้าร่วม (Applied)</span></label>
+                <label class="checklist-item"><input type="checkbox" data-index="1" onchange="toggleChecklistItem(this)" /> <span>2. คัดกรองเบื้องต้น (Screened)</span></label>
+                <label class="checklist-item"><input type="checkbox" data-index="2" onchange="toggleChecklistItem(this)" /> <span>3. เซ็นสัญญาคู่ค้า (Agreement)</span></label>
+                <label class="checklist-item"><input type="checkbox" data-index="3" onchange="toggleChecklistItem(this)" /> <span>4. ส่งมอบ Partner Kit (Kit Sent)</span></label>
+                <label class="checklist-item"><input type="checkbox" data-index="4" onchange="toggleChecklistItem(this)" /> <span>5. อบรมเบื้องต้น (Trained)</span></label>
+                <label class="checklist-item"><input type="checkbox" data-index="5" onchange="toggleChecklistItem(this)" /> <span>6. ออกคำสั่งซื้อแรก (First Order)</span></label>
+                <label class="checklist-item"><input type="checkbox" data-index="6" onchange="toggleChecklistItem(this)" /> <span>7. ติดตามผลสะสม (Reviewed)</span></label>
+              </div>
+            </div>
+
+          </div>
+          <div class="action-group">
+            <label for="statusSelect">อัพเดทสถานะการอนุมัติ</label>
+            <select id="statusSelect" class="form-select" style="margin-bottom: 12px;">
+              <option value="new">🆕 รอดำเนินการ (New)</option>
+              <option value="contacting">☎️ กำลังติดต่อ (Contacting)</option>
+              <option value="inprogress">⏳ กำลังพิจารณา (In Progress)</option>
+              <option value="approved">✅ อนุมัติแล้ว (Approved)</option>
+              <option value="rejected">❌ ไม่อนุมัติ (Rejected)</option>
+            </select>
+
+            <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
+            <select id="tierSelect" class="form-select" style="margin-bottom: 20px;">
+              <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
+              <option value="registered">Registered Partner</option>
+              <option value="authorized">Authorized Partner</option>
+              <option value="premium">Premium Partner</option>
+            </select>
+            
+            <label for="adminNotes">คำถามเพิ่มเติม / บันทึกของแอดมิน (Admin Notes)</label>
+            <textarea id="adminNotes" class="form-textarea" placeholder="พิมพ์ข้อความที่ต้องสอบถามลูกค้าเพิ่มเติม หรือบันทึกสถานะการติดต่อ..."></textarea>
+            
+            <button class="save-btn" onclick="saveAdminData()">บันทึกข้อมูล</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Settings View -->
+      <div id="panel-settings" class="tab-panel" style="width: 100%;">
+        <div class="settings-container">
           
-          <label for="adminNotes">คำถามเพิ่มเติม / บันทึกของแอดมิน (Admin Notes)</label>
-          <textarea id="adminNotes" class="form-textarea" placeholder="พิมพ์ข้อความที่ต้องสอบถามลูกค้าเพิ่มเติม หรือบันทึกสถานะการติดต่อ..."></textarea>
-          
-          <button class="save-btn" onclick="saveAdminData()">บันทึกข้อมูล</button>
+          <div>
+            <div class="settings-section-title">📊 ตั้งค่าเงื่อนไขเชิงพาณิชย์แต่ละระดับพาร์ทเนอร์ (Partner Tiers settings)</div>
+            <div style="color:var(--gfs-muted);margin-bottom:20px;font-size:14px;">เมื่อทำการปรับเปลี่ยนสเปกด้านล่าง ข้อมูลจะบันทึกลงในระบบเพื่อส่งต่อไปแสดงผลที่หน้าจอพาร์ทเนอร์ (Landing Page) ทันที</div>
+            <div class="settings-grid">
+              <!-- Registered Settings -->
+              <div class="settings-card">
+                <h3>🛠️ Registered Partner</h3>
+                <label for="set-reg-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
+                <input type="text" id="set-reg-target" class="form-select" value="ไม่มีขั้นต่ำ" />
+                <label for="set-reg-discount">ส่วนลดตัวแทน (%)</label>
+                <input type="number" id="set-reg-discount" class="form-select" value="10" />
+                <label for="set-reg-credit">เครดิตการค้า (วัน)</label>
+                <input type="text" id="set-reg-credit" class="form-select" value="เงินสด (Cash)" />
+              </div>
+              <!-- Authorized Settings -->
+              <div class="settings-card">
+                <h3>🌟 Authorized Partner</h3>
+                <label for="set-auth-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
+                <input type="number" id="set-auth-target" class="form-select" value="50000" />
+                <label for="set-auth-discount">ส่วนลดตัวแทน (%)</label>
+                <input type="number" id="set-auth-discount" class="form-select" value="20" />
+                <label for="set-auth-credit">เครดิตการค้า (วัน)</label>
+                <input type="text" id="set-auth-credit" class="form-select" value="30 วัน (30 Days)" />
+              </div>
+              <!-- Premium Settings -->
+              <div class="settings-card">
+                <h3>🏆 Premium Partner</h3>
+                <label for="set-prem-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
+                <input type="number" id="set-prem-target" class="form-select" value="150000" />
+                <label for="set-prem-discount">ส่วนลดตัวแทน (%)</label>
+                <input type="number" id="set-prem-discount" class="form-select" value="30" />
+                <label for="set-prem-credit">เครดิตการค้า (วัน)</label>
+                <input type="text" id="set-prem-credit" class="form-select" value="30/45 วัน" />
+              </div>
+            </div>
+            <button class="save-btn" onclick="saveSystemSettings()" style="max-width:200px;margin-top:20px;">💾 บันทึกตั้งค่าระบบ</button>
+          </div>
+
+          <!-- Developer Tools section -->
+          <div>
+            <div class="settings-section-title">🔧 เครืองมือผู้พัฒนา & จำลองข้อมูล (Developer Sandbox)</div>
+            <div class="developer-box">
+              <div>
+                <strong style="color:#9a3412;display:block;margin-bottom:4px;">ระบบทดสอบและจำลองพาร์ทเนอร์ B2B</strong>
+                <span style="font-size:13px;color:#7c2d12;">คุณสามารถโหลดรายชื่อ B2B ตัวแทนจำลอง (ร้านผ้าม่าน, ร้านกระจก, ผู้รับเหมา, สถาปนิก) เพื่อจำลองดูความคืบหน้าหน้า Dashboard ได้ทันที</span>
+              </div>
+              <div class="dev-btn-group">
+                <button class="dev-btn dev-btn-primary" onclick="seedMockData()">⚡ โหลดข้อมูล B2B จำลอง</button>
+                <button class="dev-btn dev-btn-secondary" onclick="clearLocalData()">🗑️ ล้างประวัติทั้งหมด</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -545,6 +1081,30 @@
   <script>
     let leadsData = [];
     let currentLeadId = null;
+    
+    // Tab switching logic
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.querySelectorAll('.admin-nav-item').forEach(nav => {
+        nav.classList.remove('active');
+      });
+
+      document.getElementById('panel-' + tabName).classList.add('active');
+      document.getElementById('nav-' + tabName).classList.add('active');
+
+      const titleMap = {
+        'dashboard': 'Dealer Management Dashboard',
+        'leads': 'Dealer Registrations Tracker',
+        'settings': 'Commercial Tiers & System Settings'
+      };
+      document.getElementById('pageTitle').textContent = titleMap[tabName] || 'Goodfilm Admin Console';
+
+      if (tabName === 'dashboard') {
+        renderDashboard();
+      }
+    }
 
     function toggleSidebar() {
       document.querySelector('.admin-sidebar').classList.toggle('collapsed');
@@ -557,7 +1117,14 @@
         try {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed)) {
-            parsed.forEach(p => { localData[p.id] = { status: p.status, notes: p.notes }; });
+            parsed.forEach(p => {
+              localData[p.id] = {
+                status: p.status,
+                notes: p.notes,
+                tier: p.tier || 'pending',
+                checklist: p.checklist || [true, false, false, false, false, false, false]
+              };
+            });
           } else {
             localData = parsed;
           }
@@ -569,7 +1136,7 @@
       rows.forEach(row => {
         if (!row['ประทับเวลา']) return; // Skip empty rows
         const id = row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'] || row['ประทับเวลา'];
-        const localLead = localData[id] || { status: 'new', notes: '' };
+        const localLead = localData[id] || { status: 'new', notes: '', tier: 'pending', checklist: [true, false, false, false, false, false, false] };
         
         leadsData.push({
           id: id,
@@ -583,12 +1150,15 @@
           team: row['มีทีมช่างติดตั้งของตนเองหรือไม่'] || '-',
           date: (row['ประทับเวลา'] || '').split(' ')[0], 
           status: localLead.status || 'new',
-          notes: localLead.notes || ''
+          notes: localLead.notes || '',
+          tier: localLead.tier || 'pending',
+          checklist: localLead.checklist || [true, false, false, false, false, false, false]
         });
       });
       
       leadsData.reverse(); // Newest first
       renderTable(leadsData);
+      renderDashboard(); // Recalculate dashboard
     }
 
     // Load data from Google Sheets CSV
@@ -629,8 +1199,13 @@
     function saveToLocalStorage() {
       const localData = {};
       leadsData.forEach(l => {
-        if(l.status !== 'new' || l.notes !== '') {
-           localData[l.id] = { status: l.status, notes: l.notes };
+        if(l.status !== 'new' || l.notes !== '' || l.tier !== 'pending' || (l.checklist && l.checklist.some((c, idx) => idx > 0 && c))) {
+           localData[l.id] = {
+             status: l.status,
+             notes: l.notes,
+             tier: l.tier || 'pending',
+             checklist: l.checklist || [true, false, false, false, false, false, false]
+           };
         }
       });
       localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
@@ -700,8 +1275,42 @@
 
       // Populate Action Group
       document.getElementById('statusSelect').value = lead.status;
+      document.getElementById('tierSelect').value = lead.tier || 'pending';
       document.getElementById('adminNotes').value = lead.notes || '';
 
+      // Populate Shortcuts
+      const phoneClean = lead.phone.replace(/[^0-9]/g, '');
+      const shortcutLine = document.getElementById('shortcutLine');
+      if (phoneClean) {
+        shortcutLine.href = `https://wa.me/${phoneClean.startsWith('0') ? '66' + phoneClean.slice(1) : phoneClean}`; // WA/LINE shortcut
+        shortcutLine.style.display = 'inline-flex';
+      } else {
+        shortcutLine.style.display = 'none';
+      }
+
+      const shortcutEmail = document.getElementById('shortcutEmail');
+      if (lead.email !== '-') {
+        shortcutEmail.href = `mailto:${lead.email}?subject=Goodfilm%203M%20Dealer%20Program`;
+        shortcutEmail.style.display = 'inline-flex';
+      } else {
+        shortcutEmail.style.display = 'none';
+      }
+
+      // Populate Checklist checkboxes
+      const chkBoxes = panel.querySelectorAll('#checklistList input[type="checkbox"]');
+      const checklist = lead.checklist || [true, false, false, false, false, false, false];
+      
+      chkBoxes.forEach((box, idx) => {
+        box.checked = !!checklist[idx];
+        const label = box.closest('.checklist-item');
+        if (box.checked) {
+          label.classList.add('checked');
+        } else {
+          label.classList.remove('checked');
+        }
+      });
+
+      updateChecklistProgress(lead);
       panel.classList.add('open');
     }
 
@@ -710,19 +1319,66 @@
       currentLeadId = null;
     }
 
+    function toggleChecklistItem(el) {
+      if (!currentLeadId) return;
+      const idx = parseInt(el.getAttribute('data-index'));
+      const lead = leadsData.find(l => l.id === currentLeadId);
+      if (!lead) return;
+
+      if (!lead.checklist) lead.checklist = [true, false, false, false, false, false, false];
+      lead.checklist[idx] = el.checked;
+
+      const label = el.closest('.checklist-item');
+      if (el.checked) {
+        label.classList.add('checked');
+      } else {
+        label.classList.remove('checked');
+      }
+
+      // Auto update status if onboarding is advancing
+      const statusSelect = document.getElementById('statusSelect');
+      if (idx === 2 && el.checked && statusSelect.value === 'new') {
+        // If agreement signed, mark contacting or inprogress
+        statusSelect.value = 'inprogress';
+      } else if (idx === 5 && el.checked && statusSelect.value !== 'approved') {
+        // If first order placed, auto approve partner
+        statusSelect.value = 'approved';
+        document.getElementById('tierSelect').value = 'registered';
+      }
+
+      updateChecklistProgress(lead);
+    }
+
+    function updateChecklistProgress(lead) {
+      const checklist = lead.checklist || [true, false, false, false, false, false, false];
+      const checkedCount = checklist.filter(Boolean).length;
+      const pct = Math.round((checkedCount / 7) * 100);
+      document.getElementById('chkProgressFill').style.width = pct + '%';
+    }
+
     function saveAdminData() {
       if(!currentLeadId) return;
       const btn = document.querySelector('.save-btn');
       const originalText = btn.textContent;
       
       const newStatus = document.getElementById('statusSelect').value;
+      const newTier = document.getElementById('tierSelect').value;
       const newNotes = document.getElementById('adminNotes').value;
+
+      // Update checklist array from UI
+      const chkBoxes = panel.querySelectorAll('#checklistList input[type="checkbox"]');
+      const newChecklist = [];
+      chkBoxes.forEach(box => {
+        newChecklist.push(box.checked);
+      });
 
       // Update data array
       const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
       if(leadIndex > -1) {
         leadsData[leadIndex].status = newStatus;
+        leadsData[leadIndex].tier = newTier;
         leadsData[leadIndex].notes = newNotes;
+        leadsData[leadIndex].checklist = newChecklist;
         saveToLocalStorage();
       }
 
@@ -733,7 +1389,384 @@
         btn.textContent = originalText;
         btn.style.background = '';
         renderTable(leadsData); // re-render table to show updated status
+        renderDashboard(); // Update metrics in case status changed
       }, 1000);
+    }
+
+    // Print Partner Application Form
+    function printDealerProfile() {
+      const lead = leadsData.find(l => l.id === currentLeadId);
+      if (!lead) return;
+      const printWindow = window.open('', '_blank');
+      
+      const stepLabels = [
+        '1. สมัครเข้าร่วม (Applied)',
+        '2. คัดกรองเบื้องต้น (Screened)',
+        '3. เซ็นสัญญาคู่ค้า (Agreement)',
+        '4. ส่งมอบ Partner Kit (Kit Sent)',
+        '5. อบรมเบื้องต้น (Trained)',
+        '6. ออกคำสั่งซื้อแรก (First Order)',
+        '7. ติดตามผลสะสม (Reviewed)'
+      ];
+
+      printWindow.document.write(`
+        <html>
+        <head>
+          <title>Goodfilm Partner Profile - ${lead.company}</title>
+          <style>
+            body { font-family: 'Sarabun', Arial, sans-serif; padding: 40px; color: #162033; line-height: 1.6; }
+            h1 { color: #1b437c; border-bottom: 2px solid #1b437c; padding-bottom: 10px; margin-bottom: 30px; }
+            .section { margin-bottom: 25px; }
+            .section-title { font-weight: bold; color: #005eb8; margin-bottom: 12px; text-transform: uppercase; font-size: 14px; border-bottom: 1px solid #dbe7f5; padding-bottom: 4px; }
+            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+            .item { margin-bottom: 8px; }
+            .label { font-size: 13px; color: #64748b; margin-bottom: 2px; }
+            .val { font-weight: bold; font-size: 15px; }
+            .checklist { margin-top: 15px; display: grid; gap: 8px; }
+            .check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+            .check-box { width: 18px; height: 18px; border: 2px solid #1b437c; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <h1>ใบข้อมูลสมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M</h1>
+          
+          <div class="section">
+            <div class="section-title">ข้อมูลผู้ติดต่อหลัก & บริษัท</div>
+            <div class="grid">
+              <div class="item"><div class="label">ชื่อบริษัท / ร้านค้า</div><div class="val">${lead.company}</div></div>
+              <div class="item"><div class="label">ผู้ติดต่อประสานงาน</div><div class="val">${lead.contact}</div></div>
+              <div class="item"><div class="label">เบอร์โทรศัพท์</div><div class="val">${lead.phone}</div></div>
+              <div class="item"><div class="label">อีเมล</div><div class="val">${lead.email}</div></div>
+              <div class="item"><div class="label">ประเภทธุรกิจ</div><div class="val">${lead.business}</div></div>
+              <div class="item"><div class="label">ทีมช่างติดตั้ง</div><div class="val">${lead.team}</div></div>
+              <div class="item"><div class="label">ระดับพาร์ทเนอร์ (Tier)</div><div class="val" style="text-transform:uppercase; color:#e31b23;">${lead.tier.toUpperCase()}</div></div>
+              <div class="item"><div class="label">วันที่ลงทะเบียน</div><div class="val">${lead.date}</div></div>
+            </div>
+          </div>
+          
+          <div class="section">
+            <div class="label">ที่อยู่ร้านค้า / สำนักงาน</div>
+            <div class="val" style="font-weight:normal;">${lead.address}</div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">ความคืบหน้าการดำเนินงาน Onboarding</div>
+            <div class="checklist">
+              ${stepLabels.map((step, idx) => `
+                <div class="check-row">
+                  <div class="check-box">${lead.checklist[idx] ? '✓' : ''}</div>
+                  <div>${step}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="section" style="margin-top: 30px;">
+            <div class="section-title">บันทึกของแอดมิน (Admin Notes)</div>
+            <div class="val" style="font-weight:normal; white-space:pre-wrap; border: 1px solid #dbe7f5; padding: 15px; background: #fafcff; border-radius: 8px; min-height: 100px;">${lead.notes || 'ไม่มีบันทึกข้อความ'}</div>
+          </div>
+          
+          <script>window.print();window.close();<\/script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+
+    // Dashboard Calculations
+    function renderDashboard() {
+      if (leadsData.length === 0) return;
+
+      // 1. KPI cards calculations
+      const totalCount = leadsData.length;
+      const approvedCount = leadsData.filter(l => l.status === 'approved').length;
+      
+      // Active Rate: approved / total
+      const activePct = totalCount ? Math.round((approvedCount / totalCount) * 100) : 0;
+
+      // Onboarding Completion rate
+      let totalStepsCompleted = 0;
+      leadsData.forEach(l => {
+        const chk = l.checklist || [true, false, false, false, false, false, false];
+        totalStepsCompleted += chk.filter(Boolean).length;
+      });
+      const avgOnboardingPct = totalCount ? Math.round((totalStepsCompleted / (totalCount * 7)) * 100) : 0;
+
+      document.getElementById('kpi-total-leads').textContent = totalCount;
+      document.getElementById('kpi-approved-leads').textContent = approvedCount;
+      document.getElementById('kpi-active-rate').textContent = activePct + '%';
+      document.getElementById('kpi-avg-onboarding').textContent = avgOnboardingPct + '%';
+
+      // 2. Funnel Step Count Calculations
+      const stepCounts = [0, 0, 0, 0, 0, 0, 0];
+      leadsData.forEach(l => {
+        const chk = l.checklist || [true, false, false, false, false, false, false];
+        chk.forEach((checked, idx) => {
+          if (checked) stepCounts[idx]++;
+        });
+      });
+
+      for (let i = 1; i <= 7; i++) {
+        const stepEl = document.getElementById('funnel-s' + i);
+        const countEl = document.getElementById('fun-count-' + i);
+        if (countEl) countEl.textContent = stepCounts[i-1];
+        
+        // Visual indicator
+        if (stepCounts[i-1] > 0) {
+          stepEl.classList.add('completed');
+        } else {
+          stepEl.classList.remove('completed');
+        }
+      }
+
+      // 3. Business Type Distribution Chart
+      const businessCounts = {};
+      leadsData.forEach(l => {
+        const bizList = l.business.split(', ');
+        bizList.forEach(biz => {
+          if (biz && biz !== '-') {
+            businessCounts[biz] = (businessCounts[biz] || 0) + 1;
+          }
+        });
+      });
+
+      // Render Business Chart
+      const bizChartEl = document.getElementById('chart-business-type');
+      bizChartEl.innerHTML = '';
+      const sortedBiz = Object.entries(businessCounts).sort((a,b) => b[1] - a[1]);
+      
+      document.getElementById('lbl-total-biz').textContent = sortedBiz.length + ' หมวดหมู่';
+
+      sortedBiz.forEach(([bizName, count]) => {
+        const row = document.createElement('div');
+        row.className = 'bar-chart-row';
+        const percent = Math.round((count / totalCount) * 100);
+        
+        row.innerHTML = `
+          <div class="bar-label" title="${bizName}">${bizName}</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="width: ${percent}%;"></div>
+          </div>
+          <div class="bar-value">${count}</div>
+        `;
+        bizChartEl.appendChild(row);
+      });
+
+      // 4. Province Distribution Chart
+      const provinceCounts = {};
+      leadsData.forEach(l => {
+        const prov = l.address.includes('กรุงเทพ') || l.address.includes('กทม') ? 'กรุงเทพมหานคร' : '';
+        // If not specified, look at typical provinces or mock address
+        let detectedProv = 'กรุงเทพมหานคร';
+        const typicalProvinces = ['เชียงใหม่', 'ชลบุรี', 'ภูเก็ต', 'นนทบุรี', 'ขอนแก่น', 'ระยอง', 'ปทุมธานี', 'สมุทรปราการ', 'นครราชสีมา'];
+        
+        const matched = typicalProvinces.find(p => l.address.includes(p));
+        if (matched) {
+          detectedProv = matched;
+        } else if (l.address === '-' || !l.address) {
+          detectedProv = 'กรุงเทพมหานคร'; // default
+        } else {
+          // extract word from address
+          detectedProv = l.address.split(' ')[0] || 'กรุงเทพมหานคร';
+        }
+        
+        if (detectedProv.length > 20) detectedProv = detectedProv.slice(0, 15) + '...';
+        provinceCounts[detectedProv] = (provinceCounts[detectedProv] || 0) + 1;
+      });
+
+      // Render Province Chart
+      const provChartEl = document.getElementById('chart-province');
+      provChartEl.innerHTML = '';
+      const sortedProvs = Object.entries(provinceCounts).sort((a,b) => b[1] - a[1]).slice(0, 5); // top 5
+      
+      document.getElementById('lbl-total-province').textContent = Object.keys(provinceCounts).length + ' จังหวัด';
+
+      sortedProvs.forEach(([provName, count]) => {
+        const row = document.createElement('div');
+        row.className = 'bar-chart-row';
+        const percent = Math.round((count / totalCount) * 100);
+        
+        row.innerHTML = `
+          <div class="bar-label">${provName}</div>
+          <div class="bar-wrapper">
+            <div class="bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, var(--gfs-navy), var(--gfs-blue));"></div>
+          </div>
+          <div class="bar-value">${count}</div>
+        `;
+        provChartEl.appendChild(row);
+      });
+    }
+
+    // Commercial Terms Settings Management
+    function loadSystemSettings() {
+      const stored = localStorage.getItem('gfsAdminSettings');
+      if (stored) {
+        try {
+          const settings = JSON.parse(stored);
+          if (settings.registered) {
+            document.getElementById('set-reg-target').value = settings.registered.target;
+            document.getElementById('set-reg-discount').value = settings.registered.discount;
+            document.getElementById('set-reg-credit').value = settings.registered.credit;
+          }
+          if (settings.authorized) {
+            document.getElementById('set-auth-target').value = settings.authorized.target;
+            document.getElementById('set-auth-discount').value = settings.authorized.discount;
+            document.getElementById('set-auth-credit').value = settings.authorized.credit;
+          }
+          if (settings.premium) {
+            document.getElementById('set-prem-target').value = settings.premium.target;
+            document.getElementById('set-prem-discount').value = settings.premium.discount;
+            document.getElementById('set-prem-credit').value = settings.premium.credit;
+          }
+        } catch(e) {}
+      }
+    }
+
+    function saveSystemSettings() {
+      const settings = {
+        registered: {
+          target: document.getElementById('set-reg-target').value,
+          discount: parseInt(document.getElementById('set-reg-discount').value) || 0,
+          credit: document.getElementById('set-reg-credit').value
+        },
+        authorized: {
+          target: document.getElementById('set-auth-target').value,
+          discount: parseInt(document.getElementById('set-auth-discount').value) || 0,
+          credit: document.getElementById('set-auth-credit').value
+        },
+        premium: {
+          target: document.getElementById('set-prem-target').value,
+          discount: parseInt(document.getElementById('set-prem-discount').value) || 0,
+          credit: document.getElementById('set-prem-credit').value
+        }
+      };
+
+      localStorage.setItem('gfsAdminSettings', JSON.stringify(settings));
+
+      const btn = document.querySelector('#panel-settings .save-btn');
+      const originalText = btn.textContent;
+      
+      btn.textContent = 'บันทึกสำเร็จ!';
+      btn.style.background = 'var(--gfs-success)';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 1000);
+    }
+
+    // Mock Data Generator for Developer Sandbox
+    function seedMockData() {
+      const mockRows = [
+        {
+          'ประทับเวลา': '2026-07-03 10:15:30',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'ดีไซน์ผ้าม่าน บางนา',
+          'ชื่อ-นามสกุล': 'คุณวิชัย เลิศศิลป์',
+          'เบอร์โทรศัพท์': '089-111-2222',
+          'Email': 'vichai.curtain@gmail.com',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '12/5 ถนนสุขุมวิท เขตบางนา กรุงเทพมหานคร',
+          'ช่องทางออนไลน์ที่ใช้งาน': 'https://facebook.com/vichai.curtain',
+          'ประเภทธุรกิจ': 'ร้านผ้าม่าน',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'มีหน้าร้าน'
+        },
+        {
+          'ประทับเวลา': '2026-07-02 14:20:00',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'บริษัท อลูมิเนียม แอนด์ กลาส เชียงใหม่ จำกัด',
+          'ชื่อ-นามสกุล': 'คุณสุเทพ รุ่งเรือง',
+          'เบอร์โทรศัพท์': '053-444-555',
+          'Email': 'suthep.glass@cm.co.th',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '88/1 ถนนช้างคลาน อ.เมือง จ.เชียงใหม่',
+          'ช่องทางออนไลน์ที่ใช้งาน': 'https://www.cmglass.com',
+          'ประเภทธุรกิจ': 'ร้านกระจก/อลูมิเนียม',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'มีทีมช่างเอง'
+        },
+        {
+          'ประทับเวลา': '2026-07-01 11:05:40',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'บริษัท พร็อพเพอร์ตี้ ดีเวลลอปเมนท์ คอนสตรัคชั่น จำกัด',
+          'ชื่อ-นามสกุล': 'วิศวกรสมเกียรติ ยอดเยี่ยม',
+          'เบอร์โทรศัพท์': '081-333-4444',
+          'Email': 'somkiat@pdconstruction.com',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '500 ถนนรัชดาภิเษก เขตห้วยขวาง กรุงเทพมหานคร',
+          'ช่องทางออนไลน์ที่ใช้งาน': 'https://www.pdconstruction.com',
+          'ประเภทธุรกิจ': 'ผู้รับเหมา/ช่างติดตั้ง',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'มีทีม Outsource/ช่างประจำ'
+        },
+        {
+          'ประทับเวลา': '2026-06-30 09:30:15',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'ดีไลท์ สถาปัตย์และการออกแบบ',
+          'ชื่อ-นามสกุล': 'คุณสิรินทร์ แก้วดี',
+          'เบอร์โทรศัพท์': '085-555-6666',
+          'Email': 'sirin@delight-design.com',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '14/2 ซอยพหลโยธิน 7 เขตพญาไท กรุงเทพมหานคร',
+          'ช่องทางออนไลน์ที่ใช้งาน': 'https://delight-design.com',
+          'ประเภทธุรกิจ': 'สถาปนิก/Interior Designer, บริษัทตกแต่งภายใน',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'ทำงานแบบทีมช่าง/ฟรีแลนซ์'
+        },
+        {
+          'ประทับเวลา': '2026-06-29 16:50:00',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'ช่างดนัย รับติดตั้งฟิล์มอาคารชลบุรี',
+          'ชื่อ-นามสกุล': 'ช่างดนัย สุขเกษม',
+          'เบอร์โทรศัพท์': '087-777-8888',
+          'Email': 'danai.film@hotmail.com',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '22/9 หมู่ 4 ต.แสนสุข อ.เมือง จ.ชลบุรี',
+          'ช่องทางออนไลน์ที่ใช้งาน': '-',
+          'ประเภทธุรกิจ': 'ผู้รับเหมา/ช่างติดตั้ง',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'มีทีมช่างเอง'
+        },
+        {
+          'ประทับเวลา': '2026-06-28 13:12:00',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'ภูเก็ตกลาส แอนด์ เดคคอเรชั่น',
+          'ชื่อ-นามสกุล': 'คุณอรัญญา จิตต์มั่น',
+          'เบอร์โทรศัพท์': '076-222-333',
+          'Email': 'contact@phuketglass.com',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '99/5 ถนนวิชิตสงคราม อ.เมือง จ.ภูเก็ต',
+          'ช่องทางออนไลน์ที่ใช้งาน': 'https://facebook.com/phuketglass',
+          'ประเภทธุรกิจ': 'ร้านกระจก/อลูมิเนียม',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'มีหน้าร้าน'
+        },
+        {
+          'ประทับเวลา': '2026-06-25 15:40:00',
+          'ชื่อบริษัท/ร้านค้า/ทีมงาน': 'บริษัท อุดรคอนกรีต แอนด์ บิลเดอร์ จำกัด',
+          'ชื่อ-นามสกุล': 'คุณเกียรติศักดิ์ พลพาณิชย์',
+          'เบอร์โทรศัพท์': '082-999-0000',
+          'Email': 'kiat.udon@gmail.com',
+          'ที่อยู่สำหรับจัดส่งเอกสาร': '310 ถนนทหาร ต.หมากแข้ง อ.เมือง จ.อุดรธานี',
+          'ช่องทางออนไลน์ที่ใช้งาน': '-',
+          'ประเภทธุรกิจ': 'ผู้รับเหมา/ช่างติดตั้ง',
+          'มีทีมช่างติดตั้งของตนเองหรือไม่': 'มีทีม Outsource/ช่างประจำ'
+        }
+      ];
+
+      // Generate seed statuses in localStorage
+      const seedLocal = {
+        '089-111-2222': { status: 'new', notes: 'ร้านผ้าม่านขนาดใหญ่น่าสนใจมาก', tier: 'pending', checklist: [true, false, false, false, false, false, false] },
+        '053-444-555': { status: 'approved', notes: 'อนุมัติเรียบร้อย ได้รับชุดคิตแล้ว', tier: 'registered', checklist: [true, true, true, true, true, false, false] },
+        '081-333-4444': { status: 'approved', notes: 'ปิดยอดบิลแรกเรียบร้อย สั่ง Premium สิ้นเดือน', tier: 'premium', checklist: [true, true, true, true, true, true, true] },
+        '085-555-6666': { status: 'inprogress', notes: 'กำลังคุยเงื่อนไขเครดิต 30 วัน', tier: 'authorized', checklist: [true, true, true, true, false, false, false] },
+        '087-777-8888': { status: 'contacting', notes: 'โทรติดครั้งแรก ยังติดงานสัปดาห์หน้า', tier: 'pending', checklist: [true, true, false, false, false, false, false] },
+        '076-222-333': { status: 'new', notes: 'พิกัดดีในโซนภูเก็ต', tier: 'pending', checklist: [true, false, false, false, false, false, false] },
+        '082-999-0000': { status: 'rejected', notes: 'ไม่รับเงื่อนไขประกันฟิล์ม 3M', tier: 'pending', checklist: [true, false, false, false, false, false, false] }
+      };
+
+      localStorage.setItem('gfsAdminLeads', JSON.stringify(seedLocal));
+      sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(mockRows));
+      processRows(mockRows);
+
+      alert('นำเข้าข้อมูลพาร์ทเนอร์ B2B จำลองจำนวน 7 รายการสำเร็จ! (หน้า Dashboard และ Leads จะเปลี่ยนแสดงผลตามข้อมูลนี้)');
+      switchTab('dashboard');
+    }
+
+    function clearLocalData() {
+      if (confirm('คุณต้องการล้างข้อมูลตั้งค่าระบบ, สถานะพาร์ทเนอร์ และ Checklist ทั้งหมดใช่หรือไม่? (ประวัติการคัดกรองจะถูกรีเซ็ตกลับเป็นค่าเริ่มต้น)')) {
+        localStorage.removeItem('gfsAdminLeads');
+        localStorage.removeItem('gfsAdminSettings');
+        sessionStorage.removeItem('gfsAdminCachedRows');
+        leadsData = [];
+        loadData();
+        loadSystemSettings();
+        alert('ล้างข้อมูลเรียบร้อยระบบทำการรีโหลด...');
+        window.location.reload();
+      }
     }
 
     // Search Logic
@@ -748,6 +1781,7 @@
     });
 
     // Init
+    loadSystemSettings();
     loadData();
 
   </script>
