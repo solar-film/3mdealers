@@ -2726,6 +2726,13 @@
          
          await postToAppsScript(payload);
 
+         const tierPayload = {
+            action: 'updateTier',
+            custId: getLeadCustId(currentLead),
+            tier: newTier
+         };
+         await postToAppsScript(tierPayload);
+
          if (shouldCreateChatLog) {
            await postToAppsScript(createChatLogPayload(currentLead, newAdminName, trimmedNotes));
            adminNotesInput.dataset.originalValue = newNotes || '';
