@@ -56,14 +56,16 @@
 
     /* Sidebar */
     .admin-sidebar {
-      width: 280px;
-      background: linear-gradient(180deg, var(--gfs-navy), var(--gfs-blue));
-      color: white;
+      width: 258px;
+      background: #ffffff;
+      color: #263650;
       display: flex;
       flex-direction: column;
-      padding: 32px 24px;
-      box-shadow: var(--shadow);
+      padding: 26px 18px 20px;
+      border-right: 1px solid #e7edf5;
+      box-shadow: 8px 0 26px rgba(15, 23, 42, .04);
       z-index: 10;
+      position: relative;
       transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -71,20 +73,62 @@
       width: 88px;
     }
 
+    .sidebar-expand-toggle {
+      position: absolute;
+      top: 22px;
+      right: -15px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #dbe7f5;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #1b437c;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, .12);
+      z-index: 20;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .sidebar-expand-toggle:hover {
+      background: #0b7ff3;
+      color: #ffffff;
+      transform: translateX(1px);
+    }
+
+    .sidebar-expand-icon {
+      grid-area: 1 / 1;
+    }
+
+    .sidebar-icon-expand {
+      display: none;
+    }
+
+    .admin-sidebar.collapsed .sidebar-icon-collapse {
+      display: none;
+    }
+
+    .admin-sidebar.collapsed .sidebar-icon-expand {
+      display: block;
+    }
+
     .admin-brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 48px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 28px;
+      padding: 0 0 22px;
+      border-bottom: 1px solid #eef3f8;
       overflow: hidden;
       white-space: nowrap;
     }
 
     .admin-brand img {
-      height: 36px;
-      filter: brightness(0) invert(1);
+      width: 190px;
+      height: auto;
+      max-height: 54px;
+      object-fit: contain;
       flex-shrink: 0;
     }
 
@@ -99,6 +143,17 @@
       pointer-events: none;
     }
 
+    .admin-sidebar.collapsed .admin-brand img {
+      width: 48px;
+      max-width: 48px;
+    }
+
+    .admin-sidebar.collapsed .admin-nav-heading,
+    .admin-sidebar.collapsed .admin-nav-subitem,
+    .admin-sidebar.collapsed .admin-user-card div:not(.admin-avatar) {
+      display: none;
+    }
+
     .admin-brand span {
       font-weight: 700;
       font-size: 18px;
@@ -108,18 +163,32 @@
     .admin-nav {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 18px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .admin-nav-section {
+      display: grid;
+      gap: 6px;
+    }
+
+    .admin-nav-heading {
+      padding: 0 12px 3px;
+      color: #7b8aa3;
+      font-size: 13px;
+      font-weight: 800;
     }
 
     .admin-nav-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 14px 18px;
-      border-radius: 12px;
-      color: rgba(255,255,255,0.8);
+      padding: 11px 12px;
+      border-radius: 8px;
+      color: #43526b;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 800;
       transition: all 0.2s ease;
       cursor: pointer;
       white-space: nowrap;
@@ -131,15 +200,70 @@
     }
 
     .admin-nav-item:hover {
-      background: rgba(255,255,255,0.1);
-      color: white;
+      background: #eef6ff;
+      color: #0b72e7;
     }
 
     .admin-nav-item.active {
-      background: rgba(255,255,255,0.2);
+      background: #0b7ff3;
       color: white;
-      font-weight: 600;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(11, 127, 243, .24);
+    }
+
+    .admin-nav-subitem {
+      display: block;
+      padding: 6px 12px 6px 48px;
+      color: #51617a;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+      text-decoration: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .admin-nav-subitem:hover,
+    .admin-nav-subitem.active {
+      color: #0b7ff3;
+      background: #f4f9ff;
+    }
+
+    .admin-user-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px -18px -20px;
+      padding: 18px;
+      border-top: 1px solid #e7edf5;
+      background: #fbfdff;
+      color: #17223a;
+    }
+
+    .admin-user-card strong,
+    .admin-user-card span {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .admin-user-card span {
+      margin-top: 3px;
+      color: #637083;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .admin-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-weight: 900;
+      background: linear-gradient(135deg, #f59e8b, #9f4f44);
+      box-shadow: inset 0 0 0 3px #fff, 0 3px 12px rgba(15, 23, 42, .12);
+      flex: 0 0 auto;
     }
 
     /* Main Content */
@@ -152,13 +276,13 @@
 
     .admin-header {
       height: 80px;
-      background: white;
-      border-bottom: 1px solid var(--gfs-line);
+      background: #ffffff;
+      border-bottom: 1px solid #e7edf5;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 40px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      box-shadow: none;
       z-index: 5;
     }
 
@@ -277,52 +401,99 @@
     .status-rejected { background: #fee2e2; color: #b91c1c; }
 
     /* Detail Panel */
+    .detail-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .detail-modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .detail-panel {
-      width: 450px;
-      flex-shrink: 0;
+      width: min(96vw, 1380px);
+      max-width: none;
+      max-height: 94vh;
       background: white;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-soft);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       display: flex;
       flex-direction: column;
-      margin-right: -482px;
+      transform: scale(0.95) translateY(20px);
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
+      overflow: hidden;
     }
 
-    .detail-panel.open {
-      margin-right: 0;
+    .detail-modal-overlay.open .detail-panel {
+      transform: scale(1) translateY(0);
       opacity: 1;
       visibility: visible;
     }
 
     .detail-header {
-      padding: 24px;
-      background: linear-gradient(135deg, var(--gfs-navy), var(--gfs-blue));
-      color: white;
+      padding: 10px 26px 12px;
+      min-height: 0;
+      background: #ffffff;
+      color: var(--gfs-navy);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-bottom: 1px solid #e5edf6;
+      overflow: visible;
     }
 
     .detail-header h2 {
-      margin: 0 0 4px;
+      margin: 0 0 2px;
       font-size: 20px;
+      line-height: 1.45;
+      max-width: 100%;
+    }
+
+    .detail-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: calc(100% - 56px);
+      min-width: 0;
     }
 
     .detail-header p {
       margin: 0;
-      color: rgba(255,255,255,0.8);
-      font-size: 14px;
+      color: #687891;
+      font-size: 12px;
+      line-height: 1.35;
+      max-width: calc(100% - 56px);
+    }
+
+    .detail-header #dhContact {
+      display: none;
     }
 
     .close-btn {
       position: absolute;
-      top: 24px;
-      right: 24px;
-      background: rgba(255,255,255,0.2);
+      top: 14px;
+      right: 20px;
+      background: #eef6ff;
       border: none;
-      color: white;
+      color: var(--gfs-blue);
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -334,12 +505,97 @@
       transition: background 0.2s;
     }
 
-    .close-btn:hover { background: rgba(255,255,255,0.3); }
+    .close-btn:hover { background: #dbeafe; }
+
+    #editModeBtn {
+      position: static !important;
+      top: auto !important;
+      right: auto !important;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      margin-top: 0;
+      padding: 0 !important;
+      font-size: 0 !important;
+      line-height: 1 !important;
+      border-radius: 999px !important;
+      background: #0b7ff3 !important;
+      color: #ffffff !important;
+      border: 1px solid #0b7ff3 !important;
+      box-shadow: 0 6px 14px rgba(11, 127, 243, 0.18) !important;
+    }
+
+    #editModeBtn svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .detail-panel.is-editing #editModeBtn {
+      background: var(--gfs-warning) !important;
+      color: var(--gfs-navy) !important;
+      border-color: var(--gfs-warning) !important;
+    }
 
     .detail-body {
-      padding: 24px;
+      padding: 16px 32px 28px;
       overflow-y: auto;
       flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(320px, 0.9fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .detail-customer-column {
+      min-width: 0;
+    }
+
+    .detail-admin-column {
+      margin: 0 !important;
+      padding: 24px !important;
+      border: 1px solid #dbe7f5 !important;
+      border-top: 3px solid var(--gfs-blue) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08) !important;
+      position: sticky;
+      top: 0;
+      max-height: none;
+      overflow: visible;
+    }
+
+    .admin-assignment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .admin-assignment-field {
+      min-width: 0;
+    }
+
+    .select-helper-text {
+      margin: -4px 0 12px;
+      color: #64748b;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    #customerGroup {
+      font-size: 13px;
+      line-height: 1.25;
+      padding-left: 12px;
+      padding-right: 34px;
+      text-overflow: ellipsis;
+    }
+
+    #customerGroup option {
+      font-size: 13px;
     }
 
     .info-group {
@@ -789,23 +1045,27 @@
     
     #dynamicFieldsContainer {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 24px;
-      row-gap: 16px;
-      padding-top: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 32px;
+      row-gap: 8px;
+      padding-top: 0;
     }
     
     .dynamic-field-row {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: minmax(118px, 34%) minmax(0, 1fr);
+      column-gap: 14px;
+      align-items: baseline;
+      min-height: 24px;
     }
     
     .dynamic-field-label {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--gfs-muted);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 0;
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1.25;
     }
     
     .dynamic-field-input {
@@ -813,6 +1073,7 @@
       font-family: 'Sarabun', sans-serif;
       width: 100%;
       transition: all 0.2s;
+      min-width: 0;
     }
     
     .dynamic-field-input[readonly] {
@@ -820,7 +1081,8 @@
       background: transparent;
       color: var(--gfs-navy);
       font-weight: 500;
-      padding: 4px 0;
+      padding: 0;
+      line-height: 1.25;
       outline: none;
     }
     
@@ -843,10 +1105,15 @@
       grid-column: 1 / -1;
       font-weight: 600;
       color: var(--gfs-blue);
-      margin-top: 16px;
-      padding-bottom: 8px;
+      margin-top: 12px;
+      padding-bottom: 6px;
       border-bottom: 2px solid var(--gfs-sky);
       font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
     }
 
     .btn-action-shortcut {
@@ -866,17 +1133,527 @@
       background: #dbeafe;
     }
 
+    /* CRM Pipeline Board */
+    .pipeline-page {
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 18px 20px 24px;
+      background:
+        linear-gradient(180deg, #f8fafc 0%, #f4f7fb 100%);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .pipeline-topbar {
+      display: grid;
+      grid-template-columns: minmax(260px, .75fr) minmax(300px, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(27, 67, 124, .10);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.94)),
+        linear-gradient(90deg, rgba(27,67,124,.10), rgba(205,158,74,.10));
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+    }
+
+    .pipeline-title h2 {
+      margin: 0;
+      color: #071934;
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .pipeline-title h2::after {
+      content: '';
+      display: block;
+      width: 68px;
+      height: 3px;
+      margin-top: 8px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #1b437c, #c59b4a);
+    }
+
+    .pipeline-title p {
+      margin: 7px 0 0;
+      color: #66758d;
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .pipeline-search {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .pipeline-search svg {
+      position: absolute;
+      left: 16px;
+      color: #40516f;
+    }
+
+    .pipeline-search input {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 16px 10px 50px;
+      border: 1px solid #dfe7f1;
+      border-radius: 12px;
+      background: #ffffff;
+      color: #15213a;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 400;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 5px 14px rgba(15, 23, 42, .04);
+    }
+
+    .pipeline-search input::placeholder {
+      color: #7a8595;
+      font-weight: 400;
+    }
+
+    .pipeline-search input:focus {
+      border-color: #0b7ff3;
+      box-shadow: 0 0 0 4px rgba(11, 127, 243, .10);
+    }
+
+    .pipeline-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .icon-button {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      color: #30415f;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .icon-button:hover {
+      background: #eef6ff;
+      color: #0b7ff3;
+    }
+
+    .icon-badge {
+      position: absolute;
+      top: 2px;
+      right: 0;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+      border-radius: 99px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      background: #ef3340;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .pipeline-filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pipeline-filter,
+    .pipeline-reset {
+      min-height: 40px;
+      border: 1px solid #dfe7f1;
+      border-radius: 12px;
+      background: rgba(255,255,255,.92);
+      color: #253550;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 0 14px;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, .035);
+    }
+
+    .pipeline-filter {
+      min-width: 154px;
+    }
+
+    .pipeline-reset {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .pipeline-reset:hover {
+      color: #0b7ff3;
+      border-color: #badbff;
+      background: #f4f9ff;
+    }
+
+    .pipeline-kpis {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(138px, 1fr));
+      gap: 10px;
+    }
+
+    .pipeline-kpi {
+      min-height: 72px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 13px;
+      border: 1px solid rgba(27, 67, 124, .10);
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.98), rgba(251,253,255,.94));
+      box-shadow: 0 5px 14px rgba(15, 23, 42, .035);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pipeline-kpi::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 2px;
+      background: color-mix(in srgb, var(--tone) 48%, #d7e1ee);
+    }
+
+    .pipeline-kpi-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: var(--tone);
+      background: color-mix(in srgb, var(--tone) 7%, white);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 14%, white);
+    }
+
+    .pipeline-kpi-icon svg {
+      width: 23px;
+      height: 23px;
+      stroke-width: 2.1;
+    }
+
+    .pipeline-kpi-label {
+      margin-bottom: 0;
+      color: #14213c;
+      font-weight: 800;
+      line-height: 1.2;
+      font-size: 12px;
+    }
+
+    .pipeline-kpi-value {
+      color: #071934;
+      font-size: 21px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .pipeline-kpi-trend {
+      margin-top: 2px;
+      color: #31966d;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .pipeline-kpi-trend.down {
+      color: #ef3340;
+    }
+
+    .pipeline-board {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(190px, 1fr));
+      align-items: start;
+      gap: 14px;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding-bottom: 4px;
+    }
+
+    .pipeline-column {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: #f1f5fa;
+      border: 1px solid #e4ebf4;
+      border-radius: 12px;
+      overflow: visible;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, .04);
+    }
+
+    .pipeline-column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 14px 14px;
+      border-bottom: 5px solid var(--stage-color);
+      border-radius: 12px 12px 0 0;
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--stage-color) 16%, #ffffff), #ffffff 72%),
+        #ffffff;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 1px 0 rgba(15, 23, 42, .04);
+      position: relative;
+    }
+
+    .pipeline-column-header::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 5px;
+      width: 4px;
+      border-radius: 12px 0 0 0;
+      background: var(--stage-color);
+    }
+
+    .pipeline-column-title {
+      color: #101d36;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.15;
+      padding-left: 6px;
+    }
+
+    .pipeline-count {
+      min-width: 34px;
+      height: 34px;
+      padding: 0 9px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--stage-color);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 13px;
+      box-shadow: 0 8px 16px color-mix(in srgb, var(--stage-color) 26%, transparent);
+    }
+
+    .pipeline-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: visible;
+      padding: 12px;
+    }
+
+    .lead-card {
+      border: 1px solid #e5edf6;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 14px;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, .045);
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+
+    .lead-card:hover {
+      transform: translateY(-2px);
+      border-color: #badbff;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, .08);
+    }
+
+    .lead-card.cancelled {
+      background: #fff8f8;
+      border-color: #fee0e0;
+    }
+
+    .lead-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .lead-name {
+      color: #14213c;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .lead-tag {
+      flex: 0 0 auto;
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: var(--tag-color);
+      background: color-mix(in srgb, var(--tag-color) 12%, white);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .lead-meta {
+      display: grid;
+      gap: 7px;
+      color: #53647d;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .lead-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .lead-meta-row svg {
+      flex: 0 0 auto;
+      color: #60728f;
+    }
+
+    .lead-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .lead-action {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #e1e9f3;
+      border-radius: 9px;
+      background: #ffffff;
+      color: #0b7ff3;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .lead-action:hover {
+      background: #eef6ff;
+      border-color: #badbff;
+    }
+
+    .pipeline-empty {
+      padding: 18px 12px;
+      border: 1px dashed #cfd9e6;
+      border-radius: 10px;
+      color: #8795aa;
+      text-align: center;
+      font-weight: 800;
+      background: rgba(255,255,255,.5);
+    }
+
   
     /* Responsive Adjustments for Mobile & Tablets */
-    @media (max-width: 768px) {
+    @media (max-width: 1280px) {
+      .pipeline-topbar {
+        grid-template-columns: 1fr;
+      }
+      .pipeline-icons {
+        justify-content: flex-start;
+      }
+      .pipeline-kpis {
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
+      }
+      .pipeline-board {
+        grid-template-columns: repeat(6, 280px);
+      }
       .detail-panel {
-        width: 100%;
+        width: 96vw;
+      }
+      .detail-body {
+        grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.9fr);
+        gap: 22px;
+        padding: 16px 24px 24px;
+      }
+      #dynamicFieldsContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .detail-body {
+        grid-template-columns: 1fr;
+      }
+      .detail-admin-column {
+        position: static;
+        max-height: none;
+      }
+      .admin-assignment-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow: auto;
+      }
+      .admin-sidebar {
+        display: none;
+      }
+      .admin-header {
+        padding: 0 18px;
+      }
+      .pipeline-page {
+        padding: 20px 14px;
+        overflow: visible;
+      }
+      .pipeline-title h2 {
+        font-size: 25px;
+      }
+      .pipeline-kpis {
+        grid-template-columns: 1fr;
+      }
+      .pipeline-board {
+        grid-template-columns: 1fr;
+        overflow: visible;
+      }
+      .pipeline-column {
+        min-width: 0;
+        max-height: none;
+      }
+      .pipeline-card-list {
+        overflow: visible;
+      }
+      .detail-panel {
+        width: 95%;
         max-width: 100vw;
-        margin-right: -100vw;
+      }
+      .detail-body {
+        padding: 14px 18px 22px;
+      }
+      .detail-header {
+        min-height: 0;
+        padding: 10px 18px 12px;
+      }
+      .detail-header h2 {
+        font-size: 18px;
+        line-height: 1.45;
+        padding-right: 0;
+      }
+      .detail-header p {
+        font-size: 12px;
+        padding-right: 56px;
       }
       #dynamicFieldsContainer {
         grid-template-columns: 1fr;
-        row-gap: 12px;
+        row-gap: 8px;
       }
       .table-toolbar {
         flex-direction: column;
@@ -898,18 +1675,9 @@
 
   <!-- Main Content -->
   <main class="admin-main">
-    <header class="admin-header">
-      <div class="header-left">
-        <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-        </button>
-        <h1 id="pageTitle">Dealer Management Dashboard</h1>
-      </div>
-    </header>
-    
     <div class="admin-content" style="padding: 0; gap: 0;">
       <!-- Panel 1: Dashboard -->
-      <div id="panel-dashboard" class="tab-panel active">
+      <div id="panel-dashboard" class="tab-panel">
         <div class="dashboard-container">
           
           <!-- Funnel / Onboarding Timeline overview -->
@@ -1008,78 +1776,117 @@
         </div>
       </div>
 
-      <!-- Panel 2: Leads List (Original table container + details panel) -->
-      <div id="panel-leads" class="tab-panel" style="padding: 40px; gap: 32px; width: 100%;">
-        <!-- Data Table -->
-        <div class="table-container">
-          <div class="table-toolbar" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-            <input type="text" id="searchInput" placeholder="ค้นหาชื่อบริษัท หรือ เบอร์โทรศัพท์..." style="flex: 1; min-width: 250px;" />
-            
-            <select id="filterStatus" class="form-select" style="width: auto;">
-              <option value="all">สถานะทั้งหมด</option>
-              <option value="รอดำเนินการ" selected>รอดำเนินการ</option>
-              <option value="สำเร็จ">สำเร็จ</option>
-              <option value="ยกเลิก">ยกเลิก</option>
-            </select>
+      <!-- Panel 2: CRM Pipeline Board -->
+      <div id="panel-leads" class="tab-panel active" style="width: 100%;">
+        <div class="pipeline-page">
+          <div class="pipeline-topbar">
+            <div class="pipeline-title">
+              <h2>Smart Partner Program</h2>
+              <p>บริหารลีด สมาชิก และพาร์ทเนอร์ในมุมมองเดียว</p>
+            </div>
+            <label class="pipeline-search" for="searchInput">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="searchInput" placeholder="ค้นหาชื่อ / เบอร์ / LINE ID / จังหวัด" />
+            </label>
+            <div class="pipeline-icons" aria-label="Quick actions">
+              <button class="icon-button" type="button" title="แจ้งเตือน">
+                <span class="icon-badge" id="notificationCount">0</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8a6 6 0 0 0-12 0c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
+              </button>
+              <button class="icon-button" type="button" title="ช่วยเหลือ">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 2-3 4"></path><path d="M12 17h.01"></path></svg>
+              </button>
+              <button class="icon-button" type="button" title="ตั้งค่า" onclick="switchTab('settings')">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.51a2 2 0 0 1 1-1.72l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
 
-            <select id="filterAdmin" class="form-select" style="width: auto;">
-              <option value="all">แอดมินทั้งหมด</option>
+          <div class="pipeline-filters">
+            <select id="filterDate" class="pipeline-filter" title="ช่วงวันที่สมัคร">
+              <option value="all" selected>วันที่</option>
+              <option value="this_month">เดือนนี้</option>
+              <option value="last_month">เดือนที่ผ่านมา</option>
+              <option value="last_3_months">3 เดือน</option>
+              <option value="last_6_months">6 เดือน</option>
+              <option value="this_year">ปีนี้</option>
+              <option value="last_year">ปีที่ผ่านมา</option>
+            </select>
+            <select id="filterProvince" class="pipeline-filter">
+              <option value="all" selected>จังหวัด</option>
+            </select>
+            <select id="filterMemberType" class="pipeline-filter">
+              <option value="all" selected>ประเภท Member</option>
+              <option value="ลูกค้าใหม่">สมัครใหม่</option>
+              <option value="Target">Target</option>
+              <option value="Member">Member</option>
+              <option value="Partner">Partner</option>
+            </select>
+            <select id="filterAdmin" class="pipeline-filter">
+              <option value="all">Admin</option>
               <option value="Ket">Ket</option>
               <option value="Kow">Kow</option>
               <option value="Dow">Dow</option>
-              <option value="unassigned">ยังไม่ระบุแอดมิน</option>
+              <option value="unassigned">ยังไม่ระบุ Admin</option>
             </select>
+            <button class="pipeline-reset" type="button" onclick="resetPipelineFilters()">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+              ล้างตัวกรอง
+            </button>
+          </div>
 
-            <input type="date" id="filterDate" class="form-select" style="width: auto;" title="กรองตามวันที่ลงทะเบียน" />
-          </div>
-          <div style="overflow-y: auto; flex: 1;">
-            <table id="dataTable">
-              <thead>
-                <tr>
-                  <th>บริษัท / นิติบุคคล</th>
-                  <th>ผู้ติดต่อ / เบอร์โทร</th>
-                  <th>สถานะ</th>
-                  <th>วันที่ลงทะเบียน</th>
-                  <th>แอดมิน</th>
-                  <th></th></tr>
-              </thead>
-              <tbody id="tableBody">
-                <!-- Rows injected by JS -->
-              </tbody>
-            </table>
-            <div class="empty-state" id="emptyState">ไม่พบข้อมูล</div>
-          </div>
+          <div class="pipeline-kpis" id="pipelineKpis"></div>
+          <div class="pipeline-board" id="pipelineBoard"></div>
+          <div class="empty-state" id="emptyState">ไม่พบข้อมูล</div>
         </div>
 
-        <!-- Detail Panel -->
-        <div class="detail-panel" id="detailPanel">
+        <!-- Detail Modal Overlay -->
+        <div class="detail-modal-overlay" id="detailModalOverlay" onclick="closePanel(event)">
+          <!-- Detail Panel -->
+          <div class="detail-panel" id="detailPanel" onclick="event.stopPropagation()">
           <div class="detail-header">
             <button class="close-btn" onclick="closePanel()" title="ปิดหน้าต่าง">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <button class="edit-mode-btn" onclick="toggleEditMode()" id="editModeBtn" style="position: absolute; top: 16px; right: 60px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); box-shadow: none;">✏️ แก้ไขข้อมูล</button>
-            <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
+            <div class="detail-title-row">
+              <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
+              <button class="edit-mode-btn" onclick="toggleEditMode()" id="editModeBtn" title="แก้ไขข้อมูล" aria-label="แก้ไขข้อมูล" style="position: absolute; top: 16px; right: 60px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); box-shadow: none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+              </button>
+            </div>
             <p id="dhContact">คุณสมชาย ใจดี</p>
           </div>
           <div class="detail-body">
-            <div id="dynamicFieldsContainer">
-              <!-- ข้อมูลทั้งหมดจะถูก Render ที่นี่ด้วย JavaScript -->
-            </div>
-            
-            <!-- ปุ่มบันทึกการแก้ไขข้อมูล (โชว์เฉพาะตอนกดแก้ไข) -->
-            <div id="saveEditContainer" style="display: none; margin-top: 20px; text-align: right; padding-bottom: 20px; border-bottom: 1px dashed var(--gfs-line);">
-                <button class="save-btn" onclick="saveDealerData()" style="padding: 10px 20px; font-size: 14px; border-radius: 8px; width: auto; display: inline-block;">💾 บันทึกการแก้ไขข้อมูล</button>
+            <div class="detail-customer-column">
+              <div id="dynamicFieldsContainer">
+                <!-- ข้อมูลทั้งหมดจะถูก Render ที่นี่ด้วย JavaScript -->
+              </div>
+              
+              <!-- ปุ่มบันทึกการแก้ไขข้อมูล (โชว์เฉพาะตอนกดแก้ไข) -->
+              <div id="saveEditContainer" style="display: none; margin-top: 20px; text-align: right; padding-bottom: 20px; border-bottom: 1px dashed var(--gfs-line);">
+                  <button class="save-btn" onclick="saveDealerData()" style="padding: 10px 20px; font-size: 14px; border-radius: 8px; width: auto; display: inline-block;">💾 บันทึกการแก้ไขข้อมูล</button>
+              </div>
             </div>
 
             <!-- Action Group -->
-            <div class="action-group" style="background: linear-gradient(180deg, #f4f9ff 0%, #e6f0fa 100%); margin: 24px -24px -24px -24px; padding: 24px; border-top: 3px solid var(--gfs-blue); border-radius: 0 0 16px 16px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
-              <label for="adminName">แอดมินที่ติดต่อลูกค้า (Admin in charge)</label>
-              <select id="adminName" class="form-select" style="margin-bottom: 12px;">
-                <option value="">-- ระบุชื่อแอดมิน --</option>
-                <option value="Ket">Ket</option>
-                <option value="Kow">Kow</option>
-                <option value="Dow">Dow</option>
-              </select>
+            <div class="action-group detail-admin-column" style="background: linear-gradient(180deg, #f4f9ff 0%, #e6f0fa 100%); margin: 24px -24px -24px -24px; padding: 24px; border-top: 3px solid var(--gfs-blue); border-radius: 0 0 16px 16px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
+              <div class="admin-assignment-grid">
+                <div class="admin-assignment-field">
+                  <label for="adminName">แอดมิน</label>
+                  <select id="adminName" class="form-select">
+                    <option value="">-- ระบุชื่อแอดมิน --</option>
+                    <option value="Ket">Ket</option>
+                    <option value="Kow">Kow</option>
+                    <option value="Dow">Dow</option>
+                  </select>
+                </div>
+                <div class="admin-assignment-field">
+                  <label for="salesName">ฝ่ายขาย</label>
+                  <select id="salesName" class="form-select">
+                    <option value="">-- ระบุฝ่ายขาย --</option>
+                  </select>
+                </div>
+              </div>
 
               <label for="trackingStatus">สถานะการติดตาม (Tracking Status)</label>
               <select id="trackingStatus" class="form-select" style="margin-bottom: 12px;" onchange="handleTrackingStatusChange()">
@@ -1093,8 +1900,8 @@
                 <select id="customerGroup" class="form-select" style="margin-bottom: 12px;" onchange="handleCustomerGroupChange()">
                   <option value="" disabled selected>-- เลือกกลุ่มลูกค้า --</option>
                   <option value="Target">Target (สอบถาม ต้องการข้อมูล ราคา แต่ยังไม่ตัดสินใจ)</option>
-                  <option value="Member">Member (สั่งซื้อราคาพิเศษ แต่ไม่สนใจสมัคร *ไม่มีข้อผูกมัด)</option>
-                  <option value="Partner">Partner (สนใจสมัคร Partner จริงๆ *ตามเงื่อนไข)</option>
+                  <option value="Member">Member (สั่งซื้อราคาพิเศษ แต่ไม่สนใจสมัคร ไม่มีข้อผูกมัด)</option>
+                  <option value="Partner">Partner (สนใจสมัคร Partner จริง ตามเงื่อนไข)</option>
                 </select>
               </div>
 
@@ -1108,13 +1915,14 @@
                 </select>
               </div>
               
-              <label for="adminNotes">บันทึกของแอดมิน (Admin Notes)</label>
-              <textarea id="adminNotes" class="form-textarea" placeholder="บันทึกข้อมูลเพิ่มเติม..."></textarea>
+              <label for="adminNotes">ข้อมูลการติดต่อลูกค้า</label>
+              <textarea id="adminNotes" class="form-textarea" placeholder="บันทึกรายละเอียดการติดต่อลูกค้า..."></textarea>
               
-              <button class="save-btn" onclick="saveAdminData()">บันทึกส่วนแอดมินติดตาม</button>
+              <button class="save-btn" onclick="saveAdminData()">บันทึกและเก็บประวัติการติดต่อ</button>
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Panel 3: Settings View -->
@@ -1157,8 +1965,11 @@
               </div>
             </div>
             <button class="save-btn" onclick="saveSystemSettings()" style="max-width:200px;margin-top:20px;">💾 บันทึกตั้งค่าระบบ</button>
+            <hr style="margin: 30px 0; border: none; border-top: 1px dashed var(--gfs-line);">
+            <div class="settings-section-title" style="color: var(--gfs-warning);">⚠️ โซนอันตราย (Danger Zone)</div>
+            <div style="color:var(--gfs-muted);margin-bottom:10px;font-size:14px;">ล้างข้อมูลที่บันทึกไว้ในเครื่องของคุณ (Local Storage) เช่น สถานะแอดมิน, โน้ตย่อ, หรือข้อมูลแคชที่ค้างอยู่</div>
+            <button class="save-btn" onclick="clearLocalData()" style="max-width:250px; background: var(--gfs-warning); color: white; border: none;">⚠️ ล้างข้อมูลระบบทั้งหมด (Reset Data)</button>
           </div>
-
 
 
         </div>
@@ -1171,7 +1982,9 @@
     let leadsData = [];
     let currentLeadId = null;
     let isEditMode = false;
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-HnrJTqkK9j-esE2eZgPFmVAU_9PXGadxzE_jK8C8WzeAFcrZkFsx4aQRyrvJICSI/exec'; // Web App URL ของคุณ
+    let salesOptions = [];
+    const SPREADSHEET_ID = '1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxRkcB5wMQl0SL2t0Qz1gtYv9r_Flme2EtnrWDCThcTxYAXEPsZSeJrhcbCAJBoE9Hs/exec'; // Web App URL ของคุณ
     
     // Tab switching logic
     function switchTab(tabName) {
@@ -1181,19 +1994,29 @@
       document.querySelectorAll('.admin-nav-item').forEach(nav => {
         nav.classList.remove('active');
       });
+      document.querySelectorAll('.admin-nav-subitem').forEach(nav => {
+        nav.classList.remove('active');
+      });
 
       document.getElementById('panel-' + tabName).classList.add('active');
       document.getElementById('nav-' + tabName).classList.add('active');
+      if (tabName === 'leads') {
+        const pipelineSubnav = document.querySelector('.admin-nav-subitem');
+        if (pipelineSubnav) pipelineSubnav.classList.add('active');
+      }
 
       const titleMap = {
         'dashboard': 'Dealer Management Dashboard',
-        'leads': 'Dealer Registrations Tracker',
+        'leads': 'Smart Partner Program',
         'settings': 'Commercial Tiers & System Settings'
       };
-      document.getElementById('pageTitle').textContent = titleMap[tabName] || 'Goodfilm Admin Console';
+      const pageTitle = document.getElementById('pageTitle');
+      if (pageTitle) pageTitle.textContent = titleMap[tabName] || 'Goodfilm Admin Console';
 
       if (tabName === 'dashboard') {
         renderDashboard();
+      } else if (tabName === 'leads') {
+        applyFilters();
       }
     }
 
@@ -1232,6 +2055,12 @@
       'คาดว่าจะเริ่มสั่งซื้อเมื่อไหร่', 'รายละเอียดเพิ่มเติม'
     ];
 
+    function getRowValueByColumnIndex(row, columnIndex) {
+      const keys = Object.keys(row || {});
+      const key = keys[columnIndex];
+      return key !== undefined ? String(row[key] || '').trim() : '';
+    }
+
     function processRows(rows) {
       if (!rows || !Array.isArray(rows)) return;
 
@@ -1249,7 +2078,8 @@
         const timestamp = row['ประทับเวลา'] || row['Timestamp'] || '';
         if (!row || !timestamp) return;
         
-        const id = row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'] || timestamp;
+        // Use timestamp as primary unique ID since phone numbers can be duplicated
+        const id = timestamp || row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'];
         const localLead = localData[id] || {};
         
         // ผสานข้อมูล Local overrides เข้ากับข้อมูลดิบจาก CSV
@@ -1258,11 +2088,10 @@
            Object.assign(mergedRawData, localLead.overrides);
         }
 
-        const vals = Object.values(row);
-        const colAK = vals.length > 36 ? String(vals[36]).trim() : '';
-        const colAL = vals.length > 37 ? String(vals[37]).trim() : '';
-        const colAM = vals.length > 38 ? String(vals[38]).trim() : '';
-        const colAN = vals.length > 39 ? String(vals[39]).trim() : '';
+        const colAK = row['สถานะ'] !== undefined ? String(row['สถานะ']).trim() : '';
+        const colAL = row['กลุ่มลูกค้า'] !== undefined ? String(row['กลุ่มลูกค้า']).trim() : '';
+        const colAM = row['Admin'] !== undefined ? String(row['Admin']).trim() : '';
+        const colAN = getRowValueByColumnIndex(row, 39);
 
         leadsData.push({
           id: id,
@@ -1282,7 +2111,8 @@
           customerGroup: localLead.customerGroup || (colAL !== '' ? colAL : 'ลูกค้าใหม่'),
           trackingStatus: localLead.trackingStatus || (colAK !== '' ? colAK : 'รอดำเนินการ'),
           adminName: localLead.adminName || (colAM !== '' ? colAM : ''),
-          notes: localLead.notes || (colAN !== '' ? colAN : ''),
+          salesName: localLead.salesName || (colAN && colAN.toLowerCase() !== 'sales' ? colAN : ''),
+          notes: '',
           tier: localLead.tier || 'pending'
         });
       });
@@ -1307,21 +2137,15 @@
          const timeB = b.rawData['ประทับเวลา'] || b.rawData['Timestamp'] || '';
          return toValue(timeB) - toValue(timeA);
       });
+      populateProvinceFilter();
       applyFilters(); 
       renderDashboard(); 
     }
 
     function loadData() {
-      const csvUrl = 'https://docs.google.com/spreadsheets/d/1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q/export?format=csv&gid=31340732';
+      loadSalesData();
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=31340732&t=` + new Date().getTime();
       const emptyState = document.getElementById('emptyState');
-      
-      const cachedData = sessionStorage.getItem('gfsAdminCachedRows');
-      if (cachedData) {
-        try {
-          processRows(JSON.parse(cachedData));
-          emptyState.style.display = 'none';
-        } catch(e){}
-      }
 
       Papa.parse(csvUrl, {
         download: true,
@@ -1329,16 +2153,78 @@
         skipEmptyLines: true,
         complete: function(results) {
           if (results.data && results.data.length > 0) {
-            sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(results.data));
             processRows(results.data);
-            emptyState.style.display = 'none';
           } else {
-            if (!cachedData) emptyState.style.display = 'flex';
+            if(emptyState) emptyState.style.display = 'flex';
           }
         },
         error: function() {
-          if (!cachedData) emptyState.style.display = 'flex';
+          emptyState.style.display = 'flex';
+          alert('ไม่สามารถดึงข้อมูลจาก Google Sheets ได้ กรุณาลองรีเฟรชหน้าเว็บอีกครั้ง');
         }
+      });
+    }
+
+    function getSalesNameFromRow(row) {
+      const preferredKeys = ['Sales', 'ฝ่ายขาย', 'ชื่อฝ่ายขาย', 'Name', 'ชื่อ'];
+      for (const key of preferredKeys) {
+        if (row[key] !== undefined && String(row[key]).trim()) return String(row[key]).trim();
+      }
+      const firstKey = Object.keys(row).find(key => String(row[key] || '').trim());
+      return firstKey ? String(row[firstKey]).trim() : '';
+    }
+
+    function populateSalesDropdown(selectedValue = '') {
+      const select = document.getElementById('salesName');
+      if (!select) return;
+
+      const currentValue = selectedValue || select.value || '';
+      const options = salesOptions.slice();
+      if (currentValue && !options.includes(currentValue)) options.unshift(currentValue);
+
+      select.innerHTML = '<option value="">-- ระบุฝ่ายขาย --</option>' + options.map(name => (
+        `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`
+      )).join('');
+      select.value = currentValue;
+    }
+
+    function loadSalesData() {
+      const salesUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sales&t=` + new Date().getTime();
+      Papa.parse(salesUrl, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          const names = (results.data || [])
+            .map(getSalesNameFromRow)
+            .map(name => String(name || '').trim())
+            .filter(name => name && name.toLowerCase() !== 'sales');
+          salesOptions = Array.from(new Set(names));
+          populateSalesDropdown();
+        },
+        error: function() {
+          salesOptions = [];
+          populateSalesDropdown();
+        }
+      });
+    }
+
+    function createAppsScriptBody(payload) {
+      const jsonPayload = JSON.stringify(payload);
+      return JSON.stringify({
+        payload: jsonPayload,
+        json: jsonPayload,
+        ...payload
+      });
+    }
+
+    async function postToAppsScript(payload) {
+      if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.startsWith('http')) return;
+
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: createAppsScriptBody(payload)
       });
     }
 
@@ -1362,6 +2248,9 @@
        }
     }
 
+    const editIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>';
+    const cancelIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>';
+
     function toggleEditMode() {
       isEditMode = !isEditMode;
       const panel = document.getElementById('detailPanel');
@@ -1372,7 +2261,9 @@
       
       if(isEditMode) {
          panel.classList.add('is-editing');
-         btn.innerHTML = '❌ ยกเลิก';
+         btn.innerHTML = cancelIconSvg;
+         btn.title = 'ยกเลิก';
+         btn.setAttribute('aria-label', 'ยกเลิก');
          btn.style.background = 'var(--gfs-warning)';
          btn.style.color = 'var(--gfs-navy)';
          btn.style.border = 'none';
@@ -1386,7 +2277,9 @@
          });
       } else {
          panel.classList.remove('is-editing');
-         btn.innerHTML = '✏️ แก้ไขข้อมูล';
+         btn.innerHTML = editIconSvg;
+         btn.title = 'แก้ไขข้อมูล';
+         btn.setAttribute('aria-label', 'แก้ไขข้อมูล');
          btn.style.background = 'rgba(255,255,255,0.2)';
          btn.style.color = 'white';
          btn.style.border = '1px solid rgba(255,255,255,0.4)';
@@ -1400,62 +2293,153 @@
     }
 
     
-    function renderTable(data) {
-      const tbody = document.getElementById('tableBody');
-      if(!tbody) return;
-      tbody.innerHTML = '';
-      if (data.length === 0) {
-        return;
+    const pipelineStages = [
+      { key: 'new', label: 'สมัครใหม่', color: '#1f7ae0' },
+      { key: 'pending', label: 'รอดำเนินการ', color: '#f59e0b' },
+      { key: 'target', label: 'Target', color: '#10a76a' },
+      { key: 'member', label: 'Member', color: '#10a76a' },
+      { key: 'partner', label: 'Partner', color: '#7357e8' },
+      { key: 'cancelled', label: 'ยกเลิก', color: '#ef3340' }
+    ];
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[ch]));
+    }
+
+    function getPipelineStage(lead) {
+      if (lead.trackingStatus === 'ยกเลิก') return 'cancelled';
+      if (lead.customerGroup === 'Partner') return 'partner';
+      if (lead.customerGroup === 'Member') return 'member';
+      if (lead.customerGroup === 'Target') return 'target';
+      if (lead.trackingStatus === 'สำเร็จ') return 'target';
+      return lead.adminName ? 'pending' : 'new';
+    }
+
+    function getTierLabel(lead) {
+      if (lead.customerGroup === 'Partner') {
+        if (lead.tier === 'premium') return 'Platinum';
+        if (lead.tier === 'authorized') return 'Gold';
+        if (lead.tier === 'registered') return 'Silver';
+        return 'Partner';
       }
+      return lead.customerGroup || 'สมัครใหม่';
+    }
+
+    function getTagColor(stageKey) {
+      const stage = pipelineStages.find(s => s.key === stageKey);
+      return stage ? stage.color : '#0b7ff3';
+    }
+
+    function renderPipelineKpis(data) {
+      const kpiRoot = document.getElementById('pipelineKpis');
+      if (!kpiRoot) return;
+
+      const counts = pipelineStages.reduce((acc, stage) => {
+        acc[stage.key] = data.filter(lead => getPipelineStage(lead) === stage.key).length;
+        return acc;
+      }, {});
+
+      const kpis = [
+        { label: 'สมัครใหม่วันนี้', value: counts.new, color: '#1f7ae0', icon: 'user-plus', trend: '12%' },
+        { label: 'รอดำเนินการ', value: counts.pending, color: '#f59e0b', icon: 'flame', trend: '29%' },
+        { label: 'Target', value: counts.target, color: '#10a76a', icon: 'target', trend: '25%' },
+        { label: 'Member', value: counts.member, color: '#10a76a', icon: 'shield', trend: '18%' },
+        { label: 'Partner', value: counts.partner, color: '#7357e8', icon: 'handshake', trend: '21%' },
+        { label: 'ยกเลิก', value: counts.cancelled, color: '#ef3340', icon: 'x', trend: '22%', down: true }
+      ];
+
+      const icons = {
+        'user-plus': '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line>',
+        flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 17c1.38 0 2.5-1.12 2.5-2.5 0-.71-.28-1.35-.75-1.8C11.62 11.62 11 10.18 11 8.5c-1.9 1.05-3 2.65-3 4.5 0 .52.1 1.03.5 1.5Z"></path><path d="M12 2C9.5 4.5 9 7 10 9.5c.75 1.88 3 2.5 3 5a3 3 0 1 1-6 0c0-1.13.48-2.12 1.21-2.8C6 12.2 4 14.42 4 17a8 8 0 0 0 16 0c0-6-4-9-8-15Z"></path>',
+        target: '<circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle>',
+        shield: '<path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3v8Z"></path><path d="m9 12 2 2 4-4"></path>',
+        handshake: '<path d="m11 17 2 2a2.8 2.8 0 0 0 4 0l3-3a2.8 2.8 0 0 0 0-4l-3.5-3.5a2.8 2.8 0 0 0-4 0L11 10"></path><path d="m13 7-1.5-1.5a2.8 2.8 0 0 0-4 0L4 9a2.8 2.8 0 0 0 0 4l3 3"></path><path d="m7 16 3-3"></path><path d="m8.5 18.5 3-3"></path>',
+        x: '<circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"></path><path d="m9 9 6 6"></path>'
+      };
+
+      kpiRoot.innerHTML = kpis.map(kpi => `
+        <div class="pipeline-kpi" style="--tone:${kpi.color};">
+          <div class="pipeline-kpi-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${icons[kpi.icon]}</svg>
+          </div>
+          <div>
+            <div class="pipeline-kpi-label">${escapeHtml(kpi.label)}</div>
+            <div class="pipeline-kpi-value">${kpi.value}</div>
+            <div class="pipeline-kpi-trend${kpi.down ? ' down' : ''}">${kpi.down ? '↓' : '↑'} ${kpi.trend} จากเมื่อวาน</div>
+          </div>
+        </div>
+      `).join('');
+
+      const notificationCount = document.getElementById('notificationCount');
+      if (notificationCount) notificationCount.textContent = counts.pending + counts.new;
+    }
+
+    function renderLeadCard(lead) {
+      const stageKey = getPipelineStage(lead);
+      const tag = stageKey === 'cancelled' ? 'ยกเลิก' : getTierLabel(lead);
+      const owner = lead.adminName || 'ยังไม่ระบุ';
+      const cardClass = stageKey === 'cancelled' ? 'lead-card cancelled' : 'lead-card';
+      const safeId = escapeHtml(lead.id);
+      const tagColor = getTagColor(stageKey);
+
+      return `
+        <article class="${cardClass}" data-lead-id="${safeId}" onclick="openPanel(this.dataset.leadId)">
+          <div class="lead-card-top">
+            <div class="lead-name">${escapeHtml(lead.contact || '-')}</div>
+            <span class="lead-tag" style="--tag-color:${tagColor};">${escapeHtml(tag)}</span>
+          </div>
+          <div class="lead-meta">
+            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l8-4v18"></path><path d="M19 21V11l-6-4"></path><path d="M9 9v.01"></path><path d="M9 12v.01"></path><path d="M9 15v.01"></path></svg><span>ร้าน/บริษัท: ${escapeHtml(lead.company || '-')}</span></div>
+            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>${escapeHtml(lead.province || '-')}</span></div>
+            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Admin: ${escapeHtml(owner)}</span></div>
+          </div>
+          <div class="lead-actions" onclick="event.stopPropagation()">
+            <button class="lead-action" type="button" title="โทร" onclick="window.location.href='tel:${escapeHtml(lead.phone)}'"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.89.7 2.77a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.3-1.26a2 2 0 0 1 2.11-.45c.88.35 1.81.57 2.77.7A2 2 0 0 1 22 16.92Z"></path></svg></button>
+            <button class="lead-action" type="button" title="LINE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14b849" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 8.7 8.7 0 0 1-3-.53L3 21l1.65-4.65A8.3 8.3 0 0 1 3 11.5 8.6 8.6 0 0 1 12 3a8.6 8.6 0 0 1 9 8.5Z"></path></svg></button>
+            <button class="lead-action" type="button" title="ดูรายละเอียด" onclick="openPanel('${safeId}')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.06 12.35a1 1 0 0 1 0-.7A11.8 11.8 0 0 1 12 5a11.8 11.8 0 0 1 9.94 6.65 1 1 0 0 1 0 .7A11.8 11.8 0 0 1 12 19a11.8 11.8 0 0 1-9.94-6.65Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderTable(data) {
+      const board = document.getElementById('pipelineBoard');
+      const emptyState = document.getElementById('emptyState');
+      if (!board) return;
+
+      renderPipelineKpis(data);
+      if (emptyState) emptyState.style.display = data.length === 0 ? 'flex' : 'none';
+
+      const grouped = pipelineStages.reduce((acc, stage) => {
+        acc[stage.key] = [];
+        return acc;
+      }, {});
+
       data.forEach(lead => {
-        const tr = document.createElement('tr');
-        
-        let statusBadge = '';
-        if (lead.trackingStatus === 'สำเร็จ') {
-          statusBadge = '<span style="background: #ecfdf5; color: #059669; border: 1px solid #34d399; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> สำเร็จ</span>';
-        } else if (lead.trackingStatus === 'ยกเลิก') {
-          statusBadge = '<span style="background: #fef2f2; color: #dc2626; border: 1px solid #f87171; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> ยกเลิก</span>';
-        } else {
-          statusBadge = '<span style="background: #fffbeb; color: #d97706; border: 1px solid #fbbf24; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> รอดำเนินการ</span>';
-        }
-
-        let tierBadge = '';
-        if (lead.customerGroup === 'Partner') {
-           let tierName = '';
-           if (lead.tier === 'premium') tierName = 'Premium';
-           else if (lead.tier === 'authorized') tierName = 'Authorized';
-           else if (lead.tier === 'registered') tierName = 'Registered';
-           
-           if (tierName) {
-              tierBadge = `<div style="margin-bottom: 6px;"><span style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; box-shadow: 0 2px 4px rgba(59,130,246,0.3); display: inline-flex; align-items: center; gap: 4px;">💎 ${tierName}</span></div>`;
-           }
-        }
-
-        tr.innerHTML = `
-          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line);">
-            <div style="font-weight: 600; color: var(--gfs-navy); margin-bottom: 2px;">${lead.company}</div>
-            <div style="font-size: 13px; color: var(--gfs-text-light);">${lead.province}</div>
-          </td>
-          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); font-size: 14px;">
-            <div style="font-weight: 500; color: var(--gfs-navy); margin-bottom: 4px;">${lead.contact}</div>
-            <div style="font-size: 13px; color: var(--gfs-text-light);">📞 <span style="color: var(--gfs-blue); font-weight: 500;">${lead.phone}</span></div>
-          </td>
-          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line);">
-            <div style="font-weight: 500; color: var(--gfs-navy); margin-bottom: 6px;">${lead.customerGroup}</div>
-            ${tierBadge}
-            ${statusBadge}
-          </td>
-          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); font-size: 13px; color: var(--gfs-text-light);">
-            ${lead.date}
-          </td>
-          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); font-size: 13px;">
-            ${lead.adminName ? `<span style="background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 20px; font-weight: 600;">👤 ${lead.adminName}</span>` : '<span style="color:#cbd5e1;">-</span>'}
-          </td>
-          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); text-align: right;">
-            <button class="btn-primary" style="padding: 6px 12px; background: white; color: var(--gfs-blue); border: 1px solid var(--gfs-blue); border-radius: 4px; cursor: pointer; font-family: inherit;" onclick="openPanel('${lead.id}')">ดูรายละเอียด</button>
-          </td>`;
-        tbody.appendChild(tr);
+        const stage = getPipelineStage(lead);
+        grouped[stage].push(lead);
       });
+
+      board.innerHTML = pipelineStages.map(stage => {
+        const leads = grouped[stage.key] || [];
+        return `
+          <section class="pipeline-column" style="--stage-color:${stage.color};">
+            <div class="pipeline-column-header">
+              <div class="pipeline-column-title">${escapeHtml(stage.label)}</div>
+              <div class="pipeline-count">${leads.length}</div>
+            </div>
+            <div class="pipeline-card-list">
+              ${leads.length ? leads.map(renderLeadCard).join('') : '<div class="pipeline-empty">ไม่มีรายการ</div>'}
+            </div>
+          </section>
+        `;
+      }).join('');
     }
 
     function openPanel(id) {
@@ -1463,7 +2447,9 @@
       currentLeadId = id;
       isEditMode = false;
       document.getElementById('detailPanel').classList.remove('is-editing');
-      document.getElementById('editModeBtn').innerHTML = '✏️ แก้ไขข้อมูล';
+      document.getElementById('editModeBtn').innerHTML = editIconSvg;
+      document.getElementById('editModeBtn').title = 'แก้ไขข้อมูล';
+      document.getElementById('editModeBtn').setAttribute('aria-label', 'แก้ไขข้อมูล');
       document.getElementById('editModeBtn').style.background = 'rgba(255,255,255,0.2)';
       document.getElementById('editModeBtn').style.color = 'white';
       document.getElementById('editModeBtn').style.border = '1px solid rgba(255,255,255,0.4)';
@@ -1480,46 +2466,69 @@
       if (activeRow) activeRow.style.background = 'var(--gfs-sky)';
 
       const panel = document.getElementById('detailPanel');
-      document.getElementById('dhCompany').textContent = lead.company;
-      document.getElementById('dhContact').textContent = lead.contact;
+      const titleContact = lead.contact || '-';
+      const titleCompany = lead.company || '-';
+      document.getElementById('dhCompany').textContent = `${titleContact} | ${titleCompany}`;
+      document.getElementById('dhContact').textContent = '';
       
       // Render Dynamic Fields
       const container = document.getElementById('dynamicFieldsContainer');
       container.innerHTML = '';
       
-      let html = '<div class="section-title">ข้อมูลผู้ลงทะเบียน</div>';
+      const sections = [
+        { title: 'ข้อมูลผู้ลงทะเบียน', start: 0, end: 8, rows: [] },
+        { title: 'ข้อมูลธุรกิจและการบริการ', start: 8, end: 20, rows: [] },
+        { title: 'ความต้องการและความสนใจ', start: 20, end: Infinity, rows: [] }
+      ];
+
       Object.keys(lead.rawData).forEach((key, index) => {
          if(!key || key.trim() === '') return;
          const upperKey = key.toUpperCase();
-         if(upperKey === 'ADMIN NOTES' || upperKey === 'ADMIN') return;
-         
-         if(index === 8) html += '<div class="section-title">ข้อมูลธุรกิจและการบริการ</div>';
-         if(index === 20) html += '<div class="section-title">ความต้องการและความสนใจ</div>';
-         
+         if(upperKey === 'ADMIN NOTES' || upperKey === 'ADMIN' || upperKey === 'SALES') return;
+
          const val = lead.rawData[key] || '';
-         html += `
-            <div class="dynamic-field-row">
-              <span class="dynamic-field-label">${key}</span>
-              <input type="text" class="dynamic-field-input" data-key="${key}" data-original="${val}" value="${val}" readonly />
-            </div>
-         `;
+         const displayVal = String(val).trim();
+         if(!displayVal || displayVal === '-' || displayVal.toLowerCase() === 'sales') return;
+
+         const section = sections.find(item => index >= item.start && index < item.end) || sections[sections.length - 1];
+         section.rows.push({ key, val: displayVal });
+      });
+
+      let html = '';
+      sections.forEach(section => {
+         if(section.rows.length === 0) return;
+         html += `<div class="section-title">${section.title}</div>`;
+         section.rows.forEach(row => {
+            html += `
+              <div class="dynamic-field-row">
+                <span class="dynamic-field-label">${escapeHtml(row.key)}</span>
+                <input type="text" class="dynamic-field-input" data-key="${escapeHtml(row.key)}" data-original="${escapeHtml(row.val)}" value="${escapeHtml(row.val)}" readonly />
+              </div>
+            `;
+         });
       });
       container.innerHTML = html;
 
       // Populate Action Group
       document.getElementById('trackingStatus').value = lead.trackingStatus;
       document.getElementById('adminName').value = lead.adminName || '';
+      populateSalesDropdown(lead.salesName || '');
       document.getElementById('customerGroup').value = lead.customerGroup;
       document.getElementById('tierSelect').value = lead.tier;
-      document.getElementById('adminNotes').value = lead.notes;
+      const adminNotesInput = document.getElementById('adminNotes');
+      adminNotesInput.value = '';
+      adminNotesInput.dataset.originalValue = '';
       handleTrackingStatusChange();
       handleCustomerGroupChange();
 
-      panel.classList.add('open');
+      document.getElementById('detailModalOverlay').classList.add('open');
     }
 
-    function closePanel() {
-      document.getElementById('detailPanel').classList.remove('open');
+    function closePanel(e) {
+      if(e && e.target && e.target.closest('.close-btn')) {
+        // Closed by close button
+      }
+      document.getElementById('detailModalOverlay').classList.remove('open');
       currentLeadId = null;
     }
 
@@ -1567,17 +2576,19 @@
       // Send to Google Sheets (Web App)
       try {
          const payload = {
+            action: 'updateLead',
+            sheet: 'New Dealer Report',
             id: currentLeadId,
             ...overrides
          };
-         if(APPS_SCRIPT_URL && APPS_SCRIPT_URL.startsWith('http')) {
-             fetch(APPS_SCRIPT_URL, {
-               method: 'POST',
-               body: JSON.stringify(payload)
-             });
-         }
+         await postToAppsScript(payload);
       } catch(e) {
          console.error('Error saving to Google Sheets:', e);
+         btn.textContent = 'บันทึกไม่สำเร็จ';
+         btn.style.background = 'var(--gfs-red)';
+         btn.style.opacity = '1';
+         alert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+         return;
       }
 
       btn.textContent = 'บันทึกสำเร็จ!';
@@ -1593,6 +2604,44 @@
       }, 1000);
     }
 
+    function getLeadCustId(lead) {
+      const raw = lead && lead.rawData ? lead.rawData : {};
+      const value = raw['CUST_ID'] || raw['Cust_ID'] || raw['cust_id'] || raw['Cust ID'] || (lead && lead.id) || currentLeadId || '';
+      return String(value).trim();
+    }
+
+    function formatChatLogDateTime(date) {
+      const pad = value => String(value).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }
+
+    function createChatLogPayload(lead, adminName, detail) {
+      const loggedAt = formatChatLogDateTime(new Date());
+      const logId = `LOG-${loggedAt.replace(/\D/g, '')}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+      const custId = getLeadCustId(lead);
+
+      return {
+        action: 'appendChatLog',
+        sheet: 'chat_logs',
+        Log_ID: logId,
+        Cust_ID: custId,
+        Admin: adminName,
+        'รายละเอียด': detail,
+        'วันที่บันทึกข้อมูล': loggedAt,
+        logId,
+        custId,
+        customerId: custId,
+        admin: adminName,
+        detail,
+        details: detail,
+        adminNotes: detail,
+        notes: detail,
+        date: loggedAt,
+        timestamp: loggedAt,
+        loggedAt
+      };
+    }
+
     async function saveAdminData() {
       if(!currentLeadId) return;
       const btn = document.querySelector('.action-group .save-btn');
@@ -1603,6 +2652,8 @@
 
       const newTrackingStatus = document.getElementById('trackingStatus').value;
       const newAdminName = document.getElementById('adminName').value;
+      const newSalesName = document.getElementById('salesName').value;
+      const adminNotesInput = document.getElementById('adminNotes');
       
       if (!newTrackingStatus) {
          alert('กรุณาระบุ "สถานะการติดตาม"');
@@ -1619,7 +2670,9 @@
 
       const newCustomerGroup = document.getElementById('customerGroup').value;
       const newTier = document.getElementById('tierSelect').value;
-      const newNotes = document.getElementById('adminNotes').value;
+      const newNotes = adminNotesInput.value;
+      const trimmedNotes = String(newNotes || '').trim();
+      const shouldCreateChatLog = Boolean(trimmedNotes);
 
       // Update local storage (Only Admin Data)
       const stored = localStorage.getItem('gfsAdminLeads');
@@ -1631,9 +2684,9 @@
       if(!localData[currentLeadId]) localData[currentLeadId] = {};
       localData[currentLeadId].trackingStatus = newTrackingStatus;
       localData[currentLeadId].adminName = newAdminName;
+      localData[currentLeadId].salesName = newSalesName;
       localData[currentLeadId].customerGroup = newCustomerGroup;
       localData[currentLeadId].tier = newTier;
-      localData[currentLeadId].notes = newNotes;
       
       localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
 
@@ -1642,29 +2695,48 @@
       if(leadIndex > -1) {
         leadsData[leadIndex].trackingStatus = newTrackingStatus;
         leadsData[leadIndex].adminName = newAdminName;
+        leadsData[leadIndex].salesName = newSalesName;
         leadsData[leadIndex].customerGroup = newCustomerGroup;
         leadsData[leadIndex].tier = newTier;
-        leadsData[leadIndex].notes = newNotes;
       }
 
       // Send to Google Sheets (Web App)
       try {
+         const currentLead = leadsData.find(l => l.id === currentLeadId);
          const payload = {
+            action: 'updateLead',
+            sheet: 'New Dealer Report',
             id: currentLeadId,
+            custId: getLeadCustId(currentLead),
             trackingStatus: newTrackingStatus,
+            status: newTrackingStatus,
+            'สถานะ': newTrackingStatus,
             customerGroup: newCustomerGroup,
+            group: newCustomerGroup,
+            'กลุ่มลูกค้า': newCustomerGroup,
             adminName: newAdminName,
-            adminNotes: newNotes
+            admin: newAdminName,
+            Admin: newAdminName,
+            salesName: newSalesName,
+            sales: newSalesName,
+            Sales: newSalesName,
+            'ฝ่ายขาย': newSalesName,
+            colAN: newSalesName
          };
          
-         if(APPS_SCRIPT_URL && APPS_SCRIPT_URL.startsWith('http')) {
-             fetch(APPS_SCRIPT_URL, {
-               method: 'POST',
-               body: JSON.stringify(payload)
-             });
+         await postToAppsScript(payload);
+
+         if (shouldCreateChatLog) {
+           await postToAppsScript(createChatLogPayload(currentLead, newAdminName, trimmedNotes));
+           adminNotesInput.dataset.originalValue = newNotes || '';
          }
       } catch(e) {
          console.error('Error saving to Google Sheets:', e);
+         btn.textContent = 'บันทึกไม่สำเร็จ';
+         btn.style.background = 'var(--gfs-red)';
+         btn.style.opacity = '1';
+         alert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+         return;
       }
 
       btn.textContent = 'บันทึกสำเร็จ!';
@@ -1675,11 +2747,16 @@
         btn.textContent = originalText;
         btn.style.background = '';
         
-        // Reset to default view (Pending status)
-        document.getElementById('filterStatus').value = 'รอดำเนินการ';
+        // Reset to the full board view.
+        const statusFilter = document.getElementById('filterStatus');
+        if (statusFilter) statusFilter.value = 'all';
         document.getElementById('filterAdmin').value = 'all';
         document.getElementById('searchInput').value = '';
-        document.getElementById('filterDate').value = '';
+        document.getElementById('filterDate').value = 'all';
+        const provinceFilter = document.getElementById('filterProvince');
+        const memberTypeFilter = document.getElementById('filterMemberType');
+        if (provinceFilter) provinceFilter.value = 'all';
+        if (memberTypeFilter) memberTypeFilter.value = 'all';
         
         applyFilters(); 
         renderDashboard(); 
@@ -2046,7 +3123,7 @@
       processRows(mockRows);
 
       alert('นำเข้าข้อมูลพาร์ทเนอร์ B2B จำลองจำนวน 7 รายการสำเร็จ! (หน้า Dashboard และ Leads จะเปลี่ยนแสดงผลตามข้อมูลนี้)');
-      switchTab('dashboard');
+      switchTab('leads');
     }
 
     function clearLocalData() {
@@ -2062,43 +3139,149 @@
       }
     }
 
-    // Search Logic
+    function populateProvinceFilter() {
+      const select = document.getElementById('filterProvince');
+      if (!select) return;
+      const current = select.value || 'all';
+      const provinces = Array.from(new Set(leadsData
+        .map(l => String(l.province || '').trim())
+        .filter(p => p && p !== '-')))
+        .sort((a, b) => a.localeCompare(b, 'th'));
+
+      select.innerHTML = '<option value="all">จังหวัด</option>' + provinces.map(province => (
+        `<option value="${escapeHtml(province)}">${escapeHtml(province)}</option>`
+      )).join('');
+      select.value = provinces.includes(current) ? current : 'all';
+    }
+
+    function parseLeadDateValue(value) {
+      const text = String(value || '').trim();
+      if (!text) return null;
+
+      let match = text.match(/(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+      let year, month, day;
+      if (match) {
+        year = Number(match[1]);
+        month = Number(match[2]);
+        day = Number(match[3]);
+      } else {
+        match = text.match(/(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+        if (match) {
+          day = Number(match[1]);
+          month = Number(match[2]);
+          year = Number(match[3]);
+        }
+      }
+
+      if (year && month && day) {
+        if (year > 2400) year -= 543;
+        const parsed = new Date(year, month - 1, day);
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
+      }
+
+      const fallback = new Date(text);
+      return Number.isNaN(fallback.getTime()) ? null : new Date(fallback.getFullYear(), fallback.getMonth(), fallback.getDate());
+    }
+
+    function getDateRangeFilter(rangeKey) {
+      if (!rangeKey || rangeKey === 'all') return null;
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      if (rangeKey === 'this_month') {
+        return {
+          start: new Date(today.getFullYear(), today.getMonth(), 1),
+          end: new Date(today.getFullYear(), today.getMonth() + 1, 1)
+        };
+      }
+      if (rangeKey === 'last_month') {
+        return {
+          start: new Date(today.getFullYear(), today.getMonth() - 1, 1),
+          end: new Date(today.getFullYear(), today.getMonth(), 1)
+        };
+      }
+      if (rangeKey === 'last_3_months' || rangeKey === 'last_6_months') {
+        const months = rangeKey === 'last_3_months' ? 3 : 6;
+        const start = new Date(today);
+        start.setMonth(start.getMonth() - months);
+        return { start, end: tomorrow };
+      }
+      if (rangeKey === 'this_year') {
+        return {
+          start: new Date(today.getFullYear(), 0, 1),
+          end: new Date(today.getFullYear() + 1, 0, 1)
+        };
+      }
+      if (rangeKey === 'last_year') {
+        return {
+          start: new Date(today.getFullYear() - 1, 0, 1),
+          end: new Date(today.getFullYear(), 0, 1)
+        };
+      }
+      return null;
+    }
+
+    function matchesDateFilter(rawTime, rangeKey) {
+      const range = getDateRangeFilter(rangeKey);
+      if (!range) return true;
+      const leadDate = parseLeadDateValue(rawTime);
+      return leadDate ? leadDate >= range.start && leadDate < range.end : false;
+    }
+
+    function resetPipelineFilters() {
+      const status = document.getElementById('filterStatus');
+      if (status) status.value = 'all';
+      document.getElementById('filterAdmin').value = 'all';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterDate').value = 'all';
+      const province = document.getElementById('filterProvince');
+      const memberType = document.getElementById('filterMemberType');
+      if (province) province.value = 'all';
+      if (memberType) memberType.value = 'all';
+      applyFilters();
+    }
+
     // Search & Filter Logic
     function applyFilters() {
       const term = document.getElementById('searchInput').value.toLowerCase();
-      const fStatus = document.getElementById('filterStatus').value;
+      const statusEl = document.getElementById('filterStatus');
+      const fStatus = statusEl ? statusEl.value : 'all';
       const fAdmin = document.getElementById('filterAdmin').value;
       const fDate = document.getElementById('filterDate').value;
+      const fProvince = document.getElementById('filterProvince') ? document.getElementById('filterProvince').value : 'all';
+      const fMemberType = document.getElementById('filterMemberType') ? document.getElementById('filterMemberType').value : 'all';
       
       const filtered = leadsData.filter(l => {
-         const matchSearch = l.company.toLowerCase().includes(term) || l.phone.includes(term) || l.contact.toLowerCase().includes(term);
+         const lineId = String(l.rawData['Line ID'] || '').toLowerCase();
+         const province = String(l.province || '').toLowerCase();
+         const matchSearch = !term
+           || l.company.toLowerCase().includes(term)
+           || l.phone.toLowerCase().includes(term)
+           || l.contact.toLowerCase().includes(term)
+           || lineId.includes(term)
+           || province.includes(term);
          const matchStatus = fStatus === 'all' ? true : l.trackingStatus === fStatus;
          const matchAdmin = fAdmin === 'all' ? true : (fAdmin === 'unassigned' ? !l.adminName : l.adminName === fAdmin);
+         const matchProvince = fProvince === 'all' ? true : l.province === fProvince;
+         const matchMemberType = fMemberType === 'all' ? true : l.customerGroup === fMemberType;
          
-         let matchDate = true;
-         if (fDate) {
-             const rawTime = l.rawData['ประทับเวลา'] || l.rawData['Timestamp'] || '';
-             if (rawTime) {
-                 const [y, m, d] = fDate.split('-');
-                 const mP = m.startsWith('0') ? m.substring(1) : m;
-                 const dP = d.startsWith('0') ? d.substring(1) : d;
-                 const regex = new RegExp(`(^|\\D)0?${dP}/0?${mP}/${y}(\\D|$)`);
-                 matchDate = regex.test(rawTime) || String(rawTime).includes(fDate);
-             } else {
-                 matchDate = false;
-             }
-         }
+         const rawTime = l.rawData['ประทับเวลา'] || l.rawData['Timestamp'] || l.date || '';
+         const matchDate = matchesDateFilter(rawTime, fDate);
          
-         // Custom rule: "ลูกค้าใหม่ รอดำเนินการ เป็นค่าเริ่มต้น" - Since filterStatus defaults to รอดำเนินการ, this is handled.
-         return matchSearch && matchStatus && matchAdmin && matchDate;
+         return matchSearch && matchStatus && matchAdmin && matchProvince && matchMemberType && matchDate;
       });
       renderTable(filtered);
     }
 
     document.getElementById('searchInput').addEventListener('input', applyFilters);
-    document.getElementById('filterStatus').addEventListener('change', applyFilters);
+    const statusFilterEl = document.getElementById('filterStatus');
+    if (statusFilterEl) statusFilterEl.addEventListener('change', applyFilters);
     document.getElementById('filterAdmin').addEventListener('change', applyFilters);
     document.getElementById('filterDate').addEventListener('change', applyFilters);
+    document.getElementById('filterProvince').addEventListener('change', applyFilters);
+    document.getElementById('filterMemberType').addEventListener('change', applyFilters);
 
     // Init
     loadSystemSettings();
