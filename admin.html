@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="th">
 <head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjZTMxYjIzIiAvPgogIDx0ZXh0IHg9IjUwIiB5PSI3MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgJ0hlbHZldGljYSBOZXVlJywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI2MiIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9Ii01Ij4zTTwvdGV4dD4KPC9zdmc+">
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Dashboard | 3M Dealer Registration</title>
@@ -194,6 +196,7 @@
       flex: 1;
       padding: 40px;
       overflow-y: auto;
+      overflow-x: hidden;
       display: flex;
       gap: 32px;
     }
@@ -276,19 +279,23 @@
     /* Detail Panel */
     .detail-panel {
       width: 450px;
+      flex-shrink: 0;
       background: white;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-soft);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      transform: translateX(120%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-right: -482px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
 
     .detail-panel.open {
-      transform: translateX(0);
+      margin-right: 0;
+      opacity: 1;
+      visibility: visible;
     }
 
     .detail-header {
@@ -782,6 +789,10 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         <span>Settings</span>
       </a>
+      <a class="admin-nav-item" href="index.html" target="_blank" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+        <span>แบบฟอร์ม</span>
+      </a>
     </nav>
   </aside>
 
@@ -926,8 +937,10 @@
 
         <!-- Detail Panel -->
         <div class="detail-panel" id="detailPanel">
-          <button class="close-btn" onclick="closePanel()">×</button>
           <div class="detail-header">
+            <button class="close-btn" onclick="closePanel()" title="ปิดหน้าต่าง">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
             <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
             <p id="dhContact">คุณสมชาย ใจดี</p>
           </div>
@@ -988,29 +1001,30 @@
               </div>
             </div>
 
-          </div>
-          <div class="action-group">
-            <label for="statusSelect">อัพเดทสถานะการอนุมัติ</label>
-            <select id="statusSelect" class="form-select" style="margin-bottom: 12px;">
-              <option value="new">🆕 รอดำเนินการ (New)</option>
-              <option value="contacting">☎️ กำลังติดต่อ (Contacting)</option>
-              <option value="inprogress">⏳ กำลังพิจารณา (In Progress)</option>
-              <option value="approved">✅ อนุมัติแล้ว (Approved)</option>
-              <option value="rejected">❌ ไม่อนุมัติ (Rejected)</option>
-            </select>
+            <!-- Moved inside detail-body and added styled margins/padding to blend in -->
+            <div class="action-group" style="background: #f8fafc; margin: 24px -24px -24px -24px; padding: 24px; border-top: 1px solid var(--gfs-line);">
+              <label for="statusSelect">อัพเดทสถานะการอนุมัติ</label>
+              <select id="statusSelect" class="form-select" style="margin-bottom: 12px;">
+                <option value="new">🆕 รอดำเนินการ (New)</option>
+                <option value="contacting">☎️ กำลังติดต่อ (Contacting)</option>
+                <option value="inprogress">⏳ กำลังพิจารณา (In Progress)</option>
+                <option value="approved">✅ อนุมัติแล้ว (Approved)</option>
+                <option value="rejected">❌ ไม่อนุมัติ (Rejected)</option>
+              </select>
 
-            <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
-            <select id="tierSelect" class="form-select" style="margin-bottom: 20px;">
-              <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
-              <option value="registered">Registered Partner</option>
-              <option value="authorized">Authorized Partner</option>
-              <option value="premium">Premium Partner</option>
-            </select>
-            
-            <label for="adminNotes">คำถามเพิ่มเติม / บันทึกของแอดมิน (Admin Notes)</label>
-            <textarea id="adminNotes" class="form-textarea" placeholder="พิมพ์ข้อความที่ต้องสอบถามลูกค้าเพิ่มเติม หรือบันทึกสถานะการติดต่อ..."></textarea>
-            
-            <button class="save-btn" onclick="saveAdminData()">บันทึกข้อมูล</button>
+              <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
+              <select id="tierSelect" class="form-select" style="margin-bottom: 20px;">
+                <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
+                <option value="registered">Registered Partner</option>
+                <option value="authorized">Authorized Partner</option>
+                <option value="premium">Premium Partner</option>
+              </select>
+              
+              <label for="adminNotes">คำถามเพิ่มเติม / บันทึกของแอดมิน (Admin Notes)</label>
+              <textarea id="adminNotes" class="form-textarea" placeholder="พิมพ์ข้อความที่ต้องสอบถามลูกค้าเพิ่มเติม หรือบันทึกสถานะการติดต่อ..."></textarea>
+              
+              <button class="save-btn" onclick="saveAdminData()">บันทึกข้อมูล</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1057,20 +1071,7 @@
             <button class="save-btn" onclick="saveSystemSettings()" style="max-width:200px;margin-top:20px;">💾 บันทึกตั้งค่าระบบ</button>
           </div>
 
-          <!-- Developer Tools section -->
-          <div>
-            <div class="settings-section-title">🔧 เครืองมือผู้พัฒนา & จำลองข้อมูล (Developer Sandbox)</div>
-            <div class="developer-box">
-              <div>
-                <strong style="color:#9a3412;display:block;margin-bottom:4px;">ระบบทดสอบและจำลองพาร์ทเนอร์ B2B</strong>
-                <span style="font-size:13px;color:#7c2d12;">คุณสามารถโหลดรายชื่อ B2B ตัวแทนจำลอง (ร้านผ้าม่าน, ร้านกระจก, ผู้รับเหมา, สถาปนิก) เพื่อจำลองดูความคืบหน้าหน้า Dashboard ได้ทันที</span>
-              </div>
-              <div class="dev-btn-group">
-                <button class="dev-btn dev-btn-primary" onclick="seedMockData()">⚡ โหลดข้อมูล B2B จำลอง</button>
-                <button class="dev-btn dev-btn-secondary" onclick="clearLocalData()">🗑️ ล้างประวัติทั้งหมด</button>
-              </div>
-            </div>
-          </div>
+
 
         </div>
       </div>
@@ -1110,13 +1111,36 @@
       document.querySelector('.admin-sidebar').classList.toggle('collapsed');
     }
 
+    function formatPhone(phone) {
+      if (!phone) return '-';
+      let num = String(phone).replace(/\D/g, '');
+      if (num.startsWith('66')) {
+        num = '0' + num.slice(2);
+      } else if (num.length === 9 && !num.startsWith('0')) {
+        num = '0' + num;
+      }
+      if (num.length === 10) {
+        return `${num.slice(0, 3)}-${num.slice(3, 6)}-${num.slice(6)}`;
+      }
+      if (num.length === 9) {
+        if (num.startsWith('02')) {
+          return `${num.slice(0, 2)}-${num.slice(2, 5)}-${num.slice(5)}`;
+        } else {
+          return `${num.slice(0, 3)}-${num.slice(3, 5)}-${num.slice(5)}`;
+        }
+      }
+      return phone;
+    }
+
     function processRows(rows) {
+      if (!rows || !Array.isArray(rows)) return;
+
       const stored = localStorage.getItem('gfsAdminLeads');
       let localData = {};
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
+          if (parsed && Array.isArray(parsed)) {
             parsed.forEach(p => {
               localData[p.id] = {
                 status: p.status,
@@ -1125,7 +1149,7 @@
                 checklist: p.checklist || [true, false, false, false, false, false, false]
               };
             });
-          } else {
+          } else if (parsed && typeof parsed === 'object') {
             localData = parsed;
           }
         } catch(e) {}
@@ -1134,21 +1158,24 @@
       leadsData = [];
       
       rows.forEach(row => {
-        if (!row['ประทับเวลา']) return; // Skip empty rows
-        const id = row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'] || row['ประทับเวลา'];
+        const timestamp = row['ประทับเวลา'] || row['Timestamp'];
+        if (!row || !timestamp) return; // Skip empty rows
+        
+        const id = row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'] || timestamp;
         const localLead = localData[id] || { status: 'new', notes: '', tier: 'pending', checklist: [true, false, false, false, false, false, false] };
         
         leadsData.push({
           id: id,
-          company: row['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || row['ชื่อ-นามสกุล'],
-          contact: row['ชื่อ-นามสกุล'] || '-',
-          phone: row['เบอร์โทรศัพท์'] || '-',
-          email: row['Email'] || '-',
-          address: row['ที่อยู่สำหรับจัดส่งเอกสาร'] || '-',
-          link: row['ช่องทางออนไลน์ที่ใช้งาน'] || '-',
-          business: row['ประเภทธุรกิจ'] || '-',
-          team: row['มีทีมช่างติดตั้งของตนเองหรือไม่'] || '-',
-          date: (row['ประทับเวลา'] || '').split(' ')[0], 
+          company: row['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || row['ชื่อ-นามสกุล'] || row['Company'] || row['Name'] || '-',
+          contact: row['ชื่อ-นามสกุล'] || row['Name'] || '-',
+          phone: formatPhone(row['เบอร์โทรศัพท์'] || row['Phone'] || '-'),
+          email: row['Email'] || row['email'] || '-',
+          address: row['ที่อยู่สำหรับจัดส่งเอกสาร'] || row['Address'] || '-',
+          province: row['จังหวัดหลักที่ตั้งร้าน/ทีมงาน'] || row['Province'] || '-',
+          link: row['ช่องทางออนไลน์ที่ใช้งาน'] || row['Website/Social'] || '-',
+          business: row['ประเภทธุรกิจ'] || row['Business Type'] || '-',
+          team: row['มีทีมช่างติดตั้งของตนเองหรือไม่'] || row['Has Installers'] || '-',
+          date: String(timestamp || '').split(' ')[0].replace(/,/g, ''), 
           status: localLead.status || 'new',
           notes: localLead.notes || '',
           tier: localLead.tier || 'pending',
@@ -1163,7 +1190,7 @@
 
     // Load data from Google Sheets CSV
     function loadData() {
-      const csvUrl = 'https://docs.google.com/spreadsheets/d/1FA0JTGrfWO8LfMWUS1xpfrc_Uvdi0PkUIaecCoMTNJI/gviz/tq?tqx=out:csv&sheet=New%20Dealer%20Report';
+      const csvUrl = 'https://docs.google.com/spreadsheets/d/1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q/export?format=csv&gid=31340732';
       const emptyState = document.getElementById('emptyState');
       
       // Fast Render (Stale-While-Revalidate)
@@ -1412,7 +1439,7 @@
       printWindow.document.write(`
         <html>
         <head>
-          <title>Goodfilm Partner Profile - ${lead.company}</title>
+          <title>Goodfilm Partner Profile - ${lead.company}<\/title>
           <style>
             body { font-family: 'Sarabun', Arial, sans-serif; padding: 40px; color: #162033; line-height: 1.6; }
             h1 { color: #1b437c; border-bottom: 2px solid #1b437c; padding-bottom: 10px; margin-bottom: 30px; }
@@ -1425,50 +1452,50 @@
             .checklist { margin-top: 15px; display: grid; gap: 8px; }
             .check-row { display: flex; align-items: center; gap: 10px; font-size: 14px; }
             .check-box { width: 18px; height: 18px; border: 2px solid #1b437c; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; }
-          </style>
-        </head>
+          <\/style>
+        <\/head>
         <body>
-          <h1>ใบข้อมูลสมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M</h1>
+          <h1>ใบข้อมูลสมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M<\/h1>
           
           <div class="section">
-            <div class="section-title">ข้อมูลผู้ติดต่อหลัก & บริษัท</div>
+            <div class="section-title">ข้อมูลผู้ติดต่อหลัก & บริษัท<\/div>
             <div class="grid">
-              <div class="item"><div class="label">ชื่อบริษัท / ร้านค้า</div><div class="val">${lead.company}</div></div>
-              <div class="item"><div class="label">ผู้ติดต่อประสานงาน</div><div class="val">${lead.contact}</div></div>
-              <div class="item"><div class="label">เบอร์โทรศัพท์</div><div class="val">${lead.phone}</div></div>
-              <div class="item"><div class="label">อีเมล</div><div class="val">${lead.email}</div></div>
-              <div class="item"><div class="label">ประเภทธุรกิจ</div><div class="val">${lead.business}</div></div>
-              <div class="item"><div class="label">ทีมช่างติดตั้ง</div><div class="val">${lead.team}</div></div>
-              <div class="item"><div class="label">ระดับพาร์ทเนอร์ (Tier)</div><div class="val" style="text-transform:uppercase; color:#e31b23;">${lead.tier.toUpperCase()}</div></div>
-              <div class="item"><div class="label">วันที่ลงทะเบียน</div><div class="val">${lead.date}</div></div>
-            </div>
-          </div>
+              <div class="item"><div class="label">ชื่อบริษัท / ร้านค้า<\/div><div class="val">${lead.company}<\/div><\/div>
+              <div class="item"><div class="label">ผู้ติดต่อประสานงาน<\/div><div class="val">${lead.contact}<\/div><\/div>
+              <div class="item"><div class="label">เบอร์โทรศัพท์<\/div><div class="val">${lead.phone}<\/div><\/div>
+              <div class="item"><div class="label">อีเมล<\/div><div class="val">${lead.email}<\/div><\/div>
+              <div class="item"><div class="label">ประเภทธุรกิจ<\/div><div class="val">${lead.business}<\/div><\/div>
+              <div class="item"><div class="label">ทีมช่างติดตั้ง<\/div><div class="val">${lead.team}<\/div><\/div>
+              <div class="item"><div class="label">ระดับพาร์ทเนอร์ (Tier)<\/div><div class="val" style="text-transform:uppercase; color:#e31b23;">${lead.tier.toUpperCase()}<\/div><\/div>
+              <div class="item"><div class="label">วันที่ลงทะเบียน<\/div><div class="val">${lead.date}<\/div><\/div>
+            <\/div>
+          <\/div>
           
           <div class="section">
-            <div class="label">ที่อยู่ร้านค้า / สำนักงาน</div>
-            <div class="val" style="font-weight:normal;">${lead.address}</div>
-          </div>
+            <div class="label">ที่อยู่ร้านค้า / สำนักงาน<\/div>
+            <div class="val" style="font-weight:normal;">${lead.address}<\/div>
+          <\/div>
 
           <div class="section">
-            <div class="section-title">ความคืบหน้าการดำเนินงาน Onboarding</div>
+            <div class="section-title">ความคืบหน้าการดำเนินงาน Onboarding<\/div>
             <div class="checklist">
               ${stepLabels.map((step, idx) => `
                 <div class="check-row">
-                  <div class="check-box">${lead.checklist[idx] ? '✓' : ''}</div>
-                  <div>${step}</div>
+                  <div class="check-box">${lead.checklist[idx] ? '✓' : ''}<\/div>
+                  <div>${step}<\/div>
                 </div>
               `).join('')}
             </div>
-          </div>
+          <\/div>
 
           <div class="section" style="margin-top: 30px;">
             <div class="section-title">บันทึกของแอดมิน (Admin Notes)</div>
-            <div class="val" style="font-weight:normal; white-space:pre-wrap; border: 1px solid #dbe7f5; padding: 15px; background: #fafcff; border-radius: 8px; min-height: 100px;">${lead.notes || 'ไม่มีบันทึกข้อความ'}</div>
-          </div>
+            <div class="val" style="font-weight:normal; white-space:pre-wrap; border: 1px solid #dbe7f5; padding: 15px; background: #fafcff; border-radius: 8px; min-height: 100px;">${lead.notes || 'ไม่มีบันทึกข้อความ'}<\/div>
+          <\/div>
           
           <script>window.print();window.close();<\/script>
-        </body>
-        </html>
+        <\/body>
+        <\/html>
       `);
       printWindow.document.close();
     }
@@ -1555,19 +1582,19 @@
       // 4. Province Distribution Chart
       const provinceCounts = {};
       leadsData.forEach(l => {
-        const prov = l.address.includes('กรุงเทพ') || l.address.includes('กทม') ? 'กรุงเทพมหานคร' : '';
-        // If not specified, look at typical provinces or mock address
-        let detectedProv = 'กรุงเทพมหานคร';
-        const typicalProvinces = ['เชียงใหม่', 'ชลบุรี', 'ภูเก็ต', 'นนทบุรี', 'ขอนแก่น', 'ระยอง', 'ปทุมธานี', 'สมุทรปราการ', 'นครราชสีมา'];
-        
-        const matched = typicalProvinces.find(p => l.address.includes(p));
-        if (matched) {
-          detectedProv = matched;
-        } else if (l.address === '-' || !l.address) {
-          detectedProv = 'กรุงเทพมหานคร'; // default
-        } else {
-          // extract word from address
-          detectedProv = l.address.split(' ')[0] || 'กรุงเทพมหานคร';
+        let detectedProv = String(l.province || '').trim();
+        if (!detectedProv || detectedProv === '-') {
+          // fallback to address parsing if province is missing
+          const addr = String(l.address || '');
+          const typicalProvinces = ['เชียงใหม่', 'ชลบุรี', 'ภูเก็ต', 'นนทบุรี', 'ขอนแก่น', 'ระยอง', 'ปทุมธานี', 'สมุทรปราการ', 'นครราชสีมา'];
+          const matched = typicalProvinces.find(p => addr.includes(p));
+          if (matched) {
+            detectedProv = matched;
+          } else if (addr.includes('กรุงเทพ') || addr.includes('กทม')) {
+            detectedProv = 'กรุงเทพมหานคร';
+          } else {
+            detectedProv = 'กรุงเทพมหานคร'; // default fallback
+          }
         }
         
         if (detectedProv.length > 20) detectedProv = detectedProv.slice(0, 15) + '...';

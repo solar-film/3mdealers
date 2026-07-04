@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="th">
 <head>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjZTMxYjIzIiAvPgogIDx0ZXh0IHg9IjUwIiB5PSI3MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgJ0hlbHZldGljYSBOZXVlJywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI2MiIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9Ii01Ij4zTTwvdGV4dD4KPC9zdmc+">
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Goodfilm Dealer Registration | สมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M</title>
@@ -734,9 +736,132 @@
     }
 
     @media print {
-      .gfs-sidebar, .gfs-hero-actions, .gfs-submit { display: none; }
-      body { background: #fff; }
-      .gfs-hero, .gfs-form-card, .gfs-footer { box-shadow: none; }
+      @page {
+        size: A4 portrait;
+        margin: 10mm 10mm 10mm 10mm;
+        @top-left {
+          content: "สมัครตัวแทนจำหน่ายฟิล์มอาคาร 3M | Goodfilm";
+          font-family: 'Sarabun', sans-serif;
+          font-size: 8pt;
+          color: #64748b;
+          border-bottom: 0.5px solid #e2e8f0;
+          padding-bottom: 5px;
+        }
+        @top-right {
+          content: "บริษัท กู๊ดฟิล์ม จำกัด";
+          font-family: 'Sarabun', sans-serif;
+          font-size: 8pt;
+          color: #64748b;
+          border-bottom: 0.5px solid #e2e8f0;
+          padding-bottom: 5px;
+        }
+        @bottom-right {
+          content: "หน้า " counter(page);
+          font-family: 'Sarabun', sans-serif;
+          font-size: 9pt;
+          color: #64748b;
+          font-weight: 500;
+        }
+      }
+      @page :first {
+        @top-left { content: normal; }
+        @top-right { content: normal; }
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10pt;
+        line-height: 1.3;
+      }
+
+      .gfs-sidebar, .gfs-hero-actions, .gfs-submit, .gfs-note, input[type="file"], .gfs-progress-wrap, .gfs-print-btn, .gfs-print-sidebar-action, .gfs-hero, .gfs-features-section, .gfs-footer, .gfs-info-strip {
+        display: none !important;
+      }
+
+      .gfs-layout {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .gfs-form-card {
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: #fff !important;
+        margin: 0 !important;
+      }
+      
+      .gfs-form-head {
+        margin-bottom: 15px !important;
+      }
+      .gfs-form-head h2 { font-size: 16pt !important; margin-bottom: 4px !important; }
+      .gfs-form-head p { font-size: 10pt !important; margin-bottom: 0 !important; }
+
+      .gfs-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 12px !important;
+        border: 1px solid #cbd5e1 !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+        background: #fff !important;
+      }
+
+      .gfs-section-title {
+        margin-bottom: 10px !important;
+        gap: 8px !important;
+      }
+      
+      .gfs-step {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 12px !important;
+        border-radius: 6px !important;
+      }
+      
+      .gfs-section-title h3 {
+        font-size: 14pt !important;
+        margin: 0 !important;
+      }
+      
+      .gfs-section-title p {
+        display: none !important;
+      }
+
+      .gfs-grid, .gfs-grid-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px 12px !important;
+      }
+      
+      .gfs-field {
+        margin-bottom: 0 !important;
+      }
+
+      .gfs-label {
+        font-size: 9.5pt !important;
+        margin-bottom: 4px !important;
+      }
+
+      input[type='text'],
+      input[type='tel'],
+      input[type='email'],
+      input[type='url'],
+      input[type='number'],
+      select,
+      textarea {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        min-height: 40px !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+      }
     }
 
     /* --- Goodfilm Dealer System Marketing Sections CSS --- */
@@ -820,7 +945,7 @@
     /* Value Pillars Grid */
     .gfs-pillars-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 16px;
       margin-top: 20px;
     }
@@ -839,14 +964,21 @@
       background: white;
       box-shadow: 0 12px 30px rgba(227, 27, 35, 0.08);
     }
-    .gfs-pillar-num {
-      font-size: 13px;
-      font-weight: 800;
+    .gfs-pillar-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gfs-sky);
       color: var(--gfs-red);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+    .gfs-pillar-card:hover .gfs-pillar-icon {
+      background: var(--gfs-red);
+      color: white;
     }
     .gfs-pillar-card h4 {
       margin: 0 0 10px;
@@ -1069,12 +1201,26 @@
     }
     @media (max-width: 720px) {
       .gfs-targets-grid,
-      .gfs-pillars-grid,
       .gfs-timeline,
       .gfs-enable-grid,
       .gfs-tiers-container {
         grid-template-columns: 1fr;
         gap: 14px;
+      }
+      .gfs-pillars-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .gfs-pillar-card {
+        padding: 16px 12px;
+        border-radius: 14px;
+      }
+      .gfs-pillar-card h4 {
+        font-size: 15px;
+        margin-bottom: 6px;
+      }
+      .gfs-pillar-card p {
+        font-size: 12px;
       }
       .gfs-features-section {
         padding: 40px 0;
@@ -1157,29 +1303,46 @@
       <!-- 5 Pillars Grid (Value Proposition) -->
       <div class="gfs-pillars-grid">
         <div class="gfs-pillar-card">
-          <span class="gfs-pillar-num">Pillar 1</span>
+          <div class="gfs-pillar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+          </div>
           <h4>ไม่ต้องสต๊อกสินค้า</h4>
           <p>สั่งซื้อตามขนาดหน้างานหรือจำนวนที่ใช้งานจริง ลดความเสี่ยงในการลงทุนและลดปัญหาเงินจมในคลังสินค้า</p>
         </div>
         <div class="gfs-pillar-card">
-          <span class="gfs-pillar-num">Pillar 2</span>
+          <div class="gfs-pillar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
           <h4>ช่างติดตั้ง Sub-contract</h4>
           <p>หากคุณไม่มีทีมช่างของตนเอง Goodfilm มีทีมช่างมาตรฐานสากลพร้อมให้บริการติดตั้งในนามธุรกิจของคุณ</p>
         </div>
         <div class="gfs-pillar-card">
-          <span class="gfs-pillar-num">Pillar 3</span>
+          <div class="gfs-pillar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2" ry="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
           <h4>ส่งตรงถึงหน้าร้าน</h4>
           <p>ระบบโลจิสติกส์ที่รวดเร็วและปลอดภัย จัดส่งฟิล์มกรองแสงสเปกแท้ 100% ถึงมือคุณหรือหน้างานโดยตรง</p>
         </div>
         <div class="gfs-pillar-card">
-          <span class="gfs-pillar-num">Pillar 4</span>
+          <div class="gfs-pillar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
           <h4>สนับสนุนครบวงจร</h4>
           <p>ฟรี! อุปกรณ์ Demo Kit, คู่มือการนำเสนอขาย, สื่อการตลาดสำเร็จรูป และโปรแกรมอบรมพัฒนาความรู้สินค้า</p>
         </div>
         <div class="gfs-pillar-card">
-          <span class="gfs-pillar-num">Pillar 5</span>
+          <div class="gfs-pillar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 11 2 2 4-4"/></svg>
+          </div>
           <h4>ของแท้ 100% + ประกัน</h4>
           <p>สินค้าลิขสิทธิ์แท้จาก 3M ประเทศไทย พร้อมการออกใบรับประกันออนไลน์ (3M E-Warranty) ให้ลูกค้าปลายทาง</p>
+        </div>
+        <div class="gfs-pillar-card">
+          <div class="gfs-pillar-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>ผลประโยชน์และส่วนลด</h4>
+          <p>ส่วนลดตัวแทนจำหน่ายตามระดับพาร์ทเนอร์ พร้อมการสะสมยอดซื้อสะสมเพื่ออัปเกรดผลตอบแทนที่สูงขึ้น</p>
         </div>
       </div>
     </section>
@@ -1293,9 +1456,7 @@
             <li>บัตรสมาชิกแสดงสถานะ Authorized Partner</li>
           </ul>
         </div>
-
-        <!-- Tier 3: Premium -->
-        <div class="gfs-tier-card premium-tier">
+              <div class="gfs-tier-card premium-tier">
           <span class="gfs-tier-badge" style="background:var(--gfs-red);">ระดับสูงสุด 🏆</span>
           <h4>Premium Partner</h4>
           <p class="gfs-tier-desc">ระดับสูงสุดสำหรับคู่ค้ารายใหญ่ โครงการ ผู้รับเหมา หรือผู้ผลิตเฟอร์นิเจอร์รายใหญ่</p>
@@ -1424,9 +1585,16 @@
           <a href="#s4">04 ความพร้อมทีมขาย/ติดตั้ง</a>
           <a href="#s5">05 สินค้าที่สนใจ</a>
           <a href="#s6">06 เป้าหมายการขาย</a>
-          <a href="#s7">ช่องทางที่ทราบข่าว</a>
-          <a href="#s8">Consent / PDPA</a>
+          <a href="#s7">07 ช่องทางที่ทราบข่าว</a>
+          <a href="#s8">08 ยินยอมและรับรอง (Consent)</a>
         </nav>
+
+        <div class="gfs-print-sidebar-action" style="margin-top: 22px; padding: 0 12px;">
+          <button type="button" onclick="window.print()" class="gfs-btn gfs-btn-outline" style="width: 100%; border-color: var(--gfs-navy); color: var(--gfs-navy); background: #f0f7ff; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; border-radius: 12px; font-weight: 700; cursor: pointer; box-shadow: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            พิมพ์ใบสมัคร / บันทึก PDF
+          </button>
+        </div>
 
       </aside>
 
@@ -2035,7 +2203,7 @@
         });
 
         Promise.all(filePromises).then(() => {
-          const webAppUrl = "https://script.google.com/macros/s/AKfycbxXZzCl9hi6fP8hA6gW1u1gns1BVdMxB6o26z3EQnv8jdxvqS_vYAApFZrexpnn-1LUXg/exec"; 
+          const webAppUrl = "https://script.google.com/macros/s/AKfycbxvgamXxTrwbjhvCyzsJsOufGK6LBy-6mHp8zmnZ9VBMGFC1zVucsNfVFgR873Hkv39/exec"; 
           
           if (webAppUrl === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
             console.log('Dealer Registration Payload (Preview):', data);
@@ -2103,21 +2271,30 @@
           const settings = JSON.parse(storedSettings);
           // Update Registered Partner
           if (settings.registered) {
-            document.getElementById('tier-reg-target').textContent = settings.registered.target || 'ไม่มีขั้นต่ำ';
-            document.getElementById('tier-reg-discount').textContent = settings.registered.discount ? settings.registered.discount + '%' : '10%';
-            document.getElementById('tier-reg-credit').textContent = settings.registered.credit || 'เงินสด (Cash)';
+            const regTarget = document.getElementById('tier-reg-target');
+            if (regTarget) regTarget.textContent = settings.registered.target || 'ไม่มีขั้นต่ำ';
+            const regDiscount = document.getElementById('tier-reg-discount');
+            if (regDiscount) regDiscount.textContent = settings.registered.discount ? settings.registered.discount + '%' : '10%';
+            const regCredit = document.getElementById('tier-reg-credit');
+            if (regCredit) regCredit.textContent = settings.registered.credit || 'เงินสด (Cash)';
           }
           // Update Authorized Partner
           if (settings.authorized) {
-            document.getElementById('tier-auth-target').textContent = settings.authorized.target ? (isNaN(Number(settings.authorized.target)) ? settings.authorized.target : Number(settings.authorized.target).toLocaleString() + ' บาท') : '50,000 บาท';
-            document.getElementById('tier-auth-discount').textContent = settings.authorized.discount ? settings.authorized.discount + '%' : '20%';
-            document.getElementById('tier-auth-credit').textContent = settings.authorized.credit || '30 วัน (30 Days)';
+            const authTarget = document.getElementById('tier-auth-target');
+            if (authTarget) authTarget.textContent = settings.authorized.target ? (isNaN(Number(settings.authorized.target)) ? settings.authorized.target : Number(settings.authorized.target).toLocaleString() + ' บาท') : '50,000 บาท';
+            const authDiscount = document.getElementById('tier-auth-discount');
+            if (authDiscount) authDiscount.textContent = settings.authorized.discount ? settings.authorized.discount + '%' : '20%';
+            const authCredit = document.getElementById('tier-auth-credit');
+            if (authCredit) authCredit.textContent = settings.authorized.credit || '30 วัน (30 Days)';
           }
           // Update Premium Partner
           if (settings.premium) {
-            document.getElementById('tier-prem-target').textContent = settings.premium.target ? (isNaN(Number(settings.premium.target)) ? settings.premium.target : Number(settings.premium.target).toLocaleString() + ' บาท') : '150,000 บาท';
-            document.getElementById('tier-prem-discount').textContent = settings.premium.discount ? settings.premium.discount + '%' : '30%';
-            document.getElementById('tier-prem-credit').textContent = settings.premium.credit || '30/45 วัน';
+            const premTarget = document.getElementById('tier-prem-target');
+            if (premTarget) premTarget.textContent = settings.premium.target ? (isNaN(Number(settings.premium.target)) ? settings.premium.target : Number(settings.premium.target).toLocaleString() + ' บาท') : '150,000 บาท';
+            const premDiscount = document.getElementById('tier-prem-discount');
+            if (premDiscount) premDiscount.textContent = settings.premium.discount ? settings.premium.discount + '%' : '30%';
+            const premCredit = document.getElementById('tier-prem-credit');
+            if (premCredit) premCredit.textContent = settings.premium.credit || '30/45 วัน';
           }
         } catch (e) {
           console.error('Error parsing gfsAdminSettings:', e);
