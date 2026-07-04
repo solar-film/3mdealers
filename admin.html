@@ -1667,6 +1667,33 @@
       }
     }
 
+    /* Custom Alert */
+    .custom-alert-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15,23,42,0.6); backdrop-filter: blur(4px);
+      z-index: 10000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: 0.3s ease;
+    }
+    .custom-alert-overlay.show { opacity: 1; visibility: visible; }
+    .custom-alert-box {
+      background: white; border-radius: 16px; padding: 32px;
+      width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      transform: scale(0.95) translateY(10px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-align: center;
+    }
+    .custom-alert-overlay.show .custom-alert-box { transform: scale(1) translateY(0); }
+    .custom-alert-icon {
+      width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px auto;
+    }
+    .custom-alert-icon.error { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+    .custom-alert-icon.success { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .custom-alert-msg { font-size: 16px; color: var(--gfs-ink); margin-bottom: 32px; line-height: 1.5; }
+    .custom-alert-btn {
+      background: var(--gfs-primary); color: white; border: none; padding: 12px 24px; border-radius: 8px;
+      font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s;
+    }
+    .custom-alert-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,60,110,0.3); }
   </style>
 </head>
 <body>
@@ -2161,7 +2188,7 @@
         },
         error: function() {
           emptyState.style.display = 'flex';
-          alert('ไม่สามารถดึงข้อมูลจาก Google Sheets ได้ กรุณาลองรีเฟรชหน้าเว็บอีกครั้ง');
+          customAlert('ไม่สามารถดึงข้อมูลจาก Google Sheets ได้ กรุณาลองรีเฟรชหน้าเว็บอีกครั้ง');
         }
       });
     }
@@ -2600,7 +2627,7 @@
          btn.textContent = 'บันทึกไม่สำเร็จ';
          btn.style.background = 'var(--gfs-red)';
          btn.style.opacity = '1';
-         alert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+         customAlert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
          return;
       }
 
@@ -2669,13 +2696,13 @@
       const adminNotesInput = document.getElementById('adminNotes');
       
       if (!newTrackingStatus) {
-         alert('กรุณาระบุ "สถานะการติดตาม"');
+         customAlert('กรุณาระบุ "สถานะการติดตาม"', 'error');
          btn.textContent = originalText;
          btn.style.opacity = '1';
          return;
       }
       if (!newAdminName) {
-         alert('กรุณาระบุ "แอดมินที่ติดต่อลูกค้า"');
+         customAlert('กรุณาระบุ "แอดมินที่ติดต่อลูกค้า"', 'error');
          btn.textContent = originalText;
          btn.style.opacity = '1';
          return;
@@ -2755,7 +2782,7 @@
          btn.textContent = 'บันทึกไม่สำเร็จ';
          btn.style.background = 'var(--gfs-red)';
          btn.style.opacity = '1';
-         alert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+         customAlert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
          return;
       }
 
@@ -3142,21 +3169,21 @@
       sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(mockRows));
       processRows(mockRows);
 
-      alert('นำเข้าข้อมูลพาร์ทเนอร์ B2B จำลองจำนวน 7 รายการสำเร็จ! (หน้า Dashboard และ Leads จะเปลี่ยนแสดงผลตามข้อมูลนี้)');
+      customAlert('นำเข้าข้อมูลพาร์ทเนอร์ B2B จำลองจำนวน 7 รายการสำเร็จ! <br> <span style="font-size:13px">(หน้า Dashboard และ Leads จะเปลี่ยนแสดงผลตามข้อมูลนี้)</span>', 'success');
       switchTab('leads');
     }
 
     function clearLocalData() {
-      if (confirm('คุณต้องการล้างข้อมูลตั้งค่าระบบ, สถานะพาร์ทเนอร์ และ Checklist ทั้งหมดใช่หรือไม่? (ประวัติการคัดกรองจะถูกรีเซ็ตกลับเป็นค่าเริ่มต้น)')) {
+      customConfirm('คุณต้องการล้างข้อมูลตั้งค่าระบบ, สถานะพาร์ทเนอร์ และ Checklist ทั้งหมดใช่หรือไม่?<br><span style="font-size:13px;color:var(--gfs-muted);">(ประวัติการคัดกรองจะถูกรีเซ็ตกลับเป็นค่าเริ่มต้น)</span>', () => {
         localStorage.removeItem('gfsAdminLeads');
         localStorage.removeItem('gfsAdminSettings');
         sessionStorage.removeItem('gfsAdminCachedRows');
         leadsData = [];
         loadData();
         loadSystemSettings();
-        alert('ล้างข้อมูลเรียบร้อยระบบทำการรีโหลด...');
-        window.location.reload();
-      }
+        customAlert('ล้างข้อมูลเรียบร้อย ระบบทำการรีโหลด...', 'success');
+        setTimeout(() => window.location.reload(), 1500);
+      });
     }
 
     function populateProvinceFilter() {
@@ -3307,6 +3334,69 @@
     loadSystemSettings();
     loadData();
 
+  </script>
+  <div class="custom-alert-overlay" id="customAlertOverlay">
+    <div class="custom-alert-box">
+      <div id="customAlertIcon" class="custom-alert-icon error"></div>
+      <div id="customAlertMsg" class="custom-alert-msg">ข้อความแจ้งเตือน</div>
+      <button class="custom-alert-btn" onclick="closeCustomAlert()">ตกลง</button>
+    </div>
+  </div>
+
+  <div class="custom-alert-overlay" id="customConfirmOverlay">
+    <div class="custom-alert-box">
+      <div class="custom-alert-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      </div>
+      <div id="customConfirmMsg" class="custom-alert-msg" style="margin-bottom: 24px;">ยืนยันหรือไม่?</div>
+      <div style="display: flex; gap: 12px;">
+        <button id="customConfirmBtn" class="custom-alert-btn" style="flex: 1;">ตกลง</button>
+        <button class="custom-alert-btn" onclick="closeCustomConfirm()" style="flex: 1; background: #e2e8f0; color: #475569;">ยกเลิก</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function customAlert(msg, type = 'error') {
+       const overlay = document.getElementById('customAlertOverlay');
+       const iconDiv = document.getElementById('customAlertIcon');
+       const msgDiv = document.getElementById('customAlertMsg');
+       
+       msgDiv.innerHTML = msg;
+       if (type === 'error') {
+          iconDiv.className = 'custom-alert-icon error';
+          iconDiv.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+       } else {
+          iconDiv.className = 'custom-alert-icon success';
+          iconDiv.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
+       }
+       overlay.classList.add('show');
+    }
+    
+    let confirmCallback = null;
+    function customConfirm(msg, callback) {
+       const overlay = document.getElementById('customConfirmOverlay');
+       const msgDiv = document.getElementById('customConfirmMsg');
+       const btn = document.getElementById('customConfirmBtn');
+       
+       msgDiv.innerHTML = msg;
+       confirmCallback = callback;
+       
+       btn.onclick = function() {
+          closeCustomConfirm();
+          if(confirmCallback) confirmCallback();
+       };
+       
+       overlay.classList.add('show');
+    }
+    
+    function closeCustomConfirm() {
+       document.getElementById('customConfirmOverlay').classList.remove('show');
+    }
+
+    function closeCustomAlert() {
+       document.getElementById('customAlertOverlay').classList.remove('show');
+    }
   </script>
 </body>
 </html>
