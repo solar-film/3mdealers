@@ -1854,7 +1854,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
               </button>
             </div>
-            <p id="dhContact">คุณสมชาย ใจดี</p>
+            <p id="dhContact" style="display:none;"></p>
+            <div id="dhTags" style="display: flex; justify-content: center; gap: 8px; margin-top: 12px; flex-wrap: wrap;"></div>
           </div>
           <div class="detail-body">
             <div class="detail-customer-column">
@@ -2399,11 +2400,7 @@
             <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>${escapeHtml(lead.province || '-')}</span></div>
             <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Admin: ${escapeHtml(owner)}</span></div>
           </div>
-          <div class="lead-actions" onclick="event.stopPropagation()">
-            <button class="lead-action" type="button" title="โทร" onclick="window.location.href='tel:${escapeHtml(lead.phone)}'"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.35 1.89.7 2.77a2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.3-1.26a2 2 0 0 1 2.11-.45c.88.35 1.81.57 2.77.7A2 2 0 0 1 22 16.92Z"></path></svg></button>
-            <button class="lead-action" type="button" title="LINE"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#14b849" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 8.7 8.7 0 0 1-3-.53L3 21l1.65-4.65A8.3 8.3 0 0 1 3 11.5 8.6 8.6 0 0 1 12 3a8.6 8.6 0 0 1 9 8.5Z"></path></svg></button>
-            <button class="lead-action" type="button" title="ดูรายละเอียด" onclick="openPanel('${safeId}')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.06 12.35a1 1 0 0 1 0-.7A11.8 11.8 0 0 1 12 5a11.8 11.8 0 0 1 9.94 6.65 1 1 0 0 1 0 .7A11.8 11.8 0 0 1 12 19a11.8 11.8 0 0 1-9.94-6.65Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-          </div>
+
         </article>
       `;
     }
@@ -2469,7 +2466,23 @@
       const titleContact = lead.contact || '-';
       const titleCompany = lead.company || '-';
       document.getElementById('dhCompany').textContent = `${titleContact} | ${titleCompany}`;
-      document.getElementById('dhContact').textContent = '';
+      
+      const tagsContainer = document.getElementById('dhTags');
+      tagsContainer.innerHTML = '';
+      
+      const tStatus = lead.trackingStatus || '';
+      const cGroup = lead.customerGroup || '';
+      const tier = lead.tier || '';
+      
+      if (tStatus) {
+         tagsContainer.innerHTML += `<span style="background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">สถานะ: ${escapeHtml(tStatus)}</span>`;
+      }
+      if (cGroup) {
+         tagsContainer.innerHTML += `<span style="background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">กลุ่มลูกค้า: ${escapeHtml(cGroup)}</span>`;
+      }
+      if (tier) {
+         tagsContainer.innerHTML += `<span style="background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">พาร์ทเนอร์: ${escapeHtml(tier)}</span>`;
+      }
       
       // Render Dynamic Fields
       const container = document.getElementById('dynamicFieldsContainer');
