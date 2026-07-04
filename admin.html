@@ -767,34 +767,134 @@
     .dev-btn-secondary:hover {
       background: var(--gfs-soft);
     }
+  
+    /* Detail Panel Premium Styles */
+    .edit-mode-btn {
+      background: var(--gfs-blue);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(27,54,93,0.1);
+      transition: all 0.2s;
+    }
+    .edit-mode-btn:hover {
+      background: var(--gfs-navy);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(27,54,93,0.2);
+    }
+    
+    #dynamicFieldsContainer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 24px;
+      row-gap: 16px;
+      padding-top: 10px;
+    }
+    
+    .dynamic-field-row {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .dynamic-field-label {
+      font-size: 12px;
+      color: var(--gfs-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .dynamic-field-input {
+      font-size: 14px;
+      font-family: 'Sarabun', sans-serif;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    
+    .dynamic-field-input[readonly] {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--gfs-navy);
+      font-weight: 500;
+      padding: 4px 0;
+      outline: none;
+    }
+    
+    .dynamic-field-input:not([readonly]) {
+      border: 1px solid var(--gfs-line);
+      background: #f8fafc;
+      color: var(--gfs-navy);
+      padding: 8px 12px;
+      border-radius: 6px;
+      outline: none;
+    }
+    
+    .dynamic-field-input:not([readonly]):focus {
+      border-color: var(--gfs-blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      background: white;
+    }
+    
+    .section-title {
+      grid-column: 1 / -1;
+      font-weight: 600;
+      color: var(--gfs-blue);
+      margin-top: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gfs-sky);
+      font-size: 15px;
+    }
+
+    .btn-action-shortcut {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      background: var(--gfs-sky);
+      color: var(--gfs-blue);
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 8px;
+      transition: background 0.2s;
+    }
+    .btn-action-shortcut:hover {
+      background: #dbeafe;
+    }
+
+  
+    /* Responsive Adjustments for Mobile & Tablets */
+    @media (max-width: 768px) {
+      .detail-panel {
+        width: 100%;
+        max-width: 100vw;
+        margin-right: -100vw;
+      }
+      #dynamicFieldsContainer {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+      }
+      .table-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .table-toolbar input {
+        width: 100%;
+      }
+      td, th {
+        padding: 12px 16px;
+      }
+    }
+
   </style>
 </head>
 <body>
-
-  <!-- Sidebar -->
-  <aside class="admin-sidebar">
-    <div class="admin-brand">
-      <span>GOODFILM ADMIN</span>
-    </div>
-    <nav class="admin-nav">
-      <a class="admin-nav-item active" onclick="switchTab('dashboard')" id="nav-dashboard">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-        <span>Dashboard</span>
-      </a>
-      <a class="admin-nav-item" onclick="switchTab('leads')" id="nav-leads">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        <span>Dealer Leads</span>
-      </a>
-      <a class="admin-nav-item" onclick="switchTab('settings')" id="nav-settings">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-        <span>Settings</span>
-      </a>
-      <a class="admin-nav-item" href="index.html" target="_blank" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
-        <span>แบบฟอร์ม</span>
-      </a>
-    </nav>
-  </aside>
+  <!-- Sidebar (Extracted to admin-sidebar.js) -->
+  <script src="admin-sidebar.js"></script>
 
   <!-- Main Content -->
   <main class="admin-main">
@@ -912,20 +1012,36 @@
       <div id="panel-leads" class="tab-panel" style="padding: 40px; gap: 32px; width: 100%;">
         <!-- Data Table -->
         <div class="table-container">
-          <div class="table-toolbar">
-            <input type="text" id="searchInput" placeholder="ค้นหาชื่อบริษัท หรือ เบอร์โทรศัพท์..." />
-            <div style="font-size: 14px; color: var(--gfs-muted);">ข้อมูลจำลองสำหรับการทดสอบ UI</div>
+          <div class="table-toolbar" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <input type="text" id="searchInput" placeholder="ค้นหาชื่อบริษัท หรือ เบอร์โทรศัพท์..." style="flex: 1; min-width: 250px;" />
+            
+            <select id="filterStatus" class="form-select" style="width: auto;">
+              <option value="all">สถานะทั้งหมด</option>
+              <option value="รอดำเนินการ" selected>รอดำเนินการ</option>
+              <option value="สำเร็จ">สำเร็จ</option>
+              <option value="ยกเลิก">ยกเลิก</option>
+            </select>
+
+            <select id="filterAdmin" class="form-select" style="width: auto;">
+              <option value="all">แอดมินทั้งหมด</option>
+              <option value="Ket">Ket</option>
+              <option value="Kow">Kow</option>
+              <option value="Dow">Dow</option>
+              <option value="unassigned">ยังไม่ระบุแอดมิน</option>
+            </select>
+
+            <input type="date" id="filterDate" class="form-select" style="width: auto;" title="กรองตามวันที่ลงทะเบียน" />
           </div>
           <div style="overflow-y: auto; flex: 1;">
             <table id="dataTable">
               <thead>
                 <tr>
                   <th>บริษัท / นิติบุคคล</th>
-                  <th>ผู้ติดต่อ</th>
-                  <th>เบอร์โทรศัพท์</th>
+                  <th>ผู้ติดต่อ / เบอร์โทร</th>
                   <th>สถานะ</th>
                   <th>วันที่ลงทะเบียน</th>
-                </tr>
+                  <th>แอดมิน</th>
+                  <th></th></tr>
               </thead>
               <tbody id="tableBody">
                 <!-- Rows injected by JS -->
@@ -941,89 +1057,61 @@
             <button class="close-btn" onclick="closePanel()" title="ปิดหน้าต่าง">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
+            <button class="edit-mode-btn" onclick="toggleEditMode()" id="editModeBtn" style="position: absolute; top: 16px; right: 60px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); box-shadow: none;">✏️ แก้ไขข้อมูล</button>
             <h2 id="dhCompany">บริษัท ตัวอย่าง จำกัด</h2>
             <p id="dhContact">คุณสมชาย ใจดี</p>
           </div>
           <div class="detail-body">
-            <!-- Shortcut Actions -->
-            <div style="margin-bottom: 15px; border-bottom: 1px solid var(--gfs-line); padding-bottom: 10px;">
-              <a href="#" id="shortcutLine" target="_blank" class="btn-action-shortcut">💬 ทักไลน์พาร์ทเนอร์</a>
-              <a href="#" id="shortcutEmail" target="_blank" class="btn-action-shortcut">✉️ ส่งอีเมลหา</a>
-              <a href="#" id="shortcutPrint" onclick="printDealerProfile(); return false;" class="btn-action-shortcut">🖨️ พิมพ์ข้อมูลใบสมัคร</a>
+            <div id="dynamicFieldsContainer">
+              <!-- ข้อมูลทั้งหมดจะถูก Render ที่นี่ด้วย JavaScript -->
+            </div>
+            
+            <!-- ปุ่มบันทึกการแก้ไขข้อมูล (โชว์เฉพาะตอนกดแก้ไข) -->
+            <div id="saveEditContainer" style="display: none; margin-top: 20px; text-align: right; padding-bottom: 20px; border-bottom: 1px dashed var(--gfs-line);">
+                <button class="save-btn" onclick="saveDealerData()" style="padding: 10px 20px; font-size: 14px; border-radius: 8px; width: auto; display: inline-block;">💾 บันทึกการแก้ไขข้อมูล</button>
             </div>
 
-            <div class="info-group">
-              <h3>ข้อมูลการติดต่อ</h3>
-              <div class="info-row">
-                <span class="info-label">เบอร์โทรศัพท์</span>
-                <span class="info-val" id="dPhone">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">อีเมล</span>
-                <span class="info-val" id="dEmail">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">ที่อยู่ร้านค้า / บริษัท</span>
-                <span class="info-val" id="dAddress">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Link ผลงาน / Website</span>
-                <span class="info-val"><a href="#" id="dLink" target="_blank" style="color:var(--gfs-blue)">-</a></span>
-              </div>
-            </div>
-
-            <div class="info-group">
-              <h3>ข้อมูลธุรกิจ</h3>
-              <div class="info-row">
-                <span class="info-label">ประเภทธุรกิจ</span>
-                <span class="info-val" id="dBusiness">-</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">ทีมช่างติดตั้ง</span>
-                <span class="info-val" id="dTeam">-</span>
-              </div>
-            </div>
-
-            <!-- Onboarding Checklist Tracker inside details panel -->
-            <div class="info-group">
-              <div class="detail-section-title">ขั้นตอนการ Onboarding คู่ค้า</div>
-              <div class="checklist-progress-bar">
-                <div class="checklist-progress-fill" id="chkProgressFill" style="width: 0%"></div>
-              </div>
-              <div class="checklist-list" id="checklistList">
-                <label class="checklist-item"><input type="checkbox" data-index="0" onchange="toggleChecklistItem(this)" /> <span>1. สมัครเข้าร่วม (Applied)</span></label>
-                <label class="checklist-item"><input type="checkbox" data-index="1" onchange="toggleChecklistItem(this)" /> <span>2. คัดกรองเบื้องต้น (Screened)</span></label>
-                <label class="checklist-item"><input type="checkbox" data-index="2" onchange="toggleChecklistItem(this)" /> <span>3. เซ็นสัญญาคู่ค้า (Agreement)</span></label>
-                <label class="checklist-item"><input type="checkbox" data-index="3" onchange="toggleChecklistItem(this)" /> <span>4. ส่งมอบ Partner Kit (Kit Sent)</span></label>
-                <label class="checklist-item"><input type="checkbox" data-index="4" onchange="toggleChecklistItem(this)" /> <span>5. อบรมเบื้องต้น (Trained)</span></label>
-                <label class="checklist-item"><input type="checkbox" data-index="5" onchange="toggleChecklistItem(this)" /> <span>6. ออกคำสั่งซื้อแรก (First Order)</span></label>
-                <label class="checklist-item"><input type="checkbox" data-index="6" onchange="toggleChecklistItem(this)" /> <span>7. ติดตามผลสะสม (Reviewed)</span></label>
-              </div>
-            </div>
-
-            <!-- Moved inside detail-body and added styled margins/padding to blend in -->
-            <div class="action-group" style="background: #f8fafc; margin: 24px -24px -24px -24px; padding: 24px; border-top: 1px solid var(--gfs-line);">
-              <label for="statusSelect">อัพเดทสถานะการอนุมัติ</label>
-              <select id="statusSelect" class="form-select" style="margin-bottom: 12px;">
-                <option value="new">🆕 รอดำเนินการ (New)</option>
-                <option value="contacting">☎️ กำลังติดต่อ (Contacting)</option>
-                <option value="inprogress">⏳ กำลังพิจารณา (In Progress)</option>
-                <option value="approved">✅ อนุมัติแล้ว (Approved)</option>
-                <option value="rejected">❌ ไม่อนุมัติ (Rejected)</option>
+            <!-- Action Group -->
+            <div class="action-group" style="background: linear-gradient(180deg, #f4f9ff 0%, #e6f0fa 100%); margin: 24px -24px -24px -24px; padding: 24px; border-top: 3px solid var(--gfs-blue); border-radius: 0 0 16px 16px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
+              <label for="adminName">แอดมินที่ติดต่อลูกค้า (Admin in charge)</label>
+              <select id="adminName" class="form-select" style="margin-bottom: 12px;">
+                <option value="">-- ระบุชื่อแอดมิน --</option>
+                <option value="Ket">Ket</option>
+                <option value="Kow">Kow</option>
+                <option value="Dow">Dow</option>
               </select>
 
-              <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
-              <select id="tierSelect" class="form-select" style="margin-bottom: 20px;">
-                <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
-                <option value="registered">Registered Partner</option>
-                <option value="authorized">Authorized Partner</option>
-                <option value="premium">Premium Partner</option>
+              <label for="trackingStatus">สถานะการติดตาม (Tracking Status)</label>
+              <select id="trackingStatus" class="form-select" style="margin-bottom: 12px;" onchange="handleTrackingStatusChange()">
+                <option value="รอดำเนินการ">รอดำเนินการ (โทร/ทักแล้วยังไม่ตอบ)</option>
+                <option value="สำเร็จ">สำเร็จ (ติดต่อแล้วอัพเดตกลุ่มลูกค้า)</option>
+                <option value="ยกเลิก">ยกเลิก (บอกเหตุผลด้วย)</option>
               </select>
+
+              <div id="customerGroupContainer" style="display: none;">
+                <label for="customerGroup">กลุ่มลูกค้า (Customer Group)</label>
+                <select id="customerGroup" class="form-select" style="margin-bottom: 12px;" onchange="handleCustomerGroupChange()">
+                  <option value="" disabled selected>-- เลือกกลุ่มลูกค้า --</option>
+                  <option value="Target">Target (สอบถาม ต้องการข้อมูล ราคา แต่ยังไม่ตัดสินใจ)</option>
+                  <option value="Member">Member (สั่งซื้อราคาพิเศษ แต่ไม่สนใจสมัคร *ไม่มีข้อผูกมัด)</option>
+                  <option value="Partner">Partner (สนใจสมัคร Partner จริงๆ *ตามเงื่อนไข)</option>
+                </select>
+              </div>
+
+              <div id="tierContainer" style="display: none;">
+                <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
+                <select id="tierSelect" class="form-select" style="margin-bottom: 12px;">
+                  <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
+                  <option value="registered">Registered Partner</option>
+                  <option value="authorized">Authorized Partner</option>
+                  <option value="premium">Premium Partner</option>
+                </select>
+              </div>
               
-              <label for="adminNotes">คำถามเพิ่มเติม / บันทึกของแอดมิน (Admin Notes)</label>
-              <textarea id="adminNotes" class="form-textarea" placeholder="พิมพ์ข้อความที่ต้องสอบถามลูกค้าเพิ่มเติม หรือบันทึกสถานะการติดต่อ..."></textarea>
+              <label for="adminNotes">บันทึกของแอดมิน (Admin Notes)</label>
+              <textarea id="adminNotes" class="form-textarea" placeholder="บันทึกข้อมูลเพิ่มเติม..."></textarea>
               
-              <button class="save-btn" onclick="saveAdminData()">บันทึกข้อมูล</button>
+              <button class="save-btn" onclick="saveAdminData()">บันทึกส่วนแอดมินติดตาม</button>
             </div>
           </div>
         </div>
@@ -1082,6 +1170,8 @@
   <script>
     let leadsData = [];
     let currentLeadId = null;
+    let isEditMode = false;
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-HnrJTqkK9j-esE2eZgPFmVAU_9PXGadxzE_jK8C8WzeAFcrZkFsx4aQRyrvJICSI/exec'; // Web App URL ของคุณ
     
     // Tab switching logic
     function switchTab(tabName) {
@@ -1132,6 +1222,16 @@
       return phone;
     }
 
+    
+    const importantFields = [
+      'ประทับเวลา', 'ชื่อ-นามสกุล', 'เบอร์โทรศัพท์', 'Line ID', 'Email',
+      'ชื่อบริษัท/ร้านค้า/ทีมงาน', 'เลขประจำตัวผู้เสียภาษี', 'ประเภทธุรกิจ',
+      'ประเภทธุรกิจ(อื่นๆ)', 'ช่องทางออนไลน์ที่ใช้งาน', 'จังหวัดหลักที่ตั้งร้าน/ทีมงาน',
+      'เขต/อำเภอ', 'มีทีมช่างติดตั้งของตนเองหรือไม่', 'จำนวนทีมช่าง',
+      'ปัจจุบันรับงานฟิล์มอาคารหรือไม่', 'ความต้องการอบรม', 'กลุ่มลูกค้าหลักที่ให้บริการ',
+      'คาดว่าจะเริ่มสั่งซื้อเมื่อไหร่', 'รายละเอียดเพิ่มเติม'
+    ];
+
     function processRows(rows) {
       if (!rows || !Array.isArray(rows)) return;
 
@@ -1139,288 +1239,454 @@
       let localData = {};
       if (stored) {
         try {
-          const parsed = JSON.parse(stored);
-          if (parsed && Array.isArray(parsed)) {
-            parsed.forEach(p => {
-              localData[p.id] = {
-                status: p.status,
-                notes: p.notes,
-                tier: p.tier || 'pending',
-                checklist: p.checklist || [true, false, false, false, false, false, false]
-              };
-            });
-          } else if (parsed && typeof parsed === 'object') {
-            localData = parsed;
-          }
+          localData = JSON.parse(stored) || {};
         } catch(e) {}
       }
 
       leadsData = [];
       
       rows.forEach(row => {
-        const timestamp = row['ประทับเวลา'] || row['Timestamp'];
-        if (!row || !timestamp) return; // Skip empty rows
+        const timestamp = row['ประทับเวลา'] || row['Timestamp'] || '';
+        if (!row || !timestamp) return;
         
         const id = row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'] || timestamp;
-        const localLead = localData[id] || { status: 'new', notes: '', tier: 'pending', checklist: [true, false, false, false, false, false, false] };
+        const localLead = localData[id] || {};
         
+        // ผสานข้อมูล Local overrides เข้ากับข้อมูลดิบจาก CSV
+        const mergedRawData = { ...row };
+        if(localLead.overrides) {
+           Object.assign(mergedRawData, localLead.overrides);
+        }
+
+        const vals = Object.values(row);
+        const colAK = vals.length > 36 ? String(vals[36]).trim() : '';
+        const colAL = vals.length > 37 ? String(vals[37]).trim() : '';
+        const colAM = vals.length > 38 ? String(vals[38]).trim() : '';
+        const colAN = vals.length > 39 ? String(vals[39]).trim() : '';
+
         leadsData.push({
           id: id,
-          company: row['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || row['ชื่อ-นามสกุล'] || row['Company'] || row['Name'] || '-',
-          contact: row['ชื่อ-นามสกุล'] || row['Name'] || '-',
-          phone: formatPhone(row['เบอร์โทรศัพท์'] || row['Phone'] || '-'),
-          email: row['Email'] || row['email'] || '-',
-          address: row['ที่อยู่สำหรับจัดส่งเอกสาร'] || row['Address'] || '-',
-          province: row['จังหวัดหลักที่ตั้งร้าน/ทีมงาน'] || row['Province'] || '-',
-          link: row['ช่องทางออนไลน์ที่ใช้งาน'] || row['Website/Social'] || '-',
-          business: row['ประเภทธุรกิจ'] || row['Business Type'] || '-',
-          team: row['มีทีมช่างติดตั้งของตนเองหรือไม่'] || row['Has Installers'] || '-',
-          date: String(timestamp || '').split(' ')[0].replace(/,/g, ''), 
-          status: localLead.status || 'new',
-          notes: localLead.notes || '',
-          tier: localLead.tier || 'pending',
-          checklist: localLead.checklist || [true, false, false, false, false, false, false]
+          rawData: mergedRawData,
+          
+          company: mergedRawData['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || mergedRawData['ชื่อ-นามสกุล'] || '-',
+          contact: mergedRawData['ชื่อ-นามสกุล'] || '-',
+          phone: formatPhone(mergedRawData['เบอร์โทรศัพท์'] || '-'),
+          email: mergedRawData['Email'] || '-',
+          address: mergedRawData['ที่อยู่สำหรับจัดส่งเอกสาร'] || '-',
+          province: mergedRawData['จังหวัดหลักที่ตั้งร้าน/ทีมงาน'] || '-',
+          link: mergedRawData['ช่องทางออนไลน์ที่ใช้งาน'] || '-',
+          business: mergedRawData['ประเภทธุรกิจ'] || '-',
+          team: mergedRawData['มีทีมช่างติดตั้งของตนเองหรือไม่'] || '-',
+          date: String(timestamp).split(' ')[0].replace(/,/g, ''), 
+          
+          customerGroup: localLead.customerGroup || (colAL !== '' ? colAL : 'ลูกค้าใหม่'),
+          trackingStatus: localLead.trackingStatus || (colAK !== '' ? colAK : 'รอดำเนินการ'),
+          adminName: localLead.adminName || (colAM !== '' ? colAM : ''),
+          notes: localLead.notes || (colAN !== '' ? colAN : ''),
+          tier: localLead.tier || 'pending'
         });
       });
       
-      leadsData.reverse(); // Newest first
-      renderTable(leadsData);
-      renderDashboard(); // Recalculate dashboard
+      leadsData.sort((a, b) => {
+         const toValue = (str) => {
+            if (!str) return 0;
+            const dMatch = String(str).match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+            if (dMatch) {
+               const year = dMatch[3];
+               const month = dMatch[2].padStart(2, '0');
+               const day = dMatch[1].padStart(2, '0');
+               const tMatch = String(str).match(/(\d{1,2}):(\d{1,2})(:(\d{1,2}))?/);
+               const h = tMatch ? tMatch[1].padStart(2, '0') : '00';
+               const m = tMatch ? tMatch[2].padStart(2, '0') : '00';
+               const s = (tMatch && tMatch[4]) ? tMatch[4].padStart(2, '0') : '00';
+               return parseInt(`${year}${month}${day}${h}${m}${s}`, 10);
+            }
+            return new Date(str).getTime() || 0;
+         };
+         const timeA = a.rawData['ประทับเวลา'] || a.rawData['Timestamp'] || '';
+         const timeB = b.rawData['ประทับเวลา'] || b.rawData['Timestamp'] || '';
+         return toValue(timeB) - toValue(timeA);
+      });
+      applyFilters(); 
+      renderDashboard(); 
     }
 
-    // Load data from Google Sheets CSV
     function loadData() {
       const csvUrl = 'https://docs.google.com/spreadsheets/d/1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q/export?format=csv&gid=31340732';
       const emptyState = document.getElementById('emptyState');
       
-      // Fast Render (Stale-While-Revalidate)
       const cachedData = sessionStorage.getItem('gfsAdminCachedRows');
       if (cachedData) {
         try {
           processRows(JSON.parse(cachedData));
-          document.querySelector('.table-toolbar div').innerHTML = `<span style="color:#f59e0b;font-weight:600;">กำลังอัปเดตข้อมูล...</span>`;
-        } catch(e) {}
-      } else {
-        emptyState.innerHTML = '<div class="spinner"></div>กำลังโหลดข้อมูล...';
-        emptyState.style.display = 'block';
+          emptyState.style.display = 'none';
+        } catch(e){}
       }
-      
-      // Fetch fresh data in background
+
       Papa.parse(csvUrl, {
         download: true,
         header: true,
+        skipEmptyLines: true,
         complete: function(results) {
-          sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(results.data));
-          processRows(results.data);
-          document.querySelector('.table-toolbar div').textContent = `ข้อมูลจาก Google Sheets (${leadsData.length} รายการ)`;
-        },
-        error: function(err) {
-          console.error("Error fetching data:", err);
-          if (!cachedData) {
-             emptyState.innerHTML = 'เกิดข้อผิดพลาดในการโหลดข้อมูล โปรดตรวจสอบการตั้งค่าแชร์ Google Sheets';
+          if (results.data && results.data.length > 0) {
+            sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(results.data));
+            processRows(results.data);
+            emptyState.style.display = 'none';
+          } else {
+            if (!cachedData) emptyState.style.display = 'flex';
           }
+        },
+        error: function() {
+          if (!cachedData) emptyState.style.display = 'flex';
         }
       });
     }
 
-    function saveToLocalStorage() {
-      const localData = {};
-      leadsData.forEach(l => {
-        if(l.status !== 'new' || l.notes !== '' || l.tier !== 'pending' || (l.checklist && l.checklist.some((c, idx) => idx > 0 && c))) {
-           localData[l.id] = {
-             status: l.status,
-             notes: l.notes,
-             tier: l.tier || 'pending',
-             checklist: l.checklist || [true, false, false, false, false, false, false]
-           };
-        }
-      });
-      localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
+    function handleTrackingStatusChange() {
+       const status = document.getElementById('trackingStatus').value;
+       const cgContainer = document.getElementById('customerGroupContainer');
+       if(status === 'สำเร็จ') {
+         cgContainer.style.display = 'block';
+       } else {
+         cgContainer.style.display = 'none';
+       }
     }
 
-    const statusMap = {
-      'new': { text: 'รอดำเนินการ', class: 'status-new' },
-      'contacting': { text: 'กำลังติดต่อ', class: 'status-contacting' },
-      'inprogress': { text: 'พิจารณา', class: 'status-inprogress' },
-      'approved': { text: 'อนุมัติ', class: 'status-approved' },
-      'rejected': { text: 'ไม่อนุมัติ', class: 'status-rejected' }
-    };
+    function handleCustomerGroupChange() {
+       const group = document.getElementById('customerGroup').value;
+       const tierContainer = document.getElementById('tierContainer');
+       if(group === 'Partner') {
+         tierContainer.style.display = 'block';
+       } else {
+         tierContainer.style.display = 'none';
+       }
+    }
 
+    function toggleEditMode() {
+      isEditMode = !isEditMode;
+      const panel = document.getElementById('detailPanel');
+      const btn = document.getElementById('editModeBtn');
+      const inputs = panel.querySelectorAll('.dynamic-field-input');
+      
+      const saveEditContainer = document.getElementById('saveEditContainer');
+      
+      if(isEditMode) {
+         panel.classList.add('is-editing');
+         btn.innerHTML = '❌ ยกเลิก';
+         btn.style.background = 'var(--gfs-warning)';
+         btn.style.color = 'var(--gfs-navy)';
+         btn.style.border = 'none';
+         saveEditContainer.style.display = 'block';
+         inputs.forEach(input => {
+            const key = input.getAttribute('data-key');
+            const excludedKeys = ['ประทับเวลา', 'สถานะ', 'กลุ่มลูกค้า'];
+            if(!excludedKeys.includes(key) && (key || '').toUpperCase() !== 'CUST_ID') {
+               input.removeAttribute('readonly');
+            }
+         });
+      } else {
+         panel.classList.remove('is-editing');
+         btn.innerHTML = '✏️ แก้ไขข้อมูล';
+         btn.style.background = 'rgba(255,255,255,0.2)';
+         btn.style.color = 'white';
+         btn.style.border = '1px solid rgba(255,255,255,0.4)';
+         saveEditContainer.style.display = 'none';
+         inputs.forEach(input => {
+            input.setAttribute('readonly', true);
+            // Revert changes if cancelled
+            input.value = input.getAttribute('data-original');
+         });
+      }
+    }
+
+    
     function renderTable(data) {
       const tbody = document.getElementById('tableBody');
-      const emptyState = document.getElementById('emptyState');
+      if(!tbody) return;
       tbody.innerHTML = '';
-
       if (data.length === 0) {
-        emptyState.style.display = 'block';
         return;
       }
-      emptyState.style.display = 'none';
-
       data.forEach(lead => {
         const tr = document.createElement('tr');
-        const st = statusMap[lead.status] || statusMap['new'];
         
+        let statusBadge = '';
+        if (lead.trackingStatus === 'สำเร็จ') {
+          statusBadge = '<span style="background: #ecfdf5; color: #059669; border: 1px solid #34d399; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> สำเร็จ</span>';
+        } else if (lead.trackingStatus === 'ยกเลิก') {
+          statusBadge = '<span style="background: #fef2f2; color: #dc2626; border: 1px solid #f87171; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> ยกเลิก</span>';
+        } else {
+          statusBadge = '<span style="background: #fffbeb; color: #d97706; border: 1px solid #fbbf24; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> รอดำเนินการ</span>';
+        }
+
+        let tierBadge = '';
+        if (lead.customerGroup === 'Partner') {
+           let tierName = '';
+           if (lead.tier === 'premium') tierName = 'Premium';
+           else if (lead.tier === 'authorized') tierName = 'Authorized';
+           else if (lead.tier === 'registered') tierName = 'Registered';
+           
+           if (tierName) {
+              tierBadge = `<div style="margin-bottom: 6px;"><span style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; box-shadow: 0 2px 4px rgba(59,130,246,0.3); display: inline-flex; align-items: center; gap: 4px;">💎 ${tierName}</span></div>`;
+           }
+        }
+
         tr.innerHTML = `
-          <td style="font-weight: 600;">${lead.company}</td>
-          <td>${lead.contact}</td>
-          <td>${lead.phone}</td>
-          <td><span class="status-badge ${st.class}">${st.text}</span></td>
-          <td style="color: var(--gfs-muted);">${lead.date}</td>
-        `;
-        
-        tr.onclick = () => openPanel(lead.id);
+          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line);">
+            <div style="font-weight: 600; color: var(--gfs-navy); margin-bottom: 2px;">${lead.company}</div>
+            <div style="font-size: 13px; color: var(--gfs-text-light);">${lead.province}</div>
+          </td>
+          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); font-size: 14px;">
+            <div style="font-weight: 500; color: var(--gfs-navy); margin-bottom: 4px;">${lead.contact}</div>
+            <div style="font-size: 13px; color: var(--gfs-text-light);">📞 <span style="color: var(--gfs-blue); font-weight: 500;">${lead.phone}</span></div>
+          </td>
+          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line);">
+            <div style="font-weight: 500; color: var(--gfs-navy); margin-bottom: 6px;">${lead.customerGroup}</div>
+            ${tierBadge}
+            ${statusBadge}
+          </td>
+          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); font-size: 13px; color: var(--gfs-text-light);">
+            ${lead.date}
+          </td>
+          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); font-size: 13px;">
+            ${lead.adminName ? `<span style="background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 20px; font-weight: 600;">👤 ${lead.adminName}</span>` : '<span style="color:#cbd5e1;">-</span>'}
+          </td>
+          <td style="padding: 16px 24px; border-bottom: 1px solid var(--gfs-line); text-align: right;">
+            <button class="btn-primary" style="padding: 6px 12px; background: white; color: var(--gfs-blue); border: 1px solid var(--gfs-blue); border-radius: 4px; cursor: pointer; font-family: inherit;" onclick="openPanel('${lead.id}')">ดูรายละเอียด</button>
+          </td>`;
         tbody.appendChild(tr);
       });
     }
 
-    // Panel Logic
-    const panel = document.getElementById('detailPanel');
-    
     function openPanel(id) {
-      const lead = leadsData.find(l => l.id === id);
-      if(!lead) return;
+      if (currentLeadId === id) { closePanel(); return; }
       currentLeadId = id;
+      isEditMode = false;
+      document.getElementById('detailPanel').classList.remove('is-editing');
+      document.getElementById('editModeBtn').innerHTML = '✏️ แก้ไขข้อมูล';
+      document.getElementById('editModeBtn').style.background = 'rgba(255,255,255,0.2)';
+      document.getElementById('editModeBtn').style.color = 'white';
+      document.getElementById('editModeBtn').style.border = '1px solid rgba(255,255,255,0.4)';
 
-      // Populate data
+      const lead = leadsData.find(l => l.id === id);
+      if (!lead) return;
+
+      const rows = document.querySelectorAll('#tableBody tr');
+      rows.forEach(r => r.style.background = '');
+      const activeRow = Array.from(rows).find(r => {
+         const btn = r.querySelector('td:last-child button');
+         return btn && btn.getAttribute('onclick').includes(id);
+      });
+      if (activeRow) activeRow.style.background = 'var(--gfs-sky)';
+
+      const panel = document.getElementById('detailPanel');
       document.getElementById('dhCompany').textContent = lead.company;
       document.getElementById('dhContact').textContent = lead.contact;
-      document.getElementById('dPhone').textContent = lead.phone;
-      document.getElementById('dEmail').textContent = lead.email;
-      document.getElementById('dAddress').textContent = lead.address;
       
-      const linkEl = document.getElementById('dLink');
-      linkEl.textContent = lead.link;
-      if (lead.link !== '-') {
-        linkEl.href = lead.link;
-      } else {
-        linkEl.removeAttribute('href');
-      }
-
-      document.getElementById('dBusiness').textContent = lead.business;
-      document.getElementById('dTeam').textContent = lead.team;
+      // Render Dynamic Fields
+      const container = document.getElementById('dynamicFieldsContainer');
+      container.innerHTML = '';
+      
+      let html = '<div class="section-title">ข้อมูลผู้ลงทะเบียน</div>';
+      Object.keys(lead.rawData).forEach((key, index) => {
+         if(!key || key.trim() === '') return;
+         const upperKey = key.toUpperCase();
+         if(upperKey === 'ADMIN NOTES' || upperKey === 'ADMIN') return;
+         
+         if(index === 8) html += '<div class="section-title">ข้อมูลธุรกิจและการบริการ</div>';
+         if(index === 20) html += '<div class="section-title">ความต้องการและความสนใจ</div>';
+         
+         const val = lead.rawData[key] || '';
+         html += `
+            <div class="dynamic-field-row">
+              <span class="dynamic-field-label">${key}</span>
+              <input type="text" class="dynamic-field-input" data-key="${key}" data-original="${val}" value="${val}" readonly />
+            </div>
+         `;
+      });
+      container.innerHTML = html;
 
       // Populate Action Group
-      document.getElementById('statusSelect').value = lead.status;
-      document.getElementById('tierSelect').value = lead.tier || 'pending';
-      document.getElementById('adminNotes').value = lead.notes || '';
+      document.getElementById('trackingStatus').value = lead.trackingStatus;
+      document.getElementById('adminName').value = lead.adminName || '';
+      document.getElementById('customerGroup').value = lead.customerGroup;
+      document.getElementById('tierSelect').value = lead.tier;
+      document.getElementById('adminNotes').value = lead.notes;
+      handleTrackingStatusChange();
+      handleCustomerGroupChange();
 
-      // Populate Shortcuts
-      const phoneClean = lead.phone.replace(/[^0-9]/g, '');
-      const shortcutLine = document.getElementById('shortcutLine');
-      if (phoneClean) {
-        shortcutLine.href = `https://wa.me/${phoneClean.startsWith('0') ? '66' + phoneClean.slice(1) : phoneClean}`; // WA/LINE shortcut
-        shortcutLine.style.display = 'inline-flex';
-      } else {
-        shortcutLine.style.display = 'none';
-      }
-
-      const shortcutEmail = document.getElementById('shortcutEmail');
-      if (lead.email !== '-') {
-        shortcutEmail.href = `mailto:${lead.email}?subject=Goodfilm%203M%20Dealer%20Program`;
-        shortcutEmail.style.display = 'inline-flex';
-      } else {
-        shortcutEmail.style.display = 'none';
-      }
-
-      // Populate Checklist checkboxes
-      const chkBoxes = panel.querySelectorAll('#checklistList input[type="checkbox"]');
-      const checklist = lead.checklist || [true, false, false, false, false, false, false];
-      
-      chkBoxes.forEach((box, idx) => {
-        box.checked = !!checklist[idx];
-        const label = box.closest('.checklist-item');
-        if (box.checked) {
-          label.classList.add('checked');
-        } else {
-          label.classList.remove('checked');
-        }
-      });
-
-      updateChecklistProgress(lead);
       panel.classList.add('open');
     }
 
     function closePanel() {
-      panel.classList.remove('open');
+      document.getElementById('detailPanel').classList.remove('open');
       currentLeadId = null;
     }
 
-    function toggleChecklistItem(el) {
-      if (!currentLeadId) return;
-      const idx = parseInt(el.getAttribute('data-index'));
-      const lead = leadsData.find(l => l.id === currentLeadId);
-      if (!lead) return;
-
-      if (!lead.checklist) lead.checklist = [true, false, false, false, false, false, false];
-      lead.checklist[idx] = el.checked;
-
-      const label = el.closest('.checklist-item');
-      if (el.checked) {
-        label.classList.add('checked');
-      } else {
-        label.classList.remove('checked');
-      }
-
-      // Auto update status if onboarding is advancing
-      const statusSelect = document.getElementById('statusSelect');
-      if (idx === 2 && el.checked && statusSelect.value === 'new') {
-        // If agreement signed, mark contacting or inprogress
-        statusSelect.value = 'inprogress';
-      } else if (idx === 5 && el.checked && statusSelect.value !== 'approved') {
-        // If first order placed, auto approve partner
-        statusSelect.value = 'approved';
-        document.getElementById('tierSelect').value = 'registered';
-      }
-
-      updateChecklistProgress(lead);
-    }
-
-    function updateChecklistProgress(lead) {
-      const checklist = lead.checklist || [true, false, false, false, false, false, false];
-      const checkedCount = checklist.filter(Boolean).length;
-      const pct = Math.round((checkedCount / 7) * 100);
-      document.getElementById('chkProgressFill').style.width = pct + '%';
-    }
-
-    function saveAdminData() {
+    async function saveDealerData() {
       if(!currentLeadId) return;
-      const btn = document.querySelector('.save-btn');
+      const btn = document.querySelector('#saveEditContainer .save-btn');
       const originalText = btn.textContent;
       
-      const newStatus = document.getElementById('statusSelect').value;
-      const newTier = document.getElementById('tierSelect').value;
-      const newNotes = document.getElementById('adminNotes').value;
+      btn.textContent = 'กำลังบันทึก...';
+      btn.style.opacity = '0.7';
 
-      // Update checklist array from UI
-      const chkBoxes = panel.querySelectorAll('#checklistList input[type="checkbox"]');
-      const newChecklist = [];
-      chkBoxes.forEach(box => {
-        newChecklist.push(box.checked);
+      // Get overrides from dynamic fields
+      const overrides = {};
+      const inputs = document.getElementById('detailPanel').querySelectorAll('.dynamic-field-input');
+      inputs.forEach(input => {
+         if(input.value !== input.getAttribute('data-original')) {
+            overrides[input.getAttribute('data-key')] = input.value;
+            input.setAttribute('data-original', input.value); // update original
+         }
       });
 
-      // Update data array
+      // Update local storage
+      const stored = localStorage.getItem('gfsAdminLeads');
+      let localData = {};
+      if (stored) {
+         try { localData = JSON.parse(stored); } catch(e){}
+      }
+      
+      if(!localData[currentLeadId]) localData[currentLeadId] = {};
+      if(Object.keys(overrides).length > 0) {
+         localData[currentLeadId].overrides = localData[currentLeadId].overrides || {};
+         Object.assign(localData[currentLeadId].overrides, overrides);
+      }
+      
+      localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
+
+      // Update in-memory data
       const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
       if(leadIndex > -1) {
-        leadsData[leadIndex].status = newStatus;
-        leadsData[leadIndex].tier = newTier;
-        leadsData[leadIndex].notes = newNotes;
-        leadsData[leadIndex].checklist = newChecklist;
-        saveToLocalStorage();
+         if(Object.keys(overrides).length > 0) {
+            Object.assign(leadsData[leadIndex].rawData, overrides);
+         }
+      }
+
+      // Send to Google Sheets (Web App)
+      try {
+         const payload = {
+            id: currentLeadId,
+            ...overrides
+         };
+         if(APPS_SCRIPT_URL && APPS_SCRIPT_URL.startsWith('http')) {
+             fetch(APPS_SCRIPT_URL, {
+               method: 'POST',
+               body: JSON.stringify(payload)
+             });
+         }
+      } catch(e) {
+         console.error('Error saving to Google Sheets:', e);
       }
 
       btn.textContent = 'บันทึกสำเร็จ!';
       btn.style.background = 'var(--gfs-success)';
+      btn.style.opacity = '1';
       
       setTimeout(() => {
         btn.textContent = originalText;
         btn.style.background = '';
-        renderTable(leadsData); // re-render table to show updated status
-        renderDashboard(); // Update metrics in case status changed
+        toggleEditMode(); // ปิดโหมดแก้ไข
+        applyFilters(); 
+        renderDashboard(); 
       }, 1000);
     }
 
-    // Print Partner Application Form
+    async function saveAdminData() {
+      if(!currentLeadId) return;
+      const btn = document.querySelector('.action-group .save-btn');
+      const originalText = btn.textContent;
+      
+      btn.textContent = 'กำลังบันทึก...';
+      btn.style.opacity = '0.7';
+
+      const newTrackingStatus = document.getElementById('trackingStatus').value;
+      const newAdminName = document.getElementById('adminName').value;
+      
+      if (!newTrackingStatus) {
+         alert('กรุณาระบุ "สถานะการติดตาม"');
+         btn.textContent = originalText;
+         btn.style.opacity = '1';
+         return;
+      }
+      if (!newAdminName) {
+         alert('กรุณาระบุ "แอดมินที่ติดต่อลูกค้า"');
+         btn.textContent = originalText;
+         btn.style.opacity = '1';
+         return;
+      }
+
+      const newCustomerGroup = document.getElementById('customerGroup').value;
+      const newTier = document.getElementById('tierSelect').value;
+      const newNotes = document.getElementById('adminNotes').value;
+
+      // Update local storage (Only Admin Data)
+      const stored = localStorage.getItem('gfsAdminLeads');
+      let localData = {};
+      if (stored) {
+         try { localData = JSON.parse(stored); } catch(e){}
+      }
+      
+      if(!localData[currentLeadId]) localData[currentLeadId] = {};
+      localData[currentLeadId].trackingStatus = newTrackingStatus;
+      localData[currentLeadId].adminName = newAdminName;
+      localData[currentLeadId].customerGroup = newCustomerGroup;
+      localData[currentLeadId].tier = newTier;
+      localData[currentLeadId].notes = newNotes;
+      
+      localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
+
+      // Update in-memory data
+      const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
+      if(leadIndex > -1) {
+        leadsData[leadIndex].trackingStatus = newTrackingStatus;
+        leadsData[leadIndex].adminName = newAdminName;
+        leadsData[leadIndex].customerGroup = newCustomerGroup;
+        leadsData[leadIndex].tier = newTier;
+        leadsData[leadIndex].notes = newNotes;
+      }
+
+      // Send to Google Sheets (Web App)
+      try {
+         const payload = {
+            id: currentLeadId,
+            trackingStatus: newTrackingStatus,
+            customerGroup: newCustomerGroup,
+            adminName: newAdminName,
+            adminNotes: newNotes
+         };
+         
+         if(APPS_SCRIPT_URL && APPS_SCRIPT_URL.startsWith('http')) {
+             fetch(APPS_SCRIPT_URL, {
+               method: 'POST',
+               body: JSON.stringify(payload)
+             });
+         }
+      } catch(e) {
+         console.error('Error saving to Google Sheets:', e);
+      }
+
+      btn.textContent = 'บันทึกสำเร็จ!';
+      btn.style.background = 'var(--gfs-success)';
+      btn.style.opacity = '1';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        
+        // Reset to default view (Pending status)
+        document.getElementById('filterStatus').value = 'รอดำเนินการ';
+        document.getElementById('filterAdmin').value = 'all';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('filterDate').value = '';
+        
+        applyFilters(); 
+        renderDashboard(); 
+        closePanel();
+      }, 1000);
+    }
+
     function printDealerProfile() {
       const lead = leadsData.find(l => l.id === currentLeadId);
       if (!lead) return;
@@ -1797,15 +2063,42 @@
     }
 
     // Search Logic
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      const filtered = leadsData.filter(l => 
-        l.company.toLowerCase().includes(term) || 
-        l.phone.includes(term) ||
-        l.contact.toLowerCase().includes(term)
-      );
+    // Search & Filter Logic
+    function applyFilters() {
+      const term = document.getElementById('searchInput').value.toLowerCase();
+      const fStatus = document.getElementById('filterStatus').value;
+      const fAdmin = document.getElementById('filterAdmin').value;
+      const fDate = document.getElementById('filterDate').value;
+      
+      const filtered = leadsData.filter(l => {
+         const matchSearch = l.company.toLowerCase().includes(term) || l.phone.includes(term) || l.contact.toLowerCase().includes(term);
+         const matchStatus = fStatus === 'all' ? true : l.trackingStatus === fStatus;
+         const matchAdmin = fAdmin === 'all' ? true : (fAdmin === 'unassigned' ? !l.adminName : l.adminName === fAdmin);
+         
+         let matchDate = true;
+         if (fDate) {
+             const rawTime = l.rawData['ประทับเวลา'] || l.rawData['Timestamp'] || '';
+             if (rawTime) {
+                 const [y, m, d] = fDate.split('-');
+                 const mP = m.startsWith('0') ? m.substring(1) : m;
+                 const dP = d.startsWith('0') ? d.substring(1) : d;
+                 const regex = new RegExp(`(^|\\D)0?${dP}/0?${mP}/${y}(\\D|$)`);
+                 matchDate = regex.test(rawTime) || String(rawTime).includes(fDate);
+             } else {
+                 matchDate = false;
+             }
+         }
+         
+         // Custom rule: "ลูกค้าใหม่ รอดำเนินการ เป็นค่าเริ่มต้น" - Since filterStatus defaults to รอดำเนินการ, this is handled.
+         return matchSearch && matchStatus && matchAdmin && matchDate;
+      });
       renderTable(filtered);
-    });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+    document.getElementById('filterStatus').addEventListener('change', applyFilters);
+    document.getElementById('filterAdmin').addEventListener('change', applyFilters);
+    document.getElementById('filterDate').addEventListener('change', applyFilters);
 
     // Init
     loadSystemSettings();
