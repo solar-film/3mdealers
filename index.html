@@ -1726,6 +1726,7 @@
       }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <main class="gfs-page">
@@ -2318,7 +2319,7 @@
         </div>
 
         <!-- หมายเหตุสำหรับทีมเว็บ: เปลี่ยน action="#" เป็น URL Backend / CRM / Google Apps Script / Formspree ที่ต้องการรับข้อมูล -->
-        <form id="dealerForm" action="#" method="post" enctype="multipart/form-data">
+        <form id="dealerForm" action="#" method="post" enctype="multipart/form-data" novalidate>
           <!-- honeypot กันบอท: ช่องนี้ซ่อนจากคน ต้องว่างเสมอ ถ้ามีค่า = บอท -->
           <div aria-hidden="true" style="position:absolute!important;left:-9999px!important;top:auto;width:1px;height:1px;overflow:hidden;">
             <label>Website (do not fill)
@@ -2894,28 +2895,32 @@
         });
 
         if (missingFields.length > 0) {
-          alert('กรุณากรอกหรือเลือกข้อมูลในหัวข้อต่อไปนี้ให้ครบถ้วนและถูกต้อง:\n\n- ' + missingFields.join('\n- '));
-          
-          // Focus the first invalid field
-          const firstInvalid = form.querySelector('input:invalid, select:invalid, textarea:invalid');
-          if (firstInvalid) {
-            firstInvalid.focus();
-            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else {
-            // If it's a checkbox group, just scroll to the first invalid group
-            if (missingFields.length > 0) {
-              const firstGroupName = requiredGroups.find(g => missingFields.includes(g.label))?.name;
-              if (firstGroupName) {
-                const firstCb = form.querySelector('input[name="' + firstGroupName + '"]');
-                if (firstCb) firstCb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          Swal.fire({
+            title: 'กรุณาตรวจสอบข้อมูล',
+            html: 'กรุณากรอกหรือเลือกข้อมูลในหัวข้อต่อไปนี้ให้ครบถ้วนและถูกต้อง:<br><br><ul style="text-align:left; margin-left:20px; font-size:15px; font-weight: 500;"><li>' + missingFields.join('</li><li>') + '</li></ul>',
+            icon: 'warning',
+            confirmButtonText: 'ตกลง',
+            confirmButtonColor: '#e1191d'
+          }).then(() => {
+            // Focus the first invalid field after popup is closed
+            const firstInvalid = form.querySelector('input:invalid, select:invalid, textarea:invalid');
+            if (firstInvalid) {
+              firstInvalid.focus();
+              firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+              if (missingFields.length > 0) {
+                const firstGroupName = requiredGroups.find(g => missingFields.includes(g.label))?.name;
+                if (firstGroupName) {
+                  const firstCb = form.querySelector('input[name="' + firstGroupName + '"]');
+                  if (firstCb) firstCb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
               }
             }
-          }
+          });
           
           updateProgress();
           return;
         }
-
         const submitBtn = form.querySelector('.gfs-submit');
         const originalBtnText = submitBtn.textContent;
         submitBtn.textContent = 'กำลังส่งข้อมูล...';
