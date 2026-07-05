@@ -2388,7 +2388,7 @@
               <div class="gfs-field gfs-full">
                 <label class="gfs-label">ประเภทธุรกิจของคุณ <span class="gfs-required">*</span></label>
                 <div class="gfs-choice-grid gfs-3">
-                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ร้านฟิล์มรถยนต์" required /> ร้านฟิล์มรถยนต์</label>
+                  <label class="gfs-choice"><input type="checkbox" name="business_type" value="ร้านฟิล์มรถยนต์"  /> ร้านฟิล์มรถยนต์</label>
                   <label class="gfs-choice"><input type="checkbox" name="business_type" value="ร้านวัสดุก่อสร้าง" /> ร้านวัสดุก่อสร้าง</label>
                   <label class="gfs-choice"><input type="checkbox" name="business_type" value="ผู้รับเหมา/ช่างติดตั้ง" /> ผู้รับเหมา / ช่างติดตั้ง</label>
                   <label class="gfs-choice"><input type="checkbox" name="business_type" value="บริษัทตกแต่งภายใน" /> บริษัทตกแต่งภายใน</label>
@@ -2593,7 +2593,7 @@
               <div class="gfs-field gfs-full">
                 <label class="gfs-label">กลุ่มลูกค้าหลักของคุณ <span class="gfs-required">*</span></label>
                 <div class="gfs-choice-grid gfs-3">
-                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="บ้านพักอาศัย" required /> บ้านพักอาศัย</label>
+                  <label class="gfs-choice"><input type="checkbox" name="customer_group" value="บ้านพักอาศัย"  /> บ้านพักอาศัย</label>
                   <label class="gfs-choice"><input type="checkbox" name="customer_group" value="คอนโด" /> คอนโด</label>
                   <label class="gfs-choice"><input type="checkbox" name="customer_group" value="อาคารสำนักงาน" /> อาคารสำนักงาน</label>
                   <label class="gfs-choice"><input type="checkbox" name="customer_group" value="ร้านค้า/โชว์รูม" /> ร้านค้า / โชว์รูม</label>
@@ -2691,7 +2691,7 @@
               <div class="gfs-field gfs-full">
                 <label class="gfs-label">ต้องการให้ Goodfilm สนับสนุนด้านใด <span class="gfs-required">*</span></label>
                 <div class="gfs-choice-grid">
-                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="ราคาตัวแทน" required /> ราคาตัวแทน</label>
+                  <label class="gfs-choice"><input type="checkbox" name="support_need" value="ราคาตัวแทน"  /> ราคาตัวแทน</label>
                   <label class="gfs-choice"><input type="checkbox" name="support_need" value="สื่อการขาย / Catalog / Sample" /> สื่อการขาย / Catalog / Sample</label>
                   <label class="gfs-choice"><input type="checkbox" name="support_need" value="อบรมสินค้า" /> อบรมสินค้า</label>
                   <label class="gfs-choice"><input type="checkbox" name="support_need" value="อบรมงานติดตั้ง" /> อบรมงานติดตั้ง</label>
@@ -2880,7 +2880,12 @@
         const elements = form.querySelectorAll('input[required], select[required], textarea[required]');
         elements.forEach(el => {
           if (!el.validity.valid) {
-            let labelText = el.getAttribute('placeholder') || el.name;
+            const nameToLabel = {
+              'training_need': 'ความต้องการด้านการอบรม',
+              'consent_contact': 'ยินยอมให้เจ้าหน้าที่ติดต่อกลับ',
+              'consent_truth': 'รับรองว่าข้อมูลเป็นความจริง'
+            };
+            let labelText = el.getAttribute('data-name') || el.getAttribute('placeholder') || nameToLabel[el.name] || el.name;
             const id = el.id;
             if (id) {
               const labelEl = document.querySelector('label[for="' + id + '"]');
