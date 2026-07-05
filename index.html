@@ -1144,14 +1144,14 @@
     
     .new-tier-card {
       background: white;
-      border-radius: 20px;
+      border-radius: 12px;
       display: flex;
       flex-direction: row;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
       position: relative;
       transition: all 0.3s ease;
-      border: 2px solid transparent;
+      border: 1px solid;
+      overflow: hidden;
     }
     .new-tier-card:hover {
       transform: translateY(-5px);
@@ -1159,7 +1159,7 @@
     }
     
     .tier-left {
-      width: 50%;
+      width: 45%;
       padding: 24px;
       display: flex;
       flex-direction: column;
@@ -1167,7 +1167,7 @@
     }
     
     .tier-right {
-      width: 50%;
+      width: 55%;
       background: #ffffff;
       padding: 24px;
       display: flex;
@@ -1178,12 +1178,12 @@
       display: flex;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     
     .tier-icon {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -1191,17 +1191,19 @@
       color: white;
       flex-shrink: 0;
     }
-    .tier-icon svg { width: 20px; height: 20px; }
+    .tier-icon svg { width: 22px; height: 22px; }
     
+    .tier-title-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .tier-title-area h4 {
       margin: 0 0 6px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       line-height: 1.2;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
     }
     .tier-subtitle {
       margin: 0;
@@ -1215,11 +1217,12 @@
       align-items: center;
       gap: 4px;
       color: white;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
+      height: fit-content;
     }
     
     .tier-stats {
@@ -1231,13 +1234,18 @@
     
     .tier-stat-item {
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 12.5px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
     }
-    .tier-stat-item svg { width: 14px; height: 14px; opacity: 0.7; margin-top: 2px; flex-shrink: 0; }
-    .tier-stat-item .stat-label { color: #475569; flex: 1; line-height: 1.3; }
-    .tier-stat-item .stat-value { font-weight: 700; color: #0f172a; text-align: right; line-height: 1.3; white-space: nowrap; flex-shrink: 0; }
+    .tier-stat-item .stat-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #475569;
+    }
+    .tier-stat-item svg { width: 16px; height: 16px; opacity: 0.8; flex-shrink: 0; }
+    .tier-stat-item .stat-value { font-weight: 700; color: #0f172a; text-align: right; white-space: nowrap; flex-shrink: 0; }
     
     .tier-benefits {
       list-style: none;
@@ -1263,36 +1271,36 @@
     }
     
     /* Colors */
-    .tier-member { border-color: #0d9488; }
-    .tier-member .tier-left { background: #f0fdfa; }
-    .tier-member .tier-icon { background: #0d9488; }
-    .tier-member .tier-title-area h4 { color: #0d9488; }
-    .tier-member .tier-badge { background: #0d9488; }
-    .tier-member .tier-stat-item svg { color: #0d9488; }
-    .tier-member .tier-benefits li::before { color: #0d9488; }
+    .tier-member { border-color: #059669; }
+    .tier-member .tier-left { background: #f0fdf4; }
+    .tier-member .tier-icon { background: #059669; }
+    .tier-member .tier-title-area h4 { color: #059669; }
+    .tier-member .tier-badge { background: #059669; }
+    .tier-member .tier-stat-item svg { color: #059669; }
+    .tier-member .tier-benefits li::before { color: #059669; }
     
-    .tier-registered { border-color: #2563eb; }
+    .tier-registered { border-color: #3b82f6; }
     .tier-registered .tier-left { background: #eff6ff; }
-    .tier-registered .tier-icon { background: #2563eb; }
-    .tier-registered .tier-title-area h4 { color: #2563eb; }
-    .tier-registered .tier-stat-item svg { color: #2563eb; }
-    .tier-registered .tier-benefits li::before { color: #2563eb; }
+    .tier-registered .tier-icon { background: #3b82f6; }
+    .tier-registered .tier-title-area h4 { color: #1e3a8a; }
+    .tier-registered .tier-stat-item svg { color: #3b82f6; }
+    .tier-registered .tier-benefits li::before { color: #3b82f6; }
     
     .tier-authorized { border-color: #1e3a8a; }
-    .tier-authorized .tier-left { background: #f1f5f9; }
+    .tier-authorized .tier-left { background: #f8fafc; }
     .tier-authorized .tier-icon { background: #1e3a8a; }
     .tier-authorized .tier-title-area h4 { color: #1e3a8a; }
     .tier-authorized .tier-badge { background: #1e3a8a; }
     .tier-authorized .tier-stat-item svg { color: #1e3a8a; }
     .tier-authorized .tier-benefits li::before { color: #1e3a8a; }
     
-    .tier-premium { border-color: #dc2626; }
+    .tier-premium { border-color: #ef4444; }
     .tier-premium .tier-left { background: #fef2f2; }
-    .tier-premium .tier-icon { background: #dc2626; }
-    .tier-premium .tier-title-area h4 { color: #dc2626; }
-    .tier-premium .tier-badge { background: #dc2626; }
-    .tier-premium .tier-stat-item svg { color: #dc2626; }
-    .tier-premium .tier-benefits li::before { color: #dc2626; }
+    .tier-premium .tier-icon { background: #ef4444; }
+    .tier-premium .tier-title-area h4 { color: #ef4444; }
+    .tier-premium .tier-badge { background: #ef4444; }
+    .tier-premium .tier-stat-item svg { color: #ef4444; }
+    .tier-premium .tier-benefits li::before { color: #ef4444; }
     
     .tier-note {
       text-align: center;
@@ -1554,27 +1562,34 @@
           <div class="tier-left">
             <div class="tier-header">
               <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
               </div>
               <div class="tier-title-area">
-                <h4>Member <span class="tier-badge">เริ่มต้น</span></h4>
-                <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่ผ่านการคัดกรองแล้ว</p>
+                <h4>Member</h4>
+                <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่<br>ผ่านการคัดกรองแล้ว</p>
               </div>
+              <span class="tier-badge">เริ่มต้น</span>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                  <span>ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                </div>
                 <span class="stat-value">ไม่มีขั้นต่ำ</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span class="stat-label">สิทธิ์ส่วนลด:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  <span>สิทธิ์ส่วนลด:</span>
+                </div>
                 <span class="stat-value">ราคาสมาชิก</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-                <span class="stat-label">เครดิตการค้า:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                  <span>เครดิตการค้า:</span>
+                </div>
                 <span class="stat-value">เงินสด</span>
               </div>
             </div>
@@ -1595,27 +1610,33 @@
           <div class="tier-left">
             <div class="tier-header">
               <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3-6 6"></path><path d="m21 3 1 1"></path><path d="m3 21 6-6"></path><path d="m3 21-1-1"></path></svg>
               </div>
               <div class="tier-title-area">
                 <h4>Registered Partner</h4>
-                <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อและร่วมขายอย่างเป็นระบบ</p>
+                <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อ<br>และร่วมขายอย่างเป็นระบบ</p>
               </div>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                  <span>ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                </div>
                 <span class="stat-value">20,000 บาท</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span class="stat-label">สิทธิ์ส่วนลดตามระดับ:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  <span>สิทธิ์ส่วนลดตามระดับ:</span>
+                </div>
                 <span class="stat-value">สูงสุด 10%</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-                <span class="stat-label">เครดิตการค้า:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                  <span>เครดิตการค้า:</span>
+                </div>
                 <span class="stat-value">เงินสด</span>
               </div>
             </div>
@@ -1637,27 +1658,34 @@
           <div class="tier-left">
             <div class="tier-header">
               <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
               </div>
               <div class="tier-title-area">
-                <h4>Authorized Partner <span class="tier-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> ยอดนิยม</span></h4>
-                <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner ที่มียอดสั่งซื้อสม่ำเสมอ</p>
+                <h4>Authorized Partner</h4>
+                <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner<br>ที่มียอดสั่งซื้อสม่ำเสมอ</p>
               </div>
+              <span class="tier-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> ยอดนิยม</span>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                  <span>ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                </div>
                 <span class="stat-value">50,000 บาท</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span class="stat-label">สิทธิ์ส่วนลดตามระดับ:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  <span>สิทธิ์ส่วนลดตามระดับ:</span>
+                </div>
                 <span class="stat-value">สูงสุด 20%</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-                <span class="stat-label">เครดิตการค้า:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                  <span>เครดิตการค้า:</span>
+                </div>
                 <span class="stat-value">15-30 วัน*</span>
               </div>
             </div>
@@ -1679,27 +1707,34 @@
           <div class="tier-left">
             <div class="tier-header">
               <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>
               </div>
               <div class="tier-title-area">
-                <h4>Premium Partner <span class="tier-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg> ระดับสูงสุด</span></h4>
-                <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง รองรับงานโครงการและงานขนาดใหญ่</p>
+                <h4>Premium Partner</h4>
+                <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง<br>รองรับงานโครงการและงานขนาดใหญ่</p>
               </div>
+              <span class="tier-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg> ระดับสูงสุด</span>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                  <span>ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                </div>
                 <span class="stat-value">150,000 บาท</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <span class="stat-label">สิทธิ์ส่วนลดตามระดับ:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  <span>สิทธิ์ส่วนลดตามระดับ:</span>
+                </div>
                 <span class="stat-value">สูงสุด 30%</span>
               </div>
               <div class="tier-stat-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
-                <span class="stat-label">เครดิตการค้า:</span>
+                <div class="stat-left">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                  <span>เครดิตการค้า:</span>
+                </div>
                 <span class="stat-value">30-45 วัน*</span>
               </div>
             </div>
