@@ -716,15 +716,17 @@
       .gfs-page { width: min(100% - 24px, 1180px); }
       .gfs-hero { margin-top: 12px; border-radius: 26px; }
       .gfs-hero-inner { padding: 26px 20px; }
-      .gfs-brand { border-radius: 18px; align-items: flex-start; }
-      .gfs-brand img { height: 34px; max-width: 118px; }
+      .gfs-brand { border-radius: 18px; align-items: center; flex-direction: column; text-align: center; gap: 8px; }
+      .gfs-brand img { height: 48px; max-width: none; margin: 0 auto; }
+      .gfs-brand span { font-size: 13.5px; margin-left: 0; padding-left: 0; border-left: none; text-align: center; }
+      .gfs-eyebrow { display: none !important; }
       .gfs-hero-actions { align-items: stretch; }
       .gfs-btn { width: 100%; }
-      .gfs-metric-grid,
       .gfs-grid,
       .gfs-grid-3,
       .gfs-choice-grid,
       .gfs-choice-grid.gfs-3 { grid-template-columns: 1fr; }
+      .gfs-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
       .gfs-form-head { padding: 24px 18px 18px; }
       form { padding: 2px 18px 24px; }
       .gfs-section-title { gap: 10px; }
@@ -1500,7 +1502,7 @@
       }
     }
     @media (max-width: 720px) {
-      .gfs-targets-grid,
+      .gfs-targets-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
       .gfs-timeline,
       .gfs-tiers-container {
         grid-template-columns: 1fr;
@@ -1573,9 +1575,9 @@
       
       .gfs-timeline-step {
         display: flex;
-        gap: 14px;
+        gap: 16px;
         position: relative;
-        margin-bottom: 14px;
+        margin-bottom: 20px;
       }
       .gfs-timeline-step::before {
         content: '';
@@ -1604,14 +1606,14 @@
       .gfs-step-card {
         flex: 1;
         min-height: auto;
-        padding: 14px;
+        padding: 16px;
         display: flex;
-        gap: 12px;
+        gap: 14px;
         text-align: left;
-        box-shadow: 0 4px 12px rgba(13, 47, 104, .04);
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        border-top: none;
-        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        border: 1px solid #dce6f1;
+        border-radius: 16px;
+        background: #fff;
       }
       .gfs-step-icon {
         width: 48px;
@@ -2092,6 +2094,9 @@
       <div class="tier-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
         <span>*หมายเหตุ: สิทธิ์ส่วนลด เครดิตการค้า การส่งต่อ Lead และสิทธิ์ทางการตลาด ขึ้นอยู่กับระดับ Partner ประวัติการสั่งซื้อ ความพร้อมในการให้บริการ และการอนุมัติของบริษัท</span>
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+        <a href="#dealer-form" class="gfs-btn gfs-btn-red" style="padding: 12px 24px; font-size: 15px; border-radius: 999px; box-shadow: 0 8px 24px rgba(225,25,29,0.25);">สมัครเลย <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
       </div>
     </section>
 
