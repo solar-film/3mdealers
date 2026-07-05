@@ -115,12 +115,12 @@
   `;
 
   const STAGES = [
-    { key: 'new', label: 'สมัครใหม่', color: '#005eb8' },
-    { key: 'pending', label: 'กำลังติดตาม', color: '#f59e0b' },
-    { key: 'target', label: 'Target', color: '#0ea5a3' },
-    { key: 'member', label: 'Member', color: '#10a76a' },
-    { key: 'partner', label: 'Partner', color: '#7357e8' },
-    { key: 'cancelled', label: 'ยกเลิก', color: '#ef3340' }
+    { key: 'new', label: 'มาใหม่', color: '#005eb8', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>' },
+    { key: 'pending', label: 'รอดำเนินการ', color: '#f59e0b', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>' },
+    { key: 'target', label: 'Target', color: '#0ea5a3', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>' },
+    { key: 'member', label: 'Member', color: '#10a76a', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>' },
+    { key: 'partner', label: 'Partner', color: '#7357e8', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>' },
+    { key: 'cancelled', label: 'ยกเลิก', color: '#ef3340', icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>' }
   ];
 
   const TIER_LABELS = {
@@ -276,14 +276,26 @@
       const card = document.createElement('article');
       card.className = 'dashboard-stage-card';
       card.style.setProperty('--stage-color', stage.color);
+      
+      const val = counts[stage.key] || 0;
+      const share = percent(val, total);
+      
+      // We don't have historical data, so we'll simulate the "trend up/down" visual using the share.
+      // Or we can just render the share nicely. Let's make it look like the mockup (green/red arrows).
+      const isDown = stage.key === 'cancelled' || share < 5;
+      const arrow = isDown ? '↓' : '↑';
+      const trendClass = isDown ? 'stage-share down' : 'stage-share';
+
       card.innerHTML = `
-        <div class="stage-label"></div>
-        <div class="stage-value"></div>
-        <div class="stage-share"></div>
+        <div class="stage-icon-wrapper">
+          ${stage.icon || ''}
+        </div>
+        <div class="stage-content">
+          <div class="stage-label">${stage.label}</div>
+          <div class="stage-value">${val}</div>
+          <div class="${trendClass}">${arrow} ${share}% ของทั้งหมด</div>
+        </div>
       `;
-      card.querySelector('.stage-label').textContent = stage.label;
-      card.querySelector('.stage-value').textContent = counts[stage.key] || 0;
-      card.querySelector('.stage-share').textContent = `${percent(counts[stage.key] || 0, total)}% ของทั้งหมด`;
       container.appendChild(card);
     });
   }

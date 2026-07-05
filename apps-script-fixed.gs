@@ -15,10 +15,13 @@ function setHeaders() {
     "ต้องการเริ่มขายสินค้าแบบใด", "รุ่นสินค้าที่ต้องการข้อมูลราคาเพิ่มเติม",
     "คาดว่าจะเริ่มสั่งซื้อเมื่อไหร่", "ปริมาณการสั่งซื้อที่คาดการณ์ต่อเดือน",
     "ต้องการให้ Goodfilm สนับสนุนด้านใด", "รายละเอียดเพิ่มเติม",
-    "ช่องทางที่ทราบข่าว", "ช่องทางที่ทราบข่าว(อื่นๆ)",
-    "สถานะ", "กลุ่มลูกค้า", "Admin", "ฝ่ายขาย", "ข้อมูลการติดต่อลูกค้า"
+    "ช่องทางที่ทราบข่าว"
   ];
+  custHeaders.push(custHeaders.shift());
   setSheetHeaders_(custSheet, custHeaders, "#1a3c6e");
+
+  const statusSheet = getOrCreateSheet_(ss, "Cust_Status");
+  setSheetHeaders_(statusSheet, ["Cust_ID", "สถานะ", "กลุ่มลูกค้า", "Admin", "ฝ่ายขาย", "วันที่บันทึกข้อมูล"], "#0a58ca");
 
   const tierSheet = getOrCreateSheet_(ss, "Partner_Tier");
   setSheetHeaders_(tierSheet, ["Cust_ID", "Tier", "วันที่บันทึกข้อมูล"], "#0a58ca");
@@ -54,8 +57,19 @@ function doPost(e) {
       return json_(output, updateTier_(ss, data));
     }
 
+    if (data.action === "updateStatus" || data.sheet === "Cust_Status") {
+      return json_(output, updateStatus_(ss, data));
+    }
+
     if (data.action === "updateLead") {
       return json_(output, updateLead_(ss, data));
+    }
+
+    if (data.action === "createQuotation") {
+      return json_(output, createQuotation_(ss, data));
+    }
+    if (data.action === "updateQuotation") {
+      return json_(output, updateQuotation_(ss, data));
     }
 
     return json_(output, createNewDealer_(ss, data));
@@ -79,61 +93,39 @@ function doOptions() {
 
 function updateLead_(ss, data) {
   const sheet = resolveLeadSheet_(ss, data);
-  ensureAdminColumns_(sheet);
 
   const values = sheet.getDataRange().getValues();
   const headers = values[0] || [];
   const headerMap = getHeaderMap_(headers);
 
   const custIdIndex = headerMap["Cust_ID"];
-  const phoneIndex = headerMap["เบอร์โทรศัพท์"];
-  const timestampIndex = headerMap["ประทับเวลา"] !== undefined ? headerMap["ประทับเวลา"] : headerMap["Timestamp"];
-
   const targetCustId = String(data.custId || data.Cust_ID || data.CUST_ID || data.customerId || "").trim();
-  const targetPhone = normalizePhone_(data.phone || data["เบอร์โทรศัพท์"] || "");
-  const targetTimestamp = String(data.timestamp || data.rowId || data.id || "").trim();
+  if (custIdIndex === undefined) throw new Error("ไม่พบคอลัมน์ Cust_ID ในชีต Cust_Data");
+  if (!targetCustId) throw new Error("ไม่พบ Cust_ID สำหรับอัปเดตข้อมูลลูกค้า");
 
   let rowIndex = -1;
+  let matchCount = 0;
 
   for (let i = 1; i < values.length; i++) {
     const rowCustId = custIdIndex !== undefined ? String(values[i][custIdIndex]).trim() : "";
-    const rowPhone = phoneIndex !== undefined ? normalizePhone_(values[i][phoneIndex]) : "";
-    const rowTimestamp = timestampIndex !== undefined ? String(values[i][timestampIndex]).trim() : "";
 
     if (targetCustId && rowCustId === targetCustId) {
       rowIndex = i + 1;
-      break;
-    }
-    if (targetTimestamp && rowTimestamp === targetTimestamp) {
-      rowIndex = i + 1;
-      break;
-    }
-    if (targetPhone && rowPhone === targetPhone) {
-      rowIndex = i + 1;
-      break;
+      matchCount++;
     }
   }
 
   if (rowIndex < 0) {
-    throw new Error("ไม่พบข้อมูลลูกค้าที่ตรงกันจาก Cust_ID, ประทับเวลา หรือเบอร์โทรศัพท์");
+    throw new Error("ไม่พบข้อมูลลูกค้าที่ตรงกับ Cust_ID: " + targetCustId);
+  }
+  if (matchCount > 1) {
+    throw new Error("พบ Cust_ID ซ้ำในชีต Cust_Data: " + targetCustId + " กรุณาตรวจสอบก่อนบันทึก");
   }
 
   const combined = {};
   const updates = parseUpdates_(data.updates);
   Object.keys(updates).forEach(header => {
     combined[header] = updates[header];
-  });
-
-  const fixedFields = {
-    "สถานะ": data.status || data.trackingStatus,
-    "กลุ่มลูกค้า": data.customerGroup || data.group,
-    "Admin": data.adminName || data.admin || data.Admin,
-    "ฝ่ายขาย": data.salesName || data.sales || data.Sales,
-    "ข้อมูลการติดต่อลูกค้า": data.adminNotes || data.notes
-  };
-  Object.keys(fixedFields).forEach(header => {
-    const value = fixedFields[header];
-    if (value !== undefined && value !== null) combined[header] = value;
   });
 
   const rowValues = (values[rowIndex - 1] || []).slice();
@@ -168,13 +160,53 @@ function updateLead_(ss, data) {
 function resolveLeadSheet_(ss, data) {
   const candidates = [
     data.sheet, data.targetSheet, data.sourceSheet, data.sheetName,
-    "New Dealer Report", "Cust_Data"
+    "Cust_Data", "New Dealer Report"
   ].filter(Boolean);
   for (let i = 0; i < candidates.length; i++) {
     const sheet = ss.getSheetByName(candidates[i]);
     if (sheet) return sheet;
   }
   throw new Error("ไม่พบชีตข้อมูลลูกค้า");
+}
+
+function updateStatus_(ss, data) {
+  const sheet = getOrCreateSheet_(ss, "Cust_Status");
+  const headers = ["Cust_ID", "สถานะ", "กลุ่มลูกค้า", "Admin", "ฝ่ายขาย", "วันที่บันทึกข้อมูล"];
+  setSheetHeaders_(sheet, headers, "#0a58ca");
+
+  const custId = String(data.custId || data.Cust_ID || data.CUST_ID || data.customerId || data.id || "").trim();
+  if (!custId) throw new Error("No Cust_ID provided for updateStatus");
+
+  const rowValues = [
+    custId,
+    data["สถานะ"] || data.status || data.trackingStatus || "",
+    data["กลุ่มลูกค้า"] || data.customerGroup || data.group || "",
+    data.Admin || data.adminName || data.admin || "",
+    data["ฝ่ายขาย"] || data.salesName || data.sales || data.Sales || "",
+    data["วันที่บันทึกข้อมูล"] || data.savedAt || data.updatedAt || new Date()
+  ];
+
+  const values = sheet.getDataRange().getValues();
+  let foundRow = -1;
+  for (let i = 1; i < values.length; i++) {
+    if (String(values[i][0]).trim() === custId) {
+      foundRow = i + 1;
+      break;
+    }
+  }
+
+  if (foundRow > -1) {
+    sheet.getRange(foundRow, 1, 1, headers.length).setValues([rowValues]);
+  } else {
+    sheet.appendRow(rowValues);
+  }
+
+  return {
+    status: "success",
+    action: "updateStatus",
+    sheet: "Cust_Status",
+    custId
+  };
 }
 
 function parseUpdates_(updates) {
@@ -206,6 +238,111 @@ function updateTier_(ss, data) {
   }
   return { status: "success", action: "updateTier", custId, tier };
 }
+
+function createQuotation_(ss, data, existingQid) {
+  const sheet = ss.getSheetByName("Quotation");
+  if (!sheet) throw new Error("ไม่พบชีต Quotation");
+
+  const qId = existingQid || Utilities.getUuid();
+  const timestamp = new Date();
+  
+  const customer = data.customer || {};
+  const quot = data.quotation || {};
+  const items = data.items || [];
+  
+  if (items.length === 0) {
+    throw new Error("ไม่มีรายการสินค้า");
+  }
+
+  const values = sheet.getDataRange().getValues();
+  const headers = values[0] || [];
+  
+  const colIndex = {
+    qId: headers.indexOf("Q_ID"),
+    custId: headers.indexOf("Cust_ID"),
+    qNo: headers.indexOf("เลขที่ใบเสนอราคา"),
+    qDate: headers.indexOf("วันที่เสนอราคา"),
+    itemName: headers.indexOf("รายการสินค้า"),
+    qty: headers.indexOf("จำนวน"),
+    unit: headers.indexOf("หน่วย"),
+    price: headers.indexOf("ราคาต่อสินค้า"),
+    amount: headers.indexOf("ยอดรวม"),
+    discount: headers.indexOf("ส่วนลด"),
+    netAmount: headers.indexOf("ยอดสุทธิ"),
+    validUntil: headers.indexOf("ยืนราคา"),
+    creditTerm: headers.indexOf("เครดิตเทอม"),
+    remark: headers.indexOf("หมายเหตุ"),
+    status: headers.indexOf("สถานะ"),
+    recordDate: headers.indexOf("วันที่บันทึกข้อมูล"),
+    updateDate: headers.findIndex(h => String(h).toLowerCase() === "update")
+  };
+
+  const rowsToAppend = [];
+  
+  items.forEach(item => {
+    const row = new Array(headers.length).fill("");
+    if (colIndex.qId >= 0) row[colIndex.qId] = qId;
+    if (colIndex.custId >= 0) row[colIndex.custId] = customer.custId || customer.name;
+    if (colIndex.qNo >= 0) row[colIndex.qNo] = quot.no;
+    if (colIndex.qDate >= 0) row[colIndex.qDate] = quot.date;
+    if (colIndex.itemName >= 0) row[colIndex.itemName] = item.description;
+    if (colIndex.qty >= 0) row[colIndex.qty] = item.qty;
+    if (colIndex.unit >= 0) row[colIndex.unit] = item.unit;
+    if (colIndex.price >= 0) row[colIndex.price] = item.price;
+    if (colIndex.amount >= 0) row[colIndex.amount] = item.amount;
+    
+    if (colIndex.discount >= 0) row[colIndex.discount] = quot.discount || 0;
+    if (colIndex.netAmount >= 0) row[colIndex.netAmount] = (item.amount - (quot.discount || 0)/(items.length||1)); // Rough allocation if needed, or better, calculate frontend and pass net. Let's just put total netAmount on first item or all? Wait, the sheet has 'ยอดสุทธิ' for the whole quotation? Usually it's per row.
+    // If it's for the whole quotation, it's better to just put it as passed from frontend
+    if (colIndex.netAmount >= 0) row[colIndex.netAmount] = quot.totalAmount || 0;
+    if (colIndex.validUntil >= 0) row[colIndex.validUntil] = quot.validUntil || '';
+    if (colIndex.creditTerm >= 0) row[colIndex.creditTerm] = quot.creditTerm || '';
+    
+    // Combine standard remark with customer info if needed
+    const fullRemark = `ลูกค้า: ${customer.name} | เบอร์: ${customer.phone || '-'}\n${quot.remarks || ''}`;
+    if (colIndex.remark >= 0) row[colIndex.remark] = fullRemark;
+    
+    if (colIndex.status >= 0) row[colIndex.status] = quot.status;
+    if (colIndex.recordDate >= 0) row[colIndex.recordDate] = timestamp;
+    if (colIndex.updateDate >= 0) row[colIndex.updateDate] = timestamp;
+    
+    rowsToAppend.push(row);
+  });
+  
+  if (rowsToAppend.length > 0) {
+    sheet.getRange(sheet.getLastRow() + 1, 1, rowsToAppend.length, headers.length).setValues(rowsToAppend);
+  }
+  
+  return { status: "success", qId: qId, count: rowsToAppend.length };
+}
+
+function updateQuotation_(ss, data) {
+  const sheet = ss.getSheetByName("Quotation");
+  if (!sheet) throw new Error("ไม่พบชีต Quotation");
+
+  const qId = String(data.quotation.id || data.qId).trim();
+  if (!qId || qId === 'undefined') throw new Error("Missing Q_ID for update");
+
+  const values = sheet.getDataRange().getValues();
+  const headers = values[0] || [];
+  const idColIdx = headers.findIndex(h => String(h).trim() === "Q_ID");
+  
+  if (idColIdx >= 0 && values.length > 1) {
+    const rowsToDelete = [];
+    for (let i = values.length - 1; i > 0; i--) {
+      const cellValue = String(values[i][idColIdx]).trim();
+      if (cellValue === qId) {
+        rowsToDelete.push(i + 1);
+      }
+    }
+    rowsToDelete.forEach(rowIdx => {
+      sheet.deleteRow(rowIdx);
+    });
+  }
+
+  return createQuotation_(ss, data, qId);
+}
+
 
 function savePartnerTierDetails_(ss, data) {
   const sheet = getOrCreateSheet_(ss, "Partner_Tiers_Detail");
@@ -349,7 +486,7 @@ function createNewDealer_(ss, data) {
   const d = new Date();
   const custId = "DL-" + Utilities.formatDate(d, Session.getScriptTimeZone(), "yyyyMMddHHmmss");
   sheet.appendRow([
-    d, custId, data.full_name || "", data.phone || "", data.line_id || "", data.email || "",
+    custId, data.full_name || "", data.phone || "", data.line_id || "", data.email || "",
     data.role || "", data.role_other || "", data.business_name || "", data.tax_id || "",
     data.business_type || "", data.business_type_other || "", data.business_age || "",
     data.has_store || "", data.online_channels || "", data.main_province || "", data.district || "",
@@ -357,7 +494,7 @@ function createNewDealer_(ss, data) {
     data.has_installer_team || "", data.team_count || "", data.install_experience || "",
     data.customer_group || "", data.customer_group_other || "", data.training_need || "",
     data.product_interest || "", data.selling_type || "", data.model_need || "", data.start_time || "",
-    data.monthly_volume || "", data.support_need || "", data.note || "", data.source || "", data.source_other || ""
+    data.monthly_volume || "", data.support_need || "", data.note || "", data.source || "", d
   ]);
   return { status: "success", action: "createNewDealer", custId };
 }
@@ -399,6 +536,10 @@ function getOrCreateSheet_(ss, name) {
 }
 
 function setSheetHeaders_(sheet, headers, color) {
+  const lastColumn = sheet.getLastColumn();
+  if (lastColumn > headers.length) {
+    sheet.getRange(1, headers.length + 1, 1, lastColumn - headers.length).clearContent();
+  }
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   const range = sheet.getRange(1, 1, 1, headers.length);
   range.setFontWeight("bold");
@@ -417,16 +558,6 @@ function getPartnerTierDetailHeaders_() {
 
 function setPartnerTierDetailHeaders_(sheet) {
   setSheetHeaders_(sheet, getPartnerTierDetailHeaders_(), "#174a8b");
-}
-
-function ensureAdminColumns_(sheet) {
-  const required = ["สถานะ", "กลุ่มลูกค้า", "Admin", "ฝ่ายขาย", "ข้อมูลการติดต่อลูกค้า"];
-  const headers = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0];
-  required.forEach(header => {
-    if (headers.indexOf(header) === -1) {
-      sheet.getRange(1, sheet.getLastColumn() + 1).setValue(header);
-    }
-  });
 }
 
 function getHeaderMap_(headers) {

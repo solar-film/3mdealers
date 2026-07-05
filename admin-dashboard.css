@@ -134,32 +134,60 @@
 }
 
 .dashboard-stage-card {
-  min-height: 118px;
-  padding: 16px;
-  border-radius: 14px;
-  border-top: 4px solid var(--stage-color, var(--gfs-blue));
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 14px;
+  border-radius: 12px;
+  border: 1px solid #edf2f7;
+  border-left: 4px solid var(--stage-color, var(--gfs-blue));
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.stage-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  /* Fallback for browsers that don't support color-mix */
+  background: rgba(0, 0, 0, 0.05);
+  background: color-mix(in srgb, var(--stage-color) 12%, transparent);
+  color: var(--stage-color);
+  flex-shrink: 0;
+}
+
+.stage-content {
+  display: flex;
+  flex-direction: column;
 }
 
 .stage-label {
-  color: #64748b;
+  color: #334155;
   font-size: 12px;
-  font-weight: 900;
-  line-height: 1.35;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .stage-value {
-  margin-top: 10px;
-  color: var(--gfs-navy);
-  font-size: 30px;
+  margin-top: 4px;
+  color: #0f172a;
+  font-size: 22px;
   font-weight: 900;
   line-height: 1;
 }
 
 .stage-share {
-  margin-top: 8px;
-  color: #66758d;
-  font-size: 12px;
-  font-weight: 800;
+  margin-top: 6px;
+  color: #10b981;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.stage-share.down {
+  color: #ef4444;
 }
 
 .dashboard-grid {

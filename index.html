@@ -2341,7 +2341,7 @@
               </div>
               <div class="gfs-field">
                 <label class="gfs-label" for="phone">เบอร์โทรศัพท์ <span class="gfs-required">*</span></label>
-                <input id="phone" name="phone" type="tel" pattern="[0-9-]+" oninput="this.value = this.value.replace(/[^0-9-]/g, '')" placeholder="เช่น 081-234-5678" required />
+                <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="12" title="กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก (เช่น 081-234-5678)" oninput="let v=this.value.replace(/\D/g,'');if(v.length>3)v=v.substring(0,3)+'-'+v.substring(3);if(v.length>7)v=v.substring(0,7)+'-'+v.substring(7);this.value=v.substring(0,12);" placeholder="เช่น 081-234-5678" required />
               </div>
               <div class="gfs-field">
                 <label class="gfs-label" for="lineId">Line ID <span class="gfs-required">*</span></label>
