@@ -690,7 +690,7 @@
       .gfs-hero-inner,
       .gfs-layout,
       .gfs-info-strip { grid-template-columns: 1fr; }
-      .gfs-sidebar { position: static; }
+      .gfs-sidebar { display: none !important; }
       .gfs-visual { min-height: auto; }
     }
 
@@ -1094,7 +1094,8 @@
       border-radius: 999px;
       color: #fff;
       font-size: 15px;
-      font-weight: 800;
+      font-weight: normal;
+      white-space: nowrap;
       line-height: 1;
       box-shadow: 0 8px 16px rgba(15, 23, 42, .18), inset 0 1px 0 rgba(255,255,255,.28);
       pointer-events: auto;
@@ -1213,14 +1214,13 @@
       align-items: center;
       gap: 10px;
       margin: 12px auto 0;
-      padding: 11px 20px;
-      border: 1px solid #dce6f1;
-      border-radius: 999px;
-      background: rgba(255,255,255,.78);
+      padding: 0;
+      border: none;
+      background: transparent;
       color: #56637a;
       font-size: 14px;
-      font-weight: 800;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+      font-weight: 500;
+      box-shadow: none;
     }
     .gfs-timeline-note svg {
       width: 24px;
@@ -2247,7 +2247,7 @@
     <section class="gfs-features-section" id="dealer-enablement" aria-label="Support Tools">
       <div class="gfs-section-header">
         <h2>อาวุธการขายที่ Goodfilm เตรียมพร้อมสนับสนุนคุณ</h2>
-        <p>เรามอบสิทธิ์และชุดอุปกรณ์ช่วยขายที่จะช่วยให้ร้านค้าเปิดการนำเสนออย่างมืออาชีพ ปิดการขายได้ไวขึ้น 2 เท่า</p>
+        <p>เรามอบสิทธิ์และชุดอุปกรณ์ช่วยขายที่จะช่วยให้ร้านค้าเปิดการนำเสนออย่างมืออาชีพ <span style="white-space: nowrap;">ปิดการขายได้ไวขึ้น 2 เท่า</span></p>
       </div>
 
       <div class="gfs-enable-grid">
