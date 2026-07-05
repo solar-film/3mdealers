@@ -302,7 +302,50 @@ function appendChatLog_(ss, data) {
 }
 
 function createNewDealer_(ss, data) {
+  // --- ป้องกันสแปม/กันกดเล่น ---
+
+  // 1) Honeypot: ช่องซ่อน company_website ต้องว่างเสมอ ถ้ามีค่า = บอท → ตอบ success ปลอมแล้วทิ้งเงียบ
+  if (String(data.company_website || data._hp || "").trim() !== "") {
+    return { status: "success", action: "createNewDealer", custId: "-" };
+  }
+
+  // 2) Time-trap: กรอกเสร็จเร็วเกินไป (< 3 วินาที) = บอท → ทิ้งเงียบ
+  const elapsed = Number(data._elapsed);
+  if (!isNaN(elapsed) && elapsed > 0 && elapsed < 3000) {
+    return { status: "success", action: "createNewDealer", custId: "-" };
+  }
+
+  // 3) ตรวจข้อมูลฝั่งเซิร์ฟเวอร์ (กันการยิงตรงข้าม validation ฝั่งหน้าเว็บ)
+  const fullName = String(data.full_name || "").trim();
+  const phoneDigits = normalizePhone_(data.phone || "");
+  const email = String(data.email || "").trim();
+  const businessName = String(data.business_name || "").trim();
+
+  if (!fullName) throw new Error("กรุณากรอกชื่อ-นามสกุล");
+  if (phoneDigits.length < 9 || phoneDigits.length > 10) throw new Error("เบอร์โทรศัพท์ไม่ถูกต้อง");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("อีเมลไม่ถูกต้อง");
+  if (!businessName) throw new Error("กรุณากรอกชื่อร้านค้า/บริษัท");
+
   const sheet = resolveLeadSheet_(ss, { sheet: "Cust_Data" });
+
+  // 4) กันส่งซ้ำ: เบอร์เดิมที่เพิ่งส่งมาภายใน 3 นาที = ตีเป็นซ้ำ (กันดับเบิลคลิก/กดส่งรัวๆ)
+  const DEDUPE_WINDOW_MS = 3 * 60 * 1000;
+  const existing = sheet.getDataRange().getValues();
+  const exHeaders = existing[0] || [];
+  const tsIdx = exHeaders.indexOf("ประทับเวลา");
+  const phoneIdx = exHeaders.indexOf("เบอร์โทรศัพท์");
+  const nowMs = Date.now();
+  if (phoneIdx > -1) {
+    for (let i = 1; i < existing.length; i++) {
+      if (normalizePhone_(existing[i][phoneIdx]) === phoneDigits) {
+        const rowTs = tsIdx > -1 ? new Date(existing[i][tsIdx]).getTime() : 0;
+        if (rowTs && (nowMs - rowTs) < DEDUPE_WINDOW_MS) {
+          throw new Error("คุณเพิ่งส่งข้อมูลไปแล้ว กรุณารอสักครู่ก่อนส่งใหม่");
+        }
+      }
+    }
+  }
+
   const d = new Date();
   const custId = "DL-" + Utilities.formatDate(d, Session.getScriptTimeZone(), "yyyyMMddHHmmss");
   sheet.appendRow([
