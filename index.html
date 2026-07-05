@@ -1159,17 +1159,17 @@
     }
     
     .tier-left {
-      width: 45%;
-      padding: 30px 24px;
+      width: 46%;
+      padding: 24px 20px;
       display: flex;
       flex-direction: column;
       position: relative;
     }
     
     .tier-right {
-      width: 55%;
+      width: 54%;
       background: #ffffff;
-      padding: 30px 24px;
+      padding: 24px 20px;
       display: flex;
       align-items: center;
     }
@@ -1177,8 +1177,8 @@
     .tier-header {
       display: flex;
       align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 14px;
+      margin-bottom: 20px;
     }
     
     .tier-icon {
@@ -1195,8 +1195,9 @@
     
     .tier-title-area h4 {
       margin: 0 0 6px;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 800;
+      line-height: 1.2;
     }
     .tier-subtitle {
       margin: 0;
@@ -1206,17 +1207,15 @@
     }
     
     .tier-badge {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      color: white;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 4px;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
     
     .tier-stats {
@@ -1228,13 +1227,13 @@
     
     .tier-stat-item {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13.5px;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
     }
-    .tier-stat-item svg { width: 16px; height: 16px; opacity: 0.7; }
-    .tier-stat-item .stat-label { color: #475569; flex: 1; }
-    .tier-stat-item .stat-value { font-weight: 700; color: #0f172a; text-align: right; }
+    .tier-stat-item svg { width: 14px; height: 14px; opacity: 0.7; margin-top: 2px; flex-shrink: 0; }
+    .tier-stat-item .stat-label { color: #475569; flex: 1; line-height: 1.3; }
+    .tier-stat-item .stat-value { font-weight: 700; color: #0f172a; text-align: right; line-height: 1.3; white-space: nowrap; }
     
     .tier-benefits {
       list-style: none;
@@ -1246,17 +1245,17 @@
     }
     .tier-benefits li {
       position: relative;
-      padding-left: 20px;
-      font-size: 14px;
+      padding-left: 16px;
+      font-size: 13px;
       color: #1e293b;
-      line-height: 1.5;
+      line-height: 1.4;
     }
     .tier-benefits li::before {
       content: "•";
       position: absolute;
       left: 0;
       top: 0;
-      font-size: 18px;
+      font-size: 16px;
     }
     
     /* Colors */
@@ -1542,15 +1541,17 @@
         <!-- Tier 1: Member -->
         <div class="new-tier-card tier-member">
           <div class="tier-left">
-            <div class="tier-header">
-              <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <div class="tier-header" style="justify-content: space-between;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <div class="tier-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <div class="tier-title-area">
+                  <h4>Member</h4>
+                  <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่<br>ผ่านการคัดกรองแล้ว</p>
+                </div>
               </div>
-              <div class="tier-title-area">
-                <h4>Member</h4>
-                <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่<br>ผ่านการคัดกรองแล้ว</p>
-              </div>
-              <span class="tier-badge">เริ่มต้น</span>
+              <span class="tier-badge" style="margin-bottom: 0;">เริ่มต้น</span>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
@@ -1584,13 +1585,15 @@
         <!-- Tier 2: Registered Partner -->
         <div class="new-tier-card tier-registered">
           <div class="tier-left">
-            <div class="tier-header">
-              <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              </div>
-              <div class="tier-title-area">
-                <h4>Registered Partner</h4>
-                <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อ<br>และร่วมขายอย่างเป็นระบบ</p>
+            <div class="tier-header" style="justify-content: space-between;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <div class="tier-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <div class="tier-title-area">
+                  <h4>Registered Partner</h4>
+                  <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อ<br>และร่วมขายอย่างเป็นระบบ</p>
+                </div>
               </div>
             </div>
             <div class="tier-stats">
@@ -1626,15 +1629,17 @@
         <!-- Tier 3: Authorized Partner -->
         <div class="new-tier-card tier-authorized">
           <div class="tier-left">
-            <div class="tier-header">
-              <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+            <div class="tier-header" style="justify-content: space-between;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <div class="tier-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                </div>
+                <div class="tier-title-area">
+                  <h4>Authorized Partner</h4>
+                  <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner<br>ที่มียอดสั่งซื้อสม่ำเสมอ</p>
+                </div>
               </div>
-              <div class="tier-title-area">
-                <h4>Authorized Partner</h4>
-                <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner<br>ที่มียอดสั่งซื้อสม่ำเสมอ</p>
-              </div>
-              <span class="tier-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> ยอดนิยม</span>
+              <span class="tier-badge" style="margin-bottom: 0;"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> ยอดนิยม</span>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
@@ -1669,15 +1674,17 @@
         <!-- Tier 4: Premium Partner -->
         <div class="new-tier-card tier-premium">
           <div class="tier-left">
-            <div class="tier-header">
-              <div class="tier-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>
+            <div class="tier-header" style="justify-content: space-between;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <div class="tier-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>
+                </div>
+                <div class="tier-title-area">
+                  <h4>Premium Partner</h4>
+                  <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง<br>รองรับงานโครงการและงานขนาดใหญ่</p>
+                </div>
               </div>
-              <div class="tier-title-area">
-                <h4>Premium Partner</h4>
-                <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง<br>รองรับงานโครงการและงานขนาดใหญ่</p>
-              </div>
-              <span class="tier-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg> ระดับสูงสุด</span>
+              <span class="tier-badge" style="margin-bottom: 0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg> ระดับสูงสุด</span>
             </div>
             <div class="tier-stats">
               <div class="tier-stat-item">
