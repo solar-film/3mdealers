@@ -1034,69 +1034,217 @@
     }
 
     /* Onboarding Timeline */
+    .gfs-onboarding {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(0, 94, 184, .08), transparent 30rem),
+        linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+    }
+    .gfs-onboarding .gfs-section-header {
+      margin-bottom: 24px;
+    }
+    .gfs-onboarding .gfs-section-header h2 {
+      font-size: 44px;
+      line-height: 1.08;
+      color: #0d2f68;
+      letter-spacing: 0;
+      text-shadow: 0 7px 18px rgba(13, 47, 104, .08);
+    }
+    .gfs-onboarding .gfs-section-header p {
+      max-width: 1040px;
+      color: #66748c;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
     .gfs-timeline {
+      --member: #0692a0;
+      --registered: #1f67f2;
+      --authorized: #073f93;
+      --premium: #e1191d;
       position: relative;
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 30px;
+      gap: 18px;
+      align-items: start;
+      margin-top: 18px;
+      padding: 96px 0 12px;
     }
     .gfs-timeline::before {
       content: '';
       position: absolute;
-      top: 24px;
-      left: 7%;
-      right: 7%;
+      top: 147px;
+      left: 5%;
+      right: 5%;
       height: 2px;
-      background: var(--gfs-line);
-      z-index: 1;
+      background: #c6d0df;
+      z-index: 0;
     }
+    .gfs-tier-group {
+      display: contents;
+    }
+    .gfs-tier-header {
+      position: absolute;
+      top: 0;
+      height: 96px;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .gfs-tier-group.member .gfs-tier-header { left: 0; width: 28.571%; color: var(--member); }
+    .gfs-tier-group.registered .gfs-tier-header { left: 28.571%; width: 28.571%; color: var(--registered); }
+    .gfs-tier-group.authorized .gfs-tier-header { left: 57.142%; width: 28.571%; color: var(--authorized); }
+    .gfs-tier-group.premium .gfs-tier-header { left: 85.714%; width: 14.285%; color: var(--premium); }
+    
+    .gfs-tier-header p { display: none; }
+    
+    .gfs-tier-badge {
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 18px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, .18), inset 0 1px 0 rgba(255,255,255,.28);
+      pointer-events: auto;
+    }
+    .gfs-tier-badge svg { width: 24px; height: 24px; flex: 0 0 auto; }
+    .member .gfs-tier-badge { background: linear-gradient(135deg, #0aa8b5, #00828e); }
+    .registered .gfs-tier-badge { background: linear-gradient(135deg, #2d76ff, #175bd4); }
+    .authorized .gfs-tier-badge { background: linear-gradient(135deg, #0a55b9, #07387f); }
+    .premium .gfs-tier-badge { background: linear-gradient(135deg, #f02325, #bd1014); min-width: 170px; padding-inline: 16px;}
+    
+    /* Brackets */
+    .gfs-tier-header::after {
+      content: '';
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      width: 2px;
+      height: 25px;
+      border-left: 2px dashed currentColor;
+      opacity: .72;
+    }
+    .gfs-tier-header::before {
+      content: '';
+      position: absolute;
+      top: 71px;
+      left: 25%;
+      width: 50%;
+      height: 30px;
+      border-top: 2px dashed currentColor;
+      border-left: 2px dashed currentColor;
+      border-right: 2px dashed currentColor;
+      border-radius: 12px 12px 0 0;
+      opacity: .72;
+    }
+    .premium .gfs-tier-header::before { display: none; }
+    .premium .gfs-tier-header::after { height: 53px; }
+
     .gfs-timeline-step {
       position: relative;
+      display: flex;
+      flex-direction: column;
       z-index: 2;
-      text-align: center;
-      padding: 0 8px;
     }
-    .gfs-timeline-circle {
-      width: 48px;
-      height: 48px;
+    .gfs-step-number {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 20px;
       border-radius: 50%;
-      background: white;
-      border: 3px solid var(--gfs-line);
-      color: var(--gfs-muted);
-      font-weight: 800;
-      font-size: 16px;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 16px;
-      transition: all 0.3s;
-      box-shadow: var(--shadow-soft);
-    }
-    .gfs-timeline-step:hover .gfs-timeline-circle {
-      border-color: var(--gfs-navy);
-      color: var(--gfs-navy);
-      transform: scale(1.1);
-    }
-    .gfs-timeline-step.active .gfs-timeline-circle {
-      background: var(--gfs-navy);
-      border-color: var(--gfs-navy);
-      color: white;
-      box-shadow: 0 6px 15px rgba(27, 67, 124, 0.3);
-    }
-    .gfs-timeline-step h4 {
-      margin: 0 0 6px;
-      font-size: 15px;
-      color: var(--gfs-navy);
+      font-size: 23px;
       font-weight: 800;
+      box-shadow: 0 0 0 6px #f8fafc, 0 6px 12px rgba(15,23,42,.12);
+      position: relative;
+      z-index: 2;
     }
-    .gfs-timeline-step p {
+    .member .gfs-step-number { background: var(--member); }
+    .registered .gfs-step-number { background: var(--registered); }
+    .authorized .gfs-step-number { background: var(--authorized); }
+    .premium .gfs-step-number { background: var(--premium); }
+    
+    .gfs-step-card {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 16px 24px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(13, 47, 104, .06);
+      min-height: 250px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      border-top: 4px solid currentColor;
+    }
+    .member .gfs-step-card { color: var(--member); }
+    .registered .gfs-step-card { color: var(--registered); }
+    .authorized .gfs-step-card { color: var(--authorized); }
+    .premium .gfs-step-card { color: var(--premium); }
+    
+    .gfs-step-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, .06);
+    }
+    .gfs-step-icon svg { width: 36px; height: 36px; }
+    .member .gfs-step-icon { background: linear-gradient(135deg, #f0fcfd, #e0f8fa); color: var(--member); }
+    .registered .gfs-step-icon { background: linear-gradient(135deg, #f0f6ff, #dce8ff); color: var(--registered); }
+    .authorized .gfs-step-icon { background: linear-gradient(135deg, #f0f4fb, #dce6f6); color: var(--authorized); }
+    .premium .gfs-step-icon { background: linear-gradient(135deg, #fff0f0, #ffe0e0); color: var(--premium); }
+    
+    .gfs-step-card h4 {
+      margin: 0 0 10px;
+      color: #0f172a;
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+    
+    .gfs-step-card p {
       margin: 0;
+      color: #56637a;
       font-size: 13px;
-      color: var(--gfs-muted);
-      line-height: 1.4;
+      line-height: 1.5;
     }
-
+    .gfs-desktop-title { display: inline; }
+    .gfs-mobile-title { display: none; }
+    
+    .gfs-timeline-note {
+      width: fit-content;
+      max-width: min(100%, 900px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px auto 0;
+      padding: 11px 20px;
+      border: 1px solid #dce6f1;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: #56637a;
+      font-size: 15px;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+    }
+    .gfs-timeline-note svg {
+      width: 24px;
+      height: 24px;
+      color: #4f8ee8;
+      flex: 0 0 auto;
+    }
     /* Enablement Cards */
     .gfs-enable-grid {
       display: grid;
@@ -1335,14 +1483,31 @@
       .gfs-pillars-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
+      .gfs-onboarding .gfs-section-header h2 {
+        font-size: 42px;
+      }
+      .gfs-onboarding .gfs-section-header p {
+        font-size: 18px;
+      }
       .gfs-timeline {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        padding-top: 0;
       }
       .gfs-timeline::before {
         display: none;
       }
+      .gfs-tier-band {
+        display: none;
+      }
       .gfs-timeline-step {
-        margin-bottom: 20px;
+        margin-bottom: 0;
+      }
+      .gfs-timeline-circle {
+        margin-top: 0;
+      }
+      .gfs-timeline-card {
+        min-height: 220px;
       }
       .gfs-enable-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1366,6 +1531,159 @@
         grid-template-columns: 1fr;
         gap: 14px;
       }
+      .gfs-onboarding .gfs-section-header h2 {
+        font-size: 38px;
+        line-height: 1.18;
+      }
+      .gfs-onboarding .gfs-section-header p {
+        max-width: 92%;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      .gfs-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 18px;
+        padding: 0;
+      }
+      .gfs-timeline::before { display: none; }
+      .gfs-tier-group {
+        display: block;
+        border-radius: 16px;
+        padding: 14px 14px 0;
+      }
+      .gfs-tier-group.member { background: rgba(6,146,160,0.06); border: 1px solid rgba(6,146,160,0.15); }
+      .gfs-tier-group.registered { background: rgba(31,103,242,0.06); border: 1px solid rgba(31,103,242,0.15); }
+      .gfs-tier-group.authorized { background: rgba(7,63,147,0.06); border: 1px solid rgba(7,63,147,0.15); }
+      .gfs-tier-group.premium { background: rgba(225,25,29,0.06); border: 1px solid rgba(225,25,29,0.15); }
+      
+      .gfs-tier-header {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        min-height: 54px;
+        margin-bottom: 16px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.7);
+        box-shadow: 0 4px 12px rgba(15,23,42,.04);
+        pointer-events: auto;
+        top: 0;
+        height: auto;
+      }
+      .gfs-tier-header::before, .gfs-tier-header::after { display: none; }
+      .gfs-tier-group.member .gfs-tier-header { left: 0; width: 100%; }
+      .gfs-tier-group.registered .gfs-tier-header { left: 0; width: 100%; }
+      .gfs-tier-group.authorized .gfs-tier-header { left: 0; width: 100%; }
+      .gfs-tier-group.premium .gfs-tier-header { left: 0; width: 100%; }
+      
+      .gfs-tier-badge {
+        min-height: 54px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 16px;
+        border-radius: 14px 999px 999px 14px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 800;
+        box-shadow: none;
+      }
+      .gfs-tier-header p.gfs-tier-desc {
+        display: block;
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 12px;
+        line-height: 1.35;
+        color: currentColor;
+      }
+      .gfs-tier-group.member .gfs-tier-desc { color: var(--member); }
+      .gfs-tier-group.registered .gfs-tier-desc { color: var(--registered); }
+      .gfs-tier-group.authorized .gfs-tier-desc { color: var(--authorized); }
+      .gfs-tier-group.premium .gfs-tier-desc { color: var(--premium); }
+      
+      .gfs-timeline-step {
+        display: flex;
+        gap: 14px;
+        position: relative;
+        margin-bottom: 14px;
+      }
+      .gfs-timeline-step::before {
+        content: '';
+        position: absolute;
+        top: 38px;
+        left: 17px;
+        bottom: -14px;
+        width: 0;
+        border-left: 2px dashed currentColor;
+        z-index: 1;
+      }
+      .gfs-timeline-step:last-child::before { display: none; }
+      .member .gfs-timeline-step::before { color: var(--member); opacity: 0.5; }
+      .registered .gfs-timeline-step::before { color: var(--registered); opacity: 0.5; }
+      .authorized .gfs-timeline-step::before { color: var(--authorized); opacity: 0.5; }
+      .premium .gfs-timeline-step::before { color: var(--premium); opacity: 0.5; }
+      
+      .gfs-step-number {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        margin: 0;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.8);
+        flex-shrink: 0;
+      }
+      .gfs-step-card {
+        flex: 1;
+        min-height: auto;
+        padding: 14px;
+        display: flex;
+        gap: 12px;
+        text-align: left;
+        box-shadow: 0 4px 12px rgba(13, 47, 104, .04);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-top: none;
+        border-radius: 12px;
+      }
+      .gfs-step-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+        flex-shrink: 0;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, .04);
+      }
+      .gfs-step-icon svg { width: 26px; height: 26px; }
+      .gfs-step-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .gfs-step-card h4 {
+        font-size: 17px;
+        margin: 0 0 4px;
+      }
+      .gfs-step-card p {
+        font-size: 12.5px;
+        line-height: 1.4;
+      }
+      .gfs-desktop-title { display: none; }
+      .gfs-mobile-title { display: inline; }
+      
+      .gfs-timeline-note {
+        align-items: flex-start;
+        border-radius: 18px;
+        font-size: 13.5px;
+        line-height: 1.4;
+        margin-top: 14px;
+        padding: 12px 14px;
+      }
+      .gfs-timeline-note svg {
+        width: 24px;
+        height: 24px;
+      }
       .gfs-pillars-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
@@ -1383,6 +1701,57 @@
       }
       .gfs-features-section {
         padding: 40px 0;
+      }
+    }
+    @media (max-width: 420px) {
+      .gfs-onboarding .gfs-section-header h2 {
+        font-size: 32px;
+      }
+      .gfs-mobile-tier {
+        grid-template-columns: 1fr;
+      }
+      .gfs-mobile-tier-badge {
+        width: 100%;
+        min-height: 50px;
+        justify-content: center;
+        border-radius: 14px 14px 0 0;
+        font-size: 17px;
+      }
+      .gfs-mobile-tier p {
+        text-align: center;
+        padding: 9px 12px;
+      }
+      .gfs-timeline-step {
+        grid-template-columns: 48px minmax(0, 1fr);
+      }
+      .gfs-timeline-step::before {
+        left: 24px;
+      }
+      .gfs-timeline-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 21px;
+      }
+      .gfs-timeline-card {
+        grid-template-columns: 76px minmax(0, 1fr);
+        min-height: 122px;
+        padding: 15px 12px;
+      }
+      .gfs-timeline-icon {
+        width: 64px;
+        height: 68px;
+        margin-right: 10px;
+        padding-right: 10px;
+      }
+      .gfs-timeline-icon svg {
+        width: 50px;
+        height: 50px;
+      }
+      .gfs-timeline-step h4 {
+        font-size: 18px;
+      }
+      .gfs-timeline-step p {
+        font-size: 13px;
       }
     }
   </style>
@@ -1762,48 +2131,144 @@
     </section>
 
     <!-- Section 4: Onboarding Timeline -->
-    <section class="gfs-features-section" id="dealer-onboarding" aria-label="Onboarding Process">
+    <section class="gfs-features-section gfs-onboarding" id="dealer-onboarding" aria-label="Onboarding Process">
       <div class="gfs-section-header">
         <h2>7 ขั้นตอนสู่การเริ่มต้นเป็นตัวแทนจำหน่ายอย่างเป็นระบบ</h2>
-        <p>เราออกแบบขั้นตอนการเริ่มต้นงานให้กระชับ เพื่ออำนวยความสะดวกให้พาร์ทเนอร์เปิดการขายงานแรกได้เร็วที่สุด</p>
+        <p>เราออกแบบขั้นตอนการเริ่มต้นงานให้เป็นลำดับชัดเจน เพื่อช่วยให้พาร์ทเนอร์เริ่มขายงานได้ง่ายขึ้น พร้อมพัฒนาไปตามระดับ Partner Tiers</p>
       </div>
 
       <div class="gfs-timeline">
-        <div class="gfs-timeline-step active">
-          <div class="gfs-timeline-circle">1</div>
-          <h4>สมัครเข้าร่วม</h4>
-          <p>กรอกแบบฟอร์มข้อมูลติดต่อและธุรกิจเบื้องต้นที่ด้านล่างนี้</p>
+        <!-- Member -->
+        <div class="gfs-tier-group member">
+          <div class="gfs-tier-header">
+            <div class="gfs-tier-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+              Member
+            </div>
+            <p class="gfs-tier-desc">กลุ่มเริ่มต้นสำหรับผู้สมัครที่ผ่านการคัดกรองเบื้องต้น</p>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">1</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 10h28l8 8v34H14z"/><path d="M42 10v10h10"/><path d="M21 24h18"/><path d="M21 33h17"/><circle cx="43" cy="42" r="7"/><path d="M31 56c2-7 21-7 24 0"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4>สมัครเข้าร่วม</h4>
+                <p>กรอกแบบฟอร์มข้อมูล ติดต่อและรายละเอียดธุรกิจ เพื่อเริ่มสมัครเข้าร่วม</p>
+              </div>
+            </div>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">2</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 8 51 16v13c0 13-8 21-19 27-11-6-19-14-19-27V16z"/><path d="m24 31 6 6 12-14"/><circle cx="47" cy="43" r="8"/><path d="m53 49 7 7"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4>คัดกรองเบื้องต้น</h4>
+                <p>ทีมฝ่ายขายตรวจสอบข้อมูลพื้นที่ให้บริการ และความเหมาะสมเพื่อป้องกันการทับซ้อนคู่ค้า</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gfs-timeline-step">
-          <div class="gfs-timeline-circle">2</div>
-          <h4>คัดกรองเบื้องต้น</h4>
-          <p>ทีมฝ่ายขายตรวจสอบพื้นที่ให้บริการ ป้องกันไม่ให้ทับซ้อนคู่ค้าเดิม</p>
+
+        <!-- Registered -->
+        <div class="gfs-tier-group registered">
+          <div class="gfs-tier-header">
+            <div class="gfs-tier-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a2.8 2.8 0 0 0 4 0l3-3a2.8 2.8 0 0 0 0-4l-5-5a2.8 2.8 0 0 0-4 0l-1 1"/><path d="m13 7-2-2a2.8 2.8 0 0 0-4 0L4 8a2.8 2.8 0 0 0 0 4l5 5a2.8 2.8 0 0 0 4 0l1-1"/></svg>
+              Registered Partner
+            </div>
+            <p class="gfs-tier-desc">เริ่มต้นเป็น Partner และพร้อมเปิดการขายงานแรก</p>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">3</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8h30l6 6v42H16z"/><path d="M46 8v10h10"/><path d="M24 24h20"/><path d="M24 33h16"/><path d="m35 48 13-13 6 6-13 13-8 2z"/><path d="m48 35 6 6"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4><span class="gfs-desktop-title">เซ็นสัญญาคู่ค้า</span><span class="gfs-mobile-title">ยืนยันเงื่อนไขคู่ค้า</span></h4>
+                <p>ตกลงเงื่อนไขระดับ Tier โครงสร้างราคา และแนวทางความร่วมมือทางการค้า</p>
+              </div>
+            </div>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">4</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 22 32 10l22 12-22 12z"/><path d="M10 22v22l22 12 22-12V22"/><path d="M32 34v22"/><path d="m20 16 22 12"/><path d="m44 16-22 12"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4>รับ Partner Kit</h4>
+                <p>รับแคตตาล็อก ตัวอย่างฟิล์ม แผ่นพับราคา และสเปกสินค้าสำหรับเริ่มนำเสนอขาย</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gfs-timeline-step">
-          <div class="gfs-timeline-circle">3</div>
-          <h4>เซ็นสัญญาคู่ค้า</h4>
-          <p>ตกลงเงื่อนไขระดับ Tier โครงสร้างราคา และความร่วมมือทางการค้า</p>
+
+        <!-- Authorized -->
+        <div class="gfs-tier-group authorized">
+          <div class="gfs-tier-header">
+            <div class="gfs-tier-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3z"/><path d="m9 12 2 2 4-5"/></svg>
+              Authorized Partner
+            </div>
+            <p class="gfs-tier-desc">พัฒนาเป็นคู่ค้าที่ขายต่อเนื่อง และทำงานเป็นระบบมากขึ้น</p>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">5</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14c9 0 15 2 22 7 7-5 13-7 22-7v36c-9 0-15 2-22 7-7-5-13-7-22-7z"/><path d="M32 21v36"/><path d="m29 30 10 6-10 6z"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4>เข้าอบรมเบื้องต้น</h4>
+                <p>เรียนรู้รายละเอียดสินค้า เทคนิคการนำเสนอ และวิธีการเช็กคิวช่างเบื้องต้น</p>
+              </div>
+            </div>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">6</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 12h8l7 30h25l7-20H23"/><circle cx="29" cy="52" r="4"/><circle cx="48" cy="52" r="4"/><path d="M25 42h28"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4><span class="gfs-desktop-title">ออกคำสั่งซื้อแรก</span><span class="gfs-mobile-title">เริ่มสั่งซื้อ / เปิดงานแรก</span></h4>
+                <p>เริ่มเสนอราคา ทดลองเปิดงาน และประสานทีม Sub-con เข้าช่วยประเมินหน้างานจริง</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gfs-timeline-step">
-          <div class="gfs-timeline-circle">4</div>
-          <h4>รับ Partner Kit</h4>
-          <p>จัดส่งแคตตาล็อก ตัวอย่างฟิล์ม แผ่นพับราคา และสเปกสินค้า</p>
+
+        <!-- Premium -->
+        <div class="gfs-tier-group premium">
+          <div class="gfs-tier-header">
+            <div class="gfs-tier-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 6 4 10h12l4-10-6 5-4-7-4 7z"/><path d="M6 20h12"/></svg>
+              Premium Partner
+            </div>
+            <p class="gfs-tier-desc">ต่อยอดสู่ Partner ระดับสูง สำหรับคู่ค้าที่มีศักยภาพและยอดขายต่อเนื่อง</p>
+          </div>
+          <div class="gfs-timeline-step">
+            <div class="gfs-step-number">7</div>
+            <div class="gfs-step-card">
+              <div class="gfs-step-icon">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 52h40M18 52V28M32 52V18M46 52V36M12 20l14-10 14 14 14-16"/><path d="M44 8h10v10"/></svg>
+              </div>
+              <div class="gfs-step-content">
+                <h4><span class="gfs-desktop-title">ประเมินติดตามผล</span><span class="gfs-mobile-title">ประเมินและพัฒนาระดับ Tier</span></h4>
+                <p>วิเคราะห์ผลงานแรก เก็บ Feedback และวางแผนพัฒนาเพื่ออัปเกรดระดับ Tier</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="gfs-timeline-step">
-          <div class="gfs-timeline-circle">5</div>
-          <h4>เข้าอบรมเบื้องต้น</h4>
-          <p>เรียนรู้รายละเอียดสินค้า เทคนิคการนำเสนอ และวิธีการเช็กคิวช่าง</p>
-        </div>
-        <div class="gfs-timeline-step">
-          <div class="gfs-timeline-circle">6</div>
-          <h4>ออกคำสั่งซื้อแรก</h4>
-          <p>ทดลองเสนอราคาและสั่งช่างทีม Sub-con เข้าประเมินหน้างานจริง</p>
-        </div>
-        <div class="gfs-timeline-step">
-          <div class="gfs-timeline-circle">7</div>
-          <h4>ประเมินติดตามผล</h4>
-          <p>วิเคราะห์ผลงานแรก เก็บรวบรวม Feedback เพื่อการอัปเกรดระดับ Tier</p>
-        </div>
+      </div>
+      <div class="gfs-timeline-note">
+        <svg viewBox="0 0 24 24" fill="#eff6ff" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+        <span>หมายเหตุ: ขั้นตอนอาจมีการปรับตามประเภทลูกค้า พื้นที่ให้บริการ และระดับการพัฒนาของพาร์ทเนอร์ในระบบ Goodfilm</span>
       </div>
     </section>
 
