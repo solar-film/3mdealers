@@ -2856,16 +2856,59 @@
       form.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const requiredGroups = ['business_type', 'customer_group', 'product_interest', 'support_need'];
-        const invalidGroup = requiredGroups.find(name => !checkboxGroupValid(name));
-        if (invalidGroup) {
-          alert('กรุณาเลือกข้อมูลในหัวข้อที่จำเป็นให้ครบถ้วน');
-          updateProgress();
-          return;
-        }
+        let missingFields = [];
+        
+        // 1. Validate required checkbox groups
+        const requiredGroups = [
+          { name: 'business_type', label: 'ประเภทธุรกิจของคุณ' },
+          { name: 'customer_group', label: 'กลุ่มลูกค้าหลัก' },
+          { name: 'product_interest', label: 'สินค้าที่สนใจนำไปทำตลาด' },
+          { name: 'support_need', label: 'สิ่งที่ต้องการให้ Goodfilm สนับสนุน' }
+        ];
+        
+        requiredGroups.forEach(group => {
+          if (!checkboxGroupValid(group.name)) {
+            missingFields.push(group.label);
+          }
+        });
 
-        if (!form.checkValidity()) {
-          form.reportValidity();
+        // 2. Validate other HTML5 required fields
+        const elements = form.querySelectorAll('input[required], select[required], textarea[required]');
+        elements.forEach(el => {
+          if (!el.validity.valid) {
+            let labelText = el.getAttribute('placeholder') || el.name;
+            const id = el.id;
+            if (id) {
+              const labelEl = document.querySelector('label[for="' + id + '"]');
+              if (labelEl) {
+                labelText = labelEl.innerText.replace('*', '').trim();
+              }
+            }
+            if (!missingFields.includes(labelText)) {
+              missingFields.push(labelText);
+            }
+          }
+        });
+
+        if (missingFields.length > 0) {
+          alert('กรุณากรอกหรือเลือกข้อมูลในหัวข้อต่อไปนี้ให้ครบถ้วนและถูกต้อง:\n\n- ' + missingFields.join('\n- '));
+          
+          // Focus the first invalid field
+          const firstInvalid = form.querySelector('input:invalid, select:invalid, textarea:invalid');
+          if (firstInvalid) {
+            firstInvalid.focus();
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            // If it's a checkbox group, just scroll to the first invalid group
+            if (missingFields.length > 0) {
+              const firstGroupName = requiredGroups.find(g => missingFields.includes(g.label))?.name;
+              if (firstGroupName) {
+                const firstCb = form.querySelector('input[name="' + firstGroupName + '"]');
+                if (firstCb) firstCb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }
+          }
+          
           updateProgress();
           return;
         }
