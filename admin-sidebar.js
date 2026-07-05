@@ -30,9 +30,14 @@ document.write(`
 
       <div class="admin-nav-section">
         <div class="admin-nav-heading">การขาย</div>
-        <a class="admin-nav-item" href="index.html" target="_blank">
+        <a class="admin-nav-item" href="https://app.smemove.com/auth/logout" target="_blank">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+          <span>ออกใบเสนอราคา</span>
+
+          <a class="admin-nav-item" href="index.html" target="_blank">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
           <span>แบบฟอร์มลงทะเบียน</span>
+        </a>
         </a>
       </div>
 
