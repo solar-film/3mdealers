@@ -716,9 +716,9 @@
       .gfs-page { width: min(100% - 24px, 1180px); }
       .gfs-hero { margin-top: 12px; border-radius: 26px; }
       .gfs-hero-inner { padding: 26px 20px; }
-      .gfs-brand { border-radius: 18px; align-items: center; flex-direction: column; text-align: center; gap: 8px; }
-      .gfs-brand img { height: 48px; max-width: none; margin: 0 auto; }
-      .gfs-brand span { font-size: 13.5px; margin-left: 0; padding-left: 0; border-left: none; text-align: center; }
+      .gfs-brand { display: flex; width: 100%; box-sizing: border-box; padding: 16px; border-radius: 18px; align-items: center; justify-content: center; flex-direction: column; text-align: center; gap: 10px; }
+      .gfs-brand img { height: 48px; max-width: 100%; margin: 0 auto; display: block; }
+      .gfs-brand span { font-size: 13.5px; margin: 0; padding: 0; border: none; text-align: center; display: block; width: 100%; }
       .gfs-eyebrow { display: none !important; }
       .gfs-hero-actions { align-items: stretch; }
       .gfs-btn { width: 100%; }
@@ -735,6 +735,7 @@
       .gfs-actions { align-items: stretch; }
       .gfs-submit { width: 100%; }
       .gfs-footer { grid-template-columns: 1fr; text-align: left; }
+      .gfs-onboarding { display: none !important; }
     }
 
     @media print {
