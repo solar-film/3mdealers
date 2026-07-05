@@ -807,28 +807,40 @@
       .gfs-section {
         page-break-inside: avoid;
         break-inside: avoid;
-        margin-bottom: 12px !important;
-        border: 1px solid #cbd5e1 !important;
-        padding: 12px !important;
-        border-radius: 8px !important;
+        margin-bottom: 15px !important;
+        border: none !important;
+        padding: 0 !important;
         background: #fff !important;
       }
 
       .gfs-section-title {
-        margin-bottom: 10px !important;
+        margin-bottom: 12px !important;
+        padding-bottom: 4px !important;
+        border-bottom: 2px solid #1b437c !important;
+        display: flex !important;
+        align-items: center !important;
         gap: 8px !important;
       }
       
       .gfs-step {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 12px !important;
-        border-radius: 6px !important;
+        width: auto !important;
+        height: auto !important;
+        background: transparent !important;
+        color: #1b437c !important;
+        font-size: 14pt !important;
+        font-weight: 800 !important;
+        border-radius: 0 !important;
+        display: inline-block !important;
+      }
+      .gfs-step::after {
+        content: ".";
       }
       
       .gfs-section-title h3 {
         font-size: 14pt !important;
+        color: #1b437c !important;
         margin: 0 !important;
+        font-weight: 800 !important;
       }
       
       .gfs-section-title p {
@@ -837,10 +849,10 @@
 
       .gfs-grid, .gfs-grid-3 {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px 12px !important;
+        gap: 12px 20px !important;
       }
       .gfs-full {
-        grid-column: span 1 !important;
+        grid-column: 1 / -1 !important;
       }
       
       .gfs-field {
@@ -848,8 +860,14 @@
       }
 
       .gfs-label {
-        font-size: 9.5pt !important;
-        margin-bottom: 4px !important;
+        font-size: 10pt !important;
+        font-weight: 800 !important;
+        color: #162033 !important;
+        margin-bottom: 2px !important;
+      }
+
+      .gfs-label .gfs-required {
+        display: none !important;
       }
 
       input[type='text'],
@@ -859,13 +877,30 @@
       input[type='number'],
       select,
       textarea {
-        background: #ffffff !important;
+        background: transparent !important;
         color: #0f172a !important;
-        min-height: 40px !important;
-        border-radius: 8px !important;
-        padding: 8px 12px !important;
+        min-height: auto !important;
+        border: none !important;
+        border-bottom: 1px dotted #cbd5e1 !important;
+        border-radius: 0 !important;
+        padding: 4px 0 !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        font-size: 11pt !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+      
+      /* Hide dropdown arrows in print */
+      select {
+        background-image: none !important;
+      }
+      
+      /* For textareas, give a bit more height or lines */
+      textarea {
+        min-height: 40px !important;
+        resize: none !important;
       }
     }
 
