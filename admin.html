@@ -940,7 +940,7 @@
     }
     .settings-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
     }
     .settings-card {
@@ -965,9 +965,15 @@
       color: var(--gfs-muted);
       margin-bottom: 6px;
     }
-    .settings-card input, .settings-card select {
+    .settings-card input, .settings-card select, .settings-card textarea {
       margin-bottom: 14px;
       background: white;
+    }
+    .settings-card textarea {
+      min-height: 112px;
+      overflow: hidden;
+      resize: vertical;
+      line-height: 1.5;
     }
 
     /* Checklist & Details Panel Enhancements */
@@ -2090,40 +2096,85 @@
           
           <div>
             <div class="settings-section-title">📊 ตั้งค่าเงื่อนไขเชิงพาณิชย์แต่ละระดับพาร์ทเนอร์ (Partner Tiers settings)</div>
-            <div style="color:var(--gfs-muted);margin-bottom:20px;font-size:14px;">เมื่อทำการปรับเปลี่ยนสเปกด้านล่าง ข้อมูลจะบันทึกลงในระบบเพื่อส่งต่อไปแสดงผลที่หน้าจอพาร์ทเนอร์ (Landing Page) ทันที</div>
+            <div style="color:var(--gfs-muted);margin-bottom:20px;font-size:14px;">ข้อมูลส่วนนี้บันทึกลงชีต Partner_Tiers_Detail เพื่อใช้เป็นเกณฑ์ Partner และแสดงบน Landing Page จากแหล่งข้อมูลเดียวกัน</div>
             <div class="settings-grid">
+              <!-- Member Settings -->
+              <div class="settings-card">
+                <h3>👤 Member</h3>
+                <label for="set-member-desc">คำอธิบายระดับ</label>
+                <textarea id="set-member-desc" class="form-textarea">กลุ่มเริ่มต้นสำหรับผู้สมัครที่ผ่านการคัดกรองแล้ว</textarea>
+                <label for="set-member-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
+                <input type="text" id="set-member-target" class="form-select" value="ไม่มีขั้นต่ำ" />
+                <label for="set-member-discount">สิทธิ์ส่วนลดตามระดับ</label>
+                <input type="text" id="set-member-discount" class="form-select" value="ราคาสมาชิก" />
+                <label for="set-member-credit">เครดิตการค้า (วัน)</label>
+                <input type="text" id="set-member-credit" class="form-select" value="เงินสด" />
+                <label for="set-member-benefits">สิทธิประโยชน์ (1 บรรทัดต่อ 1 ข้อ)</label>
+                <textarea id="set-member-benefits" class="form-textarea">รับข้อมูลสินค้าและราคาเบื้องต้น
+ขอคำแนะนำการเลือกฟิล์มตามหน้างานได้
+ได้รับสื่อขายพื้นฐานจาก Goodfilm
+เข้าร่วมอบรมความรู้สินค้าเบื้องต้น
+พร้อมอัปเกรดเป็น Partner เมื่อมีการสั่งซื้อจริง</textarea>
+              </div>
               <!-- Registered Settings -->
               <div class="settings-card">
                 <h3>🛠️ Registered Partner</h3>
+                <label for="set-reg-desc">คำอธิบายระดับ</label>
+                <textarea id="set-reg-desc" class="form-textarea">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อและร่วมขายอย่างเป็นระบบ</textarea>
                 <label for="set-reg-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
-                <input type="text" id="set-reg-target" class="form-select" value="ไม่มีขั้นต่ำ" />
-                <label for="set-reg-discount">ส่วนลดตัวแทน (%)</label>
-                <input type="number" id="set-reg-discount" class="form-select" value="10" />
+                <input type="text" id="set-reg-target" class="form-select" value="20000" />
+                <label for="set-reg-discount">สิทธิ์ส่วนลดตามระดับ</label>
+                <input type="text" id="set-reg-discount" class="form-select" value="สูงสุด 10%" />
                 <label for="set-reg-credit">เครดิตการค้า (วัน)</label>
-                <input type="text" id="set-reg-credit" class="form-select" value="เงินสด (Cash)" />
+                <input type="text" id="set-reg-credit" class="form-select" value="เงินสด" />
+                <label for="set-reg-benefits">สิทธิประโยชน์ (1 บรรทัดต่อ 1 ข้อ)</label>
+                <textarea id="set-reg-benefits" class="form-textarea">ราคาคู่ค้าสำหรับผู้เริ่มต้น
+เอกสารแคตตาล็อกและสเปกฟิล์ม
+สื่อขายพื้นฐานสำหรับนำเสนอสินค้า
+คอร์สอบรมความรู้ผลิตภัณฑ์เบื้องต้น
+ระบบออกใบรับประกันออนไลน์
+มีโอกาสอัปเกรดเป็น Authorized Partner</textarea>
               </div>
               <!-- Authorized Settings -->
               <div class="settings-card">
                 <h3>🌟 Authorized Partner</h3>
+                <label for="set-auth-desc">คำอธิบายระดับ</label>
+                <textarea id="set-auth-desc" class="form-textarea">ระดับมาตรฐานสำหรับ Partner ที่มียอดสั่งซื้อสม่ำเสมอ</textarea>
                 <label for="set-auth-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
-                <input type="number" id="set-auth-target" class="form-select" value="50000" />
-                <label for="set-auth-discount">ส่วนลดตัวแทน (%)</label>
-                <input type="number" id="set-auth-discount" class="form-select" value="20" />
+                <input type="text" id="set-auth-target" class="form-select" value="50000" />
+                <label for="set-auth-discount">สิทธิ์ส่วนลดตามระดับ</label>
+                <input type="text" id="set-auth-discount" class="form-select" value="สูงสุด 20%" />
                 <label for="set-auth-credit">เครดิตการค้า (วัน)</label>
-                <input type="text" id="set-auth-credit" class="form-select" value="30 วัน (30 Days)" />
+                <input type="text" id="set-auth-credit" class="form-select" value="15-30 วัน*" />
+                <label for="set-auth-benefits">สิทธิประโยชน์ (1 บรรทัดต่อ 1 ข้อ)</label>
+                <textarea id="set-auth-benefits" class="form-textarea">ราคาคู่ค้าระดับพิเศษ
+ยืมชุด Demo Kit สำหรับหน้าร้าน / นำเสนอลูกค้า
+อบรมเชิงลึกด้านสินค้า เทคนิคการขาย และวิเคราะห์หน้างาน
+สิทธิ์ทำสื่อการตลาดร่วมกับ Goodfilm
+พิจารณาส่งต่อ Lead ตามพื้นที่และความพร้อม
+Badge แสดงสถานะ Authorized Partner</textarea>
               </div>
               <!-- Premium Settings -->
               <div class="settings-card">
                 <h3>🏆 Premium Partner</h3>
+                <label for="set-prem-desc">คำอธิบายระดับ</label>
+                <textarea id="set-prem-desc" class="form-textarea">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง รองรับงานโครงการและงานขนาดใหญ่</textarea>
                 <label for="set-prem-target">ยอดสั่งซื้อขั้นต่ำ (บาท/ไตรมาส)</label>
-                <input type="number" id="set-prem-target" class="form-select" value="150000" />
-                <label for="set-prem-discount">ส่วนลดตัวแทน (%)</label>
-                <input type="number" id="set-prem-discount" class="form-select" value="30" />
+                <input type="text" id="set-prem-target" class="form-select" value="150000" />
+                <label for="set-prem-discount">สิทธิ์ส่วนลดตามระดับ</label>
+                <input type="text" id="set-prem-discount" class="form-select" value="สูงสุด 30%" />
                 <label for="set-prem-credit">เครดิตการค้า (วัน)</label>
-                <input type="text" id="set-prem-credit" class="form-select" value="30/45 วัน" />
+                <input type="text" id="set-prem-credit" class="form-select" value="30-45 วัน*" />
+                <label for="set-prem-benefits">สิทธิประโยชน์ (1 บรรทัดต่อ 1 ข้อ)</label>
+                <textarea id="set-prem-benefits" class="form-textarea">ราคาคู่ค้าระดับสูงสุด
+Priority สำหรับงานเร่งด่วน / งานพิเศษ
+Demo Kit ประจำหน้าร้านตามความเหมาะสม
+พิจารณาแสดงรายชื่อบนเว็บไซต์ Goodfilm
+สิทธิ์เข้าร่วมแคมเปญและกิจกรรมประจำปี
+อบรมความรู้เชิงเทคนิคและงานโครงการขั้นสูง</textarea>
               </div>
             </div>
-            <button class="save-btn" onclick="saveSystemSettings()" style="max-width:200px;margin-top:20px;">💾 บันทึกตั้งค่าระบบ</button>
+            <button class="save-btn" onclick="saveSystemSettings()" style="max-width:220px;margin-top:20px;">💾 บันทึกเกณฑ์ Partner</button>
           </div>
 
 
@@ -2146,6 +2197,80 @@
     const CARD_BATCH_SIZE = 15;
     const SPREADSHEET_ID = '1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q';
     const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxISzq_YS5daW_u_kVNXi7SyIsjmqy8EZaOqXkxGzXO2-H1sSpT4X8Pgmd6JsKvyGA9/exec'; // Web App URL ของคุณ
+    const PARTNER_TIER_DETAIL_SHEET = 'Partner_Tiers_Detail';
+    const DEFAULT_PARTNER_TIER_DETAILS = {
+      member: {
+        tier: 'member',
+        label: 'Member',
+        description: 'กลุ่มเริ่มต้นสำหรับผู้สมัครที่ผ่านการคัดกรองแล้ว',
+        target: 'ไม่มีขั้นต่ำ',
+        discount: 'ราคาสมาชิก',
+        credit: 'เงินสด',
+        benefits: [
+          'รับข้อมูลสินค้าและราคาเบื้องต้น',
+          'ขอคำแนะนำการเลือกฟิล์มตามหน้างานได้',
+          'ได้รับสื่อขายพื้นฐานจาก Goodfilm',
+          'เข้าร่วมอบรมความรู้สินค้าเบื้องต้น',
+          'พร้อมอัปเกรดเป็น Partner เมื่อมีการสั่งซื้อจริง'
+        ],
+        badge: 'เริ่มต้น',
+        sortOrder: 1
+      },
+      registered: {
+        tier: 'registered',
+        label: 'Registered Partner',
+        description: 'ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อและร่วมขายอย่างเป็นระบบ',
+        target: '20000',
+        discount: 'สูงสุด 10%',
+        credit: 'เงินสด',
+        benefits: [
+          'ราคาคู่ค้าสำหรับผู้เริ่มต้น',
+          'เอกสารแคตตาล็อกและสเปกฟิล์ม',
+          'สื่อขายพื้นฐานสำหรับนำเสนอสินค้า',
+          'คอร์สอบรมความรู้ผลิตภัณฑ์เบื้องต้น',
+          'ระบบออกใบรับประกันออนไลน์',
+          'มีโอกาสอัปเกรดเป็น Authorized Partner'
+        ],
+        badge: '',
+        sortOrder: 2
+      },
+      authorized: {
+        tier: 'authorized',
+        label: 'Authorized Partner',
+        description: 'ระดับมาตรฐานสำหรับ Partner ที่มียอดสั่งซื้อสม่ำเสมอ',
+        target: '50000',
+        discount: 'สูงสุด 20%',
+        credit: '15-30 วัน*',
+        benefits: [
+          'ราคาคู่ค้าระดับพิเศษ',
+          'ยืมชุด Demo Kit สำหรับหน้าร้าน / นำเสนอลูกค้า',
+          'อบรมเชิงลึกด้านสินค้า เทคนิคการขาย และวิเคราะห์หน้างาน',
+          'สิทธิ์ทำสื่อการตลาดร่วมกับ Goodfilm',
+          'พิจารณาส่งต่อ Lead ตามพื้นที่และความพร้อม',
+          'Badge แสดงสถานะ Authorized Partner'
+        ],
+        badge: 'ยอดนิยม',
+        sortOrder: 3
+      },
+      premium: {
+        tier: 'premium',
+        label: 'Premium Partner',
+        description: 'ระดับสูงสุดสำหรับ Partner ศักยภาพสูง รองรับงานโครงการและงานขนาดใหญ่',
+        target: '150000',
+        discount: 'สูงสุด 30%',
+        credit: '30-45 วัน*',
+        benefits: [
+          'ราคาคู่ค้าระดับสูงสุด',
+          'Priority สำหรับงานเร่งด่วน / งานพิเศษ',
+          'Demo Kit ประจำหน้าร้านตามความเหมาะสม',
+          'พิจารณาแสดงรายชื่อบนเว็บไซต์ Goodfilm',
+          'สิทธิ์เข้าร่วมแคมเปญและกิจกรรมประจำปี',
+          'อบรมความรู้เชิงเทคนิคและงานโครงการขั้นสูง'
+        ],
+        badge: 'ระดับสูงสุด',
+        sortOrder: 4
+      }
+    };
     
     // Tab switching logic
     function switchTab(tabName) {
@@ -2178,6 +2303,8 @@
         renderDashboard();
       } else if (tabName === 'leads') {
         applyFilters();
+      } else if (tabName === 'settings') {
+        setTimeout(resizePartnerTierTextareas, 0);
       }
     }
 
@@ -2257,6 +2384,7 @@
       const raw = String(value || '').trim();
       const lowered = raw.toLowerCase();
       if (!raw) return '';
+      if (['member'].includes(lowered)) return 'member';
       if (['premium', 'premium partner'].includes(lowered)) return 'premium';
       if (['authorized', 'authorized partner', 'authorised', 'authorised partner'].includes(lowered)) return 'authorized';
       if (['registered', 'registered partner'].includes(lowered)) return 'registered';
@@ -2441,6 +2569,100 @@
           error: err => reject(err)
         });
       });
+    }
+
+    function cloneDefaultPartnerTierDetails() {
+      return Object.fromEntries(
+        Object.entries(DEFAULT_PARTNER_TIER_DETAILS).map(([key, value]) => [
+          key,
+          { ...value, benefits: value.benefits.slice() }
+        ])
+      );
+    }
+
+    function getPartnerTierDetailCsvUrl() {
+      return `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(PARTNER_TIER_DETAIL_SHEET)}&t=` + new Date().getTime();
+    }
+
+    function splitTierBenefits(value) {
+      if (Array.isArray(value)) return value.map(item => String(item).trim()).filter(Boolean);
+      return String(value || '')
+        .split(/\r?\n|\s*\|\s*/)
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function normalizePartnerTierDetailRow(row) {
+      const tier = normalizeTierValue(getFirstRowValue(row, ['Tier', 'tier', 'Key', 'key']));
+      if (!tier || !DEFAULT_PARTNER_TIER_DETAILS[tier]) return null;
+
+      const defaults = DEFAULT_PARTNER_TIER_DETAILS[tier];
+      const target = getFirstRowValue(row, ['Quarterly_Target', 'quarterlyTarget', 'Target', 'target', 'ยอดสั่งซื้อขั้นต่ำ']);
+      const discount = getFirstRowValue(row, ['Discount_Percent', 'discountPercent', 'Discount', 'discount', 'ส่วนลดตัวแทน']);
+      const credit = getFirstRowValue(row, ['Credit_Term', 'creditTerm', 'Credit', 'credit', 'เครดิตการค้า']);
+      const benefits = splitTierBenefits(getFirstRowValue(row, ['Benefits', 'benefits', 'สิทธิประโยชน์']));
+
+      return {
+        ...defaults,
+        tier,
+        label: getFirstRowValue(row, ['Label', 'label', 'Tier_Label']) || defaults.label,
+        description: getFirstRowValue(row, ['Description', 'description', 'คำอธิบายระดับ']) || defaults.description,
+        target: target || defaults.target,
+        discount: discount !== '' ? discount : defaults.discount,
+        credit: credit || defaults.credit,
+        benefits: benefits.length ? benefits : defaults.benefits.slice(),
+        badge: getFirstRowValue(row, ['Badge', 'badge']) || defaults.badge,
+        sortOrder: parseInt(getFirstRowValue(row, ['Sort_Order', 'sortOrder']), 10) || defaults.sortOrder
+      };
+    }
+
+    function mergePartnerTierDetails(rows) {
+      const details = cloneDefaultPartnerTierDetails();
+      (rows || []).forEach(row => {
+        const item = normalizePartnerTierDetailRow(row);
+        if (item) details[item.tier] = item;
+      });
+      return details;
+    }
+
+    function setInputValue(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.value = value === undefined || value === null ? '' : value;
+    }
+
+    function resizePartnerTierTextareas() {
+      document.querySelectorAll('#panel-settings textarea').forEach(textarea => {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight + 2}px`;
+      });
+    }
+
+    function populatePartnerTierSettingsForm(details) {
+      const settings = details || cloneDefaultPartnerTierDetails();
+      const prefixMap = { member: 'member', registered: 'reg', authorized: 'auth', premium: 'prem' };
+
+      Object.keys(prefixMap).forEach(tier => {
+        const prefix = prefixMap[tier];
+        const item = settings[tier] || DEFAULT_PARTNER_TIER_DETAILS[tier];
+        setInputValue(`set-${prefix}-desc`, item.description);
+        setInputValue(`set-${prefix}-target`, item.target);
+        setInputValue(`set-${prefix}-discount`, item.discount);
+        setInputValue(`set-${prefix}-credit`, item.credit);
+        setInputValue(`set-${prefix}-benefits`, (item.benefits || []).join('\n'));
+      });
+      resizePartnerTierTextareas();
+    }
+
+    async function loadPartnerTierDetails() {
+      try {
+        const rows = await parseSheetCsv(getPartnerTierDetailCsvUrl());
+        const details = mergePartnerTierDetails(rows || []);
+        populatePartnerTierSettingsForm(details);
+        return details;
+      } catch (error) {
+        populatePartnerTierSettingsForm(cloneDefaultPartnerTierDetails());
+        return cloneDefaultPartnerTierDetails();
+      }
     }
 
     function sleep(ms) {
@@ -3395,27 +3617,32 @@
 
     // Commercial Terms Settings Management
     function loadSystemSettings() {
-      // Settings are not stored in browser storage. Defaults remain in the form until sheet-backed settings are available.
+      loadPartnerTierDetails();
+    }
+
+    function getPartnerTierDetailsFromForm() {
+      const configs = [
+        { tier: 'member', prefix: 'member', label: 'Member', badge: 'เริ่มต้น', sortOrder: 1 },
+        { tier: 'registered', prefix: 'reg', label: 'Registered Partner', badge: '', sortOrder: 2 },
+        { tier: 'authorized', prefix: 'auth', label: 'Authorized Partner', badge: 'ยอดนิยม', sortOrder: 3 },
+        { tier: 'premium', prefix: 'prem', label: 'Premium Partner', badge: 'ระดับสูงสุด', sortOrder: 4 }
+      ];
+
+      return configs.map(config => ({
+        tier: config.tier,
+        label: config.label,
+        description: document.getElementById(`set-${config.prefix}-desc`).value.trim(),
+        target: document.getElementById(`set-${config.prefix}-target`).value.trim(),
+        discount: document.getElementById(`set-${config.prefix}-discount`).value.trim(),
+        credit: document.getElementById(`set-${config.prefix}-credit`).value.trim(),
+        benefits: splitTierBenefits(document.getElementById(`set-${config.prefix}-benefits`).value),
+        badge: config.badge,
+        sortOrder: config.sortOrder
+      }));
     }
 
     async function saveSystemSettings() {
-      const settings = {
-        registered: {
-          target: document.getElementById('set-reg-target').value,
-          discount: parseInt(document.getElementById('set-reg-discount').value) || 0,
-          credit: document.getElementById('set-reg-credit').value
-        },
-        authorized: {
-          target: document.getElementById('set-auth-target').value,
-          discount: parseInt(document.getElementById('set-auth-discount').value) || 0,
-          credit: document.getElementById('set-auth-credit').value
-        },
-        premium: {
-          target: document.getElementById('set-prem-target').value,
-          discount: parseInt(document.getElementById('set-prem-discount').value) || 0,
-          credit: document.getElementById('set-prem-credit').value
-        }
-      };
+      const tiers = getPartnerTierDetailsFromForm();
 
       const btn = document.querySelector('#panel-settings .save-btn');
       const originalText = btn.textContent;
@@ -3423,16 +3650,20 @@
       btn.style.opacity = '0.7';
 
       try {
-        await postToAppsScript({
-          action: 'saveSystemSettings',
-          sheet: 'settings',
-          settings
+        const response = await postToAppsScript({
+          action: 'savePartnerTierDetails',
+          sheet: PARTNER_TIER_DETAIL_SHEET,
+          tiers
         });
+        if (!response || response.status === 'error') {
+          throw new Error(response && response.message ? response.message : 'บันทึกไม่สำเร็จ');
+        }
+        await loadPartnerTierDetails();
       } catch(e) {
         console.error('Error saving settings to Google Sheets:', e);
         btn.textContent = originalText;
         btn.style.opacity = '1';
-        customAlert('บันทึกตั้งค่าลงชีตไม่สำเร็จ กรุณาตรวจสอบ Apps Script', 'error');
+        customAlert('บันทึกเกณฑ์ Partner ลงชีต Partner_Tiers_Detail ไม่สำเร็จ กรุณาตรวจสอบ Apps Script และ Deploy เวอร์ชันล่าสุด', 'error');
         return;
       }
       
@@ -3444,6 +3675,7 @@
         btn.textContent = originalText;
         btn.style.background = '';
       }, 1000);
+      customAlert('บันทึกเกณฑ์ Partner ลงชีต Partner_Tiers_Detail เรียบร้อยแล้ว', 'success');
     }
 
     // Mock Data Generator for Developer Sandbox
@@ -3682,6 +3914,9 @@
     document.getElementById('filterDate').addEventListener('change', applyFilters);
     document.getElementById('filterProvince').addEventListener('change', applyFilters);
     document.getElementById('filterMemberType').addEventListener('change', applyFilters);
+    document.querySelectorAll('#panel-settings textarea').forEach(textarea => {
+      textarea.addEventListener('input', resizePartnerTierTextareas);
+    });
 
     // Init
     loadSystemSettings();

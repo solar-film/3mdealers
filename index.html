@@ -1138,81 +1138,179 @@
     /* Tiers Table Grid */
     .gfs-tiers-container {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
     }
-    .gfs-tier-card {
+    
+    .new-tier-card {
       background: white;
-      border: 1px solid var(--gfs-line);
-      border-radius: 26px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: row;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      overflow: hidden;
+      position: relative;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .new-tier-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    
+    .tier-left {
+      width: 45%;
       padding: 30px 24px;
       display: flex;
       flex-direction: column;
-      box-shadow: var(--shadow-soft);
-      transition: all 0.3s;
       position: relative;
     }
-    .gfs-tier-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
+    
+    .tier-right {
+      width: 55%;
+      background: #ffffff;
+      padding: 30px 24px;
+      display: flex;
+      align-items: center;
     }
-    .gfs-tier-card.premium-tier {
-      border: 2px solid var(--gfs-navy);
-    }
-    .gfs-tier-badge {
-      position: absolute;
-      top: -12px;
-      right: 24px;
-      background: var(--gfs-navy);
-      color: white;
-      padding: 4px 14px;
-      border-radius: 99px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-    }
-    .gfs-tier-card h4 {
-      margin: 0 0 4px;
-      font-size: 20px;
-      color: var(--gfs-navy);
-      font-weight: 800;
-    }
-    .gfs-tier-desc {
-      color: var(--gfs-muted);
-      font-size: 14px;
-      margin: 0 0 20px;
-    }
-    .gfs-tier-metrics {
-      background: var(--gfs-soft);
-      border-radius: 18px;
-      padding: 16px;
+    
+    .tier-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
       margin-bottom: 24px;
-      display: grid;
+    }
+    
+    .tier-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+    .tier-icon svg { width: 24px; height: 24px; }
+    
+    .tier-title-area h4 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .tier-subtitle {
+      margin: 0;
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.4;
+    }
+    
+    .tier-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .tier-stats {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
-    .gfs-tier-metric-item {
+    
+    .tier-stat-item {
       display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-    }
-    .gfs-tier-metric-item span:first-child {
-      color: var(--gfs-muted);
-    }
-    .gfs-tier-metric-item span:last-child {
-      font-weight: 700;
-      color: var(--gfs-ink);
-    }
-    .gfs-tier-benefits-list {
-      margin: 0;
-      padding: 0 0 0 18px;
-      display: grid;
+      align-items: center;
       gap: 10px;
-      font-size: 14px;
-      color: var(--gfs-ink);
-      flex-grow: 1;
+      font-size: 13.5px;
     }
-    .gfs-tier-benefits-list li {
+    .tier-stat-item svg { width: 16px; height: 16px; opacity: 0.7; }
+    .tier-stat-item .stat-label { color: #475569; flex: 1; }
+    .tier-stat-item .stat-value { font-weight: 700; color: #0f172a; text-align: right; }
+    
+    .tier-benefits {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tier-benefits li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #1e293b;
       line-height: 1.5;
+    }
+    .tier-benefits li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 18px;
+    }
+    
+    /* Colors */
+    .tier-member { border-color: #0d9488; }
+    .tier-member .tier-left { background: #f0fdfa; }
+    .tier-member .tier-icon { background: #0d9488; }
+    .tier-member .tier-title-area h4 { color: #0d9488; }
+    .tier-member .tier-badge { background: #0d9488; }
+    .tier-member .tier-stat-item svg { color: #0d9488; }
+    .tier-member .tier-benefits li::before { color: #0d9488; }
+    
+    .tier-registered { border-color: #2563eb; }
+    .tier-registered .tier-left { background: #eff6ff; }
+    .tier-registered .tier-icon { background: #2563eb; }
+    .tier-registered .tier-title-area h4 { color: #2563eb; }
+    .tier-registered .tier-stat-item svg { color: #2563eb; }
+    .tier-registered .tier-benefits li::before { color: #2563eb; }
+    
+    .tier-authorized { border-color: #1e3a8a; }
+    .tier-authorized .tier-left { background: #f1f5f9; }
+    .tier-authorized .tier-icon { background: #1e3a8a; }
+    .tier-authorized .tier-title-area h4 { color: #1e3a8a; }
+    .tier-authorized .tier-badge { background: #1e3a8a; }
+    .tier-authorized .tier-stat-item svg { color: #1e3a8a; }
+    .tier-authorized .tier-benefits li::before { color: #1e3a8a; }
+    
+    .tier-premium { border-color: #dc2626; }
+    .tier-premium .tier-left { background: #fef2f2; }
+    .tier-premium .tier-icon { background: #dc2626; }
+    .tier-premium .tier-title-area h4 { color: #dc2626; }
+    .tier-premium .tier-badge { background: #dc2626; }
+    .tier-premium .tier-stat-item svg { color: #dc2626; }
+    .tier-premium .tier-benefits li::before { color: #dc2626; }
+    
+    .tier-note {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #64748b;
+      background: #f8fafc;
+      padding: 12px 20px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tier-note svg {
+      width: 20px;
+      height: 20px;
+      color: #3b82f6;
+      flex-shrink: 0;
     }
     
     /* Responsive overrides for new marketing sections */
@@ -1437,92 +1535,184 @@
     <section class="gfs-features-section" id="dealer-tiers" aria-label="Partner Tiers">
       <div class="gfs-section-header">
         <h2>ระดับของพาร์ทเนอร์และสิทธิประโยชน์ (Partner Tiers)</h2>
-        <p>เพื่อตอบรับกลุ่มธุรกิจที่หลากหลาย เราจึงแยกโครงสร้างการสนับสนุนและสิทธิพิเศษออกเป็น 3 ระดับ เพื่อรองรับการเติบโตร่วมกันอย่างเป็นขั้นตอน</p>
+        <p>เพื่อรองรับการเติบโตร่วมกันอย่างเป็นขั้นตอน Goodfilm แบ่งการสนับสนุนออกเป็น 4 ระดับ ตั้งแต่ Member จนถึง Premium Partner</p>
       </div>
 
       <div class="gfs-tiers-container">
-        <!-- Tier 1: Registered -->
-        <div class="gfs-tier-card">
-          <h4>Registered Partner</h4>
-          <p class="gfs-tier-desc">ระดับเริ่มต้นสำหรับพันธมิตรร่วมแนะนำฟิล์มและร้านค้ารายย่อยทั่วไป</p>
-          <div class="gfs-tier-metrics">
-            <div class="gfs-tier-metric-item">
-              <span>ยอดขายขั้นต่ำ / ไตรมาส:</span>
-              <span id="tier-reg-target">ไม่มีขั้นต่ำ</span>
+        <!-- Tier 1: Member -->
+        <div class="new-tier-card tier-member">
+          <div class="tier-left">
+            <div class="tier-header">
+              <div class="tier-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="tier-title-area">
+                <h4>Member</h4>
+                <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่<br>ผ่านการคัดกรองแล้ว</p>
+              </div>
+              <span class="tier-badge">เริ่มต้น</span>
             </div>
-            <div class="gfs-tier-metric-item">
-              <span>ส่วนลดตัวแทน (Discount):</span>
-              <span id="tier-reg-discount">10%</span>
-            </div>
-            <div class="gfs-tier-metric-item">
-              <span>เครดิตการค้า (Credit):</span>
-              <span id="tier-reg-credit">เงินสด (Cash)</span>
+            <div class="tier-stats">
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <span class="stat-value">ไม่มีขั้นต่ำ</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <span class="stat-label">สิทธิ์ส่วนลด:</span>
+                <span class="stat-value">ราคาสมาชิก</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                <span class="stat-label">เครดิตการค้า:</span>
+                <span class="stat-value">เงินสด</span>
+              </div>
             </div>
           </div>
-          <ul class="gfs-tier-benefits-list">
-            <li>ราคาคู่ค้าสำหรับตัวแทนจำหน่ายเริ่มต้น</li>
-            <li>ทีมช่างติดตั้ง Sub-contractor คอยช่วยเหลือ</li>
-            <li>สิทธิ์รับเอกสารแคตตาล็อกและสเปกฟิล์มฟรี</li>
-            <li>คอร์สอบรมความรู้ผลิตภัณฑ์ฟิล์มขั้นพื้นฐาน</li>
-            <li>ระบบการออกใบรับประกันออนไลน์ให้ลูกค้า</li>
-          </ul>
+          <div class="tier-right">
+            <ul class="tier-benefits">
+              <li>รับข้อมูลสินค้าและราคาเบื้องต้น</li>
+              <li>ขอคำแนะนำการเลือกฟิล์มตามหน้างานได้</li>
+              <li>ได้รับสื่อขายพื้นฐานจาก Goodfilm</li>
+              <li>เข้าร่วมอบรมความรู้สินค้าเบื้องต้น</li>
+              <li>พร้อมอัปเกรดเป็น Partner เมื่อมีการสั่งซื้อจริง</li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Tier 2: Authorized -->
-        <div class="gfs-tier-card">
-          <span class="gfs-tier-badge">ยอดนิยม 🌟</span>
-          <h4>Authorized Partner</h4>
-          <p class="gfs-tier-desc">ระดับมาตรฐานสำหรับร้านค้าที่มียอดสั่งซื้อและนำเสนองานติดตั้งฟิล์มเป็นประจำ</p>
-          <div class="gfs-tier-metrics">
-            <div class="gfs-tier-metric-item">
-              <span>ยอดขายขั้นต่ำ / ไตรมาส:</span>
-              <span id="tier-auth-target">50,000 บาท</span>
+        <!-- Tier 2: Registered Partner -->
+        <div class="new-tier-card tier-registered">
+          <div class="tier-left">
+            <div class="tier-header">
+              <div class="tier-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <div class="tier-title-area">
+                <h4>Registered Partner</h4>
+                <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อ<br>และร่วมขายอย่างเป็นระบบ</p>
+              </div>
             </div>
-            <div class="gfs-tier-metric-item">
-              <span>ส่วนลดตัวแทน (Discount):</span>
-              <span id="tier-auth-discount">20%</span>
-            </div>
-            <div class="gfs-tier-metric-item">
-              <span>เครดิตการค้า (Credit):</span>
-              <span id="tier-auth-credit">30 วัน (30 Days)</span>
-            </div>
-          </div>
-          <ul class="gfs-tier-benefits-list">
-            <li>ราคาคู่ค้าระดับพิเศษ (ส่วนลดเพิ่มพิเศษจากรุ่นฟิล์มหลัก)</li>
-            <li>ยืมชุดสาธิตเครื่องทำความร้อน (Demo Kit) ไปใช้ที่ร้าน</li>
-            <li>จัดอบรมเชิงลึกเทคนิคการนำเสนอและการวิเคราะห์หน้างาน</li>
-            <li>สิทธิ์การตลาดร่วม (Co-branding) สื่อโฆษณา</li>
-            <li>จัดส่งรายชื่อ Lead ลูกค้าตามพื้นที่ให้บริการ</li>
-            <li>บัตรสมาชิกแสดงสถานะ Authorized Partner</li>
-          </ul>
-        </div>
-              <div class="gfs-tier-card premium-tier">
-          <span class="gfs-tier-badge" style="background:var(--gfs-red);">ระดับสูงสุด 🏆</span>
-          <h4>Premium Partner</h4>
-          <p class="gfs-tier-desc">ระดับสูงสุดสำหรับคู่ค้ารายใหญ่ โครงการ ผู้รับเหมา หรือผู้ผลิตเฟอร์นิเจอร์รายใหญ่</p>
-          <div class="gfs-tier-metrics">
-            <div class="gfs-tier-metric-item">
-              <span>ยอดขายขั้นต่ำ / ไตรมาส:</span>
-              <span id="tier-prem-target">150,000 บาท</span>
-            </div>
-            <div class="gfs-tier-metric-item">
-              <span>ส่วนลดตัวแทน (Discount):</span>
-              <span id="tier-prem-discount">30%</span>
-            </div>
-            <div class="gfs-tier-metric-item">
-              <span>เครดิตการค้า (Credit):</span>
-              <span id="tier-prem-credit">30/45 วัน</span>
+            <div class="tier-stats">
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <span class="stat-value">20,000 บาท</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <span class="stat-label">สิทธิ์ส่วนลดตามระดับ:</span>
+                <span class="stat-value">สูงสุด 10%</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                <span class="stat-label">เครดิตการค้า:</span>
+                <span class="stat-value">เงินสด</span>
+              </div>
             </div>
           </div>
-          <ul class="gfs-tier-benefits-list">
-            <li>ราคาคู่ค้าระดับสูงสุด (Best Price การันตี)</li>
-            <li>คิวทีมช่างติดตั้งระดับ Priority ด่วนพิเศษ</li>
-            <li>ได้รับชุดสาธิต Demo Kit ประจำหน้าร้านอย่างถาวร</li>
-            <li>แสดงชื่อเป็นตัวแทนแนะนำบนเว็บไซต์หลักของ Goodfilm</li>
-            <li>สิทธิ์เข้าชิงรางวัลและโปรโมชั่นท่องเที่ยวต่างประเทศประจำปี</li>
-            <li>อบรมความรู้ทางเทคนิคเชิงวิศวกรรมฟิล์มสเปกพิเศษ</li>
-          </ul>
+          <div class="tier-right">
+            <ul class="tier-benefits">
+              <li>ราคาคู่ค้าสำหรับเริ่มต้น</li>
+              <li>เอกสารแคตตาล็อกและสเปกฟิล์ม</li>
+              <li>สื่อขายพื้นฐานสำหรับนำเสนอสินค้า</li>
+              <li>คอร์สอบรมความรู้ผลิตภัณฑ์เบื้องต้น</li>
+              <li>ระบบออกใบรับประกันออนไลน์</li>
+              <li>มีโอกาสอัปเกรดเป็น Authorized Partner</li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Tier 3: Authorized Partner -->
+        <div class="new-tier-card tier-authorized">
+          <div class="tier-left">
+            <div class="tier-header">
+              <div class="tier-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+              </div>
+              <div class="tier-title-area">
+                <h4>Authorized Partner</h4>
+                <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner<br>ที่มียอดสั่งซื้อสม่ำเสมอ</p>
+              </div>
+              <span class="tier-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> ยอดนิยม</span>
+            </div>
+            <div class="tier-stats">
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <span class="stat-value">50,000 บาท</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <span class="stat-label">สิทธิ์ส่วนลดตามระดับ:</span>
+                <span class="stat-value">สูงสุด 20%</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                <span class="stat-label">เครดิตการค้า:</span>
+                <span class="stat-value">15-30 วัน*</span>
+              </div>
+            </div>
+          </div>
+          <div class="tier-right">
+            <ul class="tier-benefits">
+              <li>ราคาคู่ค้าระดับพิเศษ</li>
+              <li>ยืมชุด Demo Kit สำหรับหน้าร้าน / นำเสนอลูกค้า</li>
+              <li>อบรมเชิงลึกด้านสินค้า เทคนิคการขาย และวิเคราะห์หน้างาน</li>
+              <li>สิทธิ์ทำสื่อการตลาดร่วมกับ Goodfilm</li>
+              <li>พิจารณาส่งต่อ Lead ตามพื้นที่และความพร้อม</li>
+              <li>Badge แสดงสถานะ Authorized Partner</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tier 4: Premium Partner -->
+        <div class="new-tier-card tier-premium">
+          <div class="tier-left">
+            <div class="tier-header">
+              <div class="tier-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></svg>
+              </div>
+              <div class="tier-title-area">
+                <h4>Premium Partner</h4>
+                <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง<br>รองรับงานโครงการและงานขนาดใหญ่</p>
+              </div>
+              <span class="tier-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg> ระดับสูงสุด</span>
+            </div>
+            <div class="tier-stats">
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span class="stat-label">ยอดสั่งซื้อขั้นต่ำ / ไตรมาส:</span>
+                <span class="stat-value">150,000 บาท</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <span class="stat-label">สิทธิ์ส่วนลดตามระดับ:</span>
+                <span class="stat-value">สูงสุด 30%</span>
+              </div>
+              <div class="tier-stat-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                <span class="stat-label">เครดิตการค้า:</span>
+                <span class="stat-value">30-45 วัน*</span>
+              </div>
+            </div>
+          </div>
+          <div class="tier-right">
+            <ul class="tier-benefits">
+              <li>ราคาคู่ค้าระดับสูงสุด</li>
+              <li>Priority สำหรับงานเร่งด่วน / งานพิเศษ</li>
+              <li>Demo Kit ประจำหน้าร้านตามความเหมาะสม</li>
+              <li>พิจารณาแสดงรายชื่อบนเว็บไซต์ Goodfilm</li>
+              <li>สิทธิ์เข้าร่วมแคมเปญและกิจกรรมประจำปี</li>
+              <li>อบรมความรู้เชิงเทคนิคและงานโครงการขั้นสูง</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tier-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <span>*หมายเหตุ: สิทธิ์ส่วนลด เครดิตการค้า การส่งต่อ Lead และสิทธิ์ทางการตลาด ขึ้นอยู่กับระดับ Partner ประวัติการสั่งซื้อ ความพร้อมในการให้บริการ และการอนุมัติของบริษัท</span>
       </div>
     </section>
 

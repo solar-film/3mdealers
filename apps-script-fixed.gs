@@ -23,6 +23,9 @@ function setHeaders() {
   const tierSheet = getOrCreateSheet_(ss, "Partner_Tier");
   setSheetHeaders_(tierSheet, ["Cust_ID", "Tier", "วันที่บันทึกข้อมูล"], "#0a58ca");
 
+  const tierDetailSheet = getOrCreateSheet_(ss, "Partner_Tiers_Detail");
+  setPartnerTierDetailHeaders_(tierDetailSheet);
+
   const chatSheet = getOrCreateSheet_(ss, "chat_logs");
   setSheetHeaders_(chatSheet, ["Log_ID", "Cust_ID", "Admin", "รายละเอียด", "วันที่บันทึกข้อมูล"], "#1a3c6e");
 }
@@ -34,6 +37,10 @@ function doPost(e) {
   try {
     const data = parsePostData_(e);
     const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    if (data.action === "savePartnerTierDetails" || data.sheet === "Partner_Tiers_Detail") {
+      return json_(output, savePartnerTierDetails_(ss, data));
+    }
 
     if (data.action === "updateSettings" || data.action === "saveSystemSettings") {
       return json_(output, updateSettings_(ss, data));
@@ -111,7 +118,6 @@ function updateLead_(ss, data) {
     throw new Error("ไม่พบข้อมูลลูกค้าที่ตรงกันจาก Cust_ID, ประทับเวลา หรือเบอร์โทรศัพท์");
   }
 
-  // รวมค่าที่จะอัปเดตทั้งหมดไว้ก่อน แล้วเขียนทั้งแถวรวดเดียว (ลดจำนวน API call ลงมาก)
   const combined = {};
   const updates = parseUpdates_(data.updates);
   Object.keys(updates).forEach(header => {
@@ -130,7 +136,6 @@ function updateLead_(ss, data) {
     if (value !== undefined && value !== null) combined[header] = value;
   });
 
-  // คัดลอกค่าปัจจุบันของแถวเป้าหมาย แล้วทับเฉพาะฟิลด์ที่เปลี่ยน (ไม่แตะคอลัมน์อื่น)
   const rowValues = (values[rowIndex - 1] || []).slice();
   let headersChanged = false;
 
@@ -162,30 +167,20 @@ function updateLead_(ss, data) {
 
 function resolveLeadSheet_(ss, data) {
   const candidates = [
-    data.sheet,
-    data.targetSheet,
-    data.sourceSheet,
-    data.sheetName,
-    "New Dealer Report",
-    "Cust_Data"
+    data.sheet, data.targetSheet, data.sourceSheet, data.sheetName,
+    "New Dealer Report", "Cust_Data"
   ].filter(Boolean);
-
   for (let i = 0; i < candidates.length; i++) {
     const sheet = ss.getSheetByName(candidates[i]);
     if (sheet) return sheet;
   }
-
   throw new Error("ไม่พบชีตข้อมูลลูกค้า");
 }
 
 function parseUpdates_(updates) {
   if (!updates) return {};
   if (typeof updates === "string") {
-    try {
-      return JSON.parse(updates);
-    } catch (err) {
-      return {};
-    }
+    try { return JSON.parse(updates); } catch (err) { return {}; }
   }
   return typeof updates === "object" ? updates : {};
 }
@@ -193,39 +188,109 @@ function parseUpdates_(updates) {
 function updateTier_(ss, data) {
   const sheet = getOrCreateSheet_(ss, "Partner_Tier");
   setSheetHeaders_(sheet, ["Cust_ID", "Tier", "วันที่บันทึกข้อมูล"], "#0a58ca");
-
   const custId = String(data.custId || data.Cust_ID || data.customerId || data.id || "").trim();
   const tier = String(data.tier || data.Tier || data.partnerTier || "").trim();
-
   if (!custId) throw new Error("No Cust_ID provided for updateTier");
   if (!tier) throw new Error("No Tier provided for updateTier");
-
   const values = sheet.getDataRange().getValues();
   let foundRow = -1;
-
   for (let i = 1; i < values.length; i++) {
-    if (String(values[i][0]).trim() === custId) {
-      foundRow = i + 1;
-      break;
-    }
+    if (String(values[i][0]).trim() === custId) { foundRow = i + 1; break; }
   }
-
   const savedAt = new Date();
-
   if (foundRow > -1) {
     sheet.getRange(foundRow, 2).setValue(tier);
     sheet.getRange(foundRow, 3).setValue(savedAt);
   } else {
     sheet.appendRow([custId, tier, savedAt]);
   }
-
   return { status: "success", action: "updateTier", custId, tier };
+}
+
+function savePartnerTierDetails_(ss, data) {
+  const sheet = getOrCreateSheet_(ss, "Partner_Tiers_Detail");
+  setPartnerTierDetailHeaders_(sheet);
+
+  const payload = data.tiers || data.settings || data.payload || [];
+  const tiers = Array.isArray(payload)
+    ? payload
+    : Object.keys(payload).map(key => Object.assign({ tier: key }, payload[key]));
+
+  const normalizedRows = tiers
+    .map(normalizePartnerTierDetailPayload_)
+    .filter(item => item.Tier);
+
+  if (!normalizedRows.length) {
+    throw new Error("No Partner_Tiers_Detail rows provided");
+  }
+
+  const existingValues = sheet.getDataRange().getValues();
+  const existingHeaders = existingValues[0] || [];
+  const headerMap = getHeaderMap_(existingHeaders);
+  const tierIndex = headerMap["Tier"];
+  const rowByTier = {};
+  for (let i = 1; i < existingValues.length; i++) {
+    const tierKey = normalizeTierKey_(tierIndex !== undefined ? existingValues[i][tierIndex] : existingValues[i][0]);
+    if (tierKey) rowByTier[tierKey] = i + 1;
+  }
+
+  const headers = getPartnerTierDetailHeaders_();
+  normalizedRows.forEach(item => {
+    const row = headers.map(header => item[header] !== undefined ? item[header] : "");
+    const existingRow = rowByTier[item.Tier];
+    if (existingRow) {
+      sheet.getRange(existingRow, 1, 1, headers.length).setValues([row]);
+    } else {
+      sheet.appendRow(row);
+    }
+  });
+
+  return {
+    status: "success",
+    action: "savePartnerTierDetails",
+    sheet: "Partner_Tiers_Detail",
+    count: normalizedRows.length
+  };
+}
+
+function normalizePartnerTierDetailPayload_(item) {
+  const tier = normalizeTierKey_(getFirstDefined_(item.tier, item.Tier, item.key));
+  const benefits = getFirstDefined_(item.benefits, item.Benefits, "");
+  const targetRaw = getFirstDefined_(item.quarterlyTarget, item.Quarterly_Target, item.target, item.Target, "");
+  return {
+    Tier: tier,
+    Label: getFirstDefined_(item.label, item.Label, ""),
+    Description: getFirstDefined_(item.description, item.Description, ""),
+    Quarterly_Target: targetRaw,
+    Discount_Percent: getFirstDefined_(item.discountPercent, item.Discount_Percent, item.discount, item.Discount, ""),
+    Credit_Term: getFirstDefined_(item.creditTerm, item.Credit_Term, item.credit, item.Credit, ""),
+    Benefits: Array.isArray(benefits) ? benefits.join("\n") : String(benefits || ""),
+    Badge: getFirstDefined_(item.badge, item.Badge, ""),
+    Sort_Order: getFirstDefined_(item.sortOrder, item.Sort_Order, ""),
+    Updated_At: new Date()
+  };
+}
+
+function getFirstDefined_() {
+  for (let i = 0; i < arguments.length; i++) {
+    if (arguments[i] !== undefined && arguments[i] !== null) return arguments[i];
+  }
+  return "";
+}
+
+function normalizeTierKey_(value) {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return "";
+  if (text.indexOf("member") > -1) return "member";
+  if (text.indexOf("premium") > -1) return "premium";
+  if (text.indexOf("authorized") > -1 || text.indexOf("authorised") > -1) return "authorized";
+  if (text.indexOf("registered") > -1) return "registered";
+  return text;
 }
 
 function appendChatLog_(ss, data) {
   const sheet = getOrCreateSheet_(ss, "chat_logs");
   setSheetHeaders_(sheet, ["Log_ID", "Cust_ID", "Admin", "รายละเอียด", "วันที่บันทึกข้อมูล"], "#1a3c6e");
-
   sheet.appendRow([
     data.Log_ID || data.logId || "",
     data.Cust_ID || data.custId || data.customerId || "",
@@ -233,7 +298,6 @@ function appendChatLog_(ss, data) {
     data["รายละเอียด"] || data.detail || data.details || data.adminNotes || data.notes || "",
     data["วันที่บันทึกข้อมูล"] || data.date || data.timestamp || new Date()
   ]);
-
   return { status: "success", action: "appendChatLog" };
 }
 
@@ -241,73 +305,36 @@ function createNewDealer_(ss, data) {
   const sheet = resolveLeadSheet_(ss, { sheet: "Cust_Data" });
   const d = new Date();
   const custId = "DL-" + Utilities.formatDate(d, Session.getScriptTimeZone(), "yyyyMMddHHmmss");
-
   sheet.appendRow([
-    d,
-    custId,
-    data.full_name || "",
-    data.phone || "",
-    data.line_id || "",
-    data.email || "",
-    data.role || "",
-    data.role_other || "",
-    data.business_name || "",
-    data.tax_id || "",
-    data.business_type || "",
-    data.business_type_other || "",
-    data.business_age || "",
-    data.has_store || "",
-    data.online_channels || "",
-    data.main_province || "",
-    data.district || "",
-    data.service_range || "",
-    data.target_area || "",
-    data.address || "",
-    data.current_film_business || "",
-    data.has_installer_team || "",
-    data.team_count || "",
-    data.install_experience || "",
-    data.customer_group || "",
-    data.customer_group_other || "",
-    data.training_need || "",
-    data.product_interest || "",
-    data.selling_type || "",
-    data.model_need || "",
-    data.start_time || "",
-    data.monthly_volume || "",
-    data.support_need || "",
-    data.note || "",
-    data.source || "",
-    data.source_other || ""
+    d, custId, data.full_name || "", data.phone || "", data.line_id || "", data.email || "",
+    data.role || "", data.role_other || "", data.business_name || "", data.tax_id || "",
+    data.business_type || "", data.business_type_other || "", data.business_age || "",
+    data.has_store || "", data.online_channels || "", data.main_province || "", data.district || "",
+    data.service_range || "", data.target_area || "", data.address || "", data.current_film_business || "",
+    data.has_installer_team || "", data.team_count || "", data.install_experience || "",
+    data.customer_group || "", data.customer_group_other || "", data.training_need || "",
+    data.product_interest || "", data.selling_type || "", data.model_need || "", data.start_time || "",
+    data.monthly_volume || "", data.support_need || "", data.note || "", data.source || "", data.source_other || ""
   ]);
-
   return { status: "success", action: "createNewDealer", custId };
 }
 
 function updateSettings_(ss, data) {
   const sheet = getOrCreateSheet_(ss, "system_settings");
   sheet.clear();
-
   const rows = [["Key", "Value"]];
   const payload = data.settings || data.payload || {};
-
-  Object.keys(payload).forEach(key => {
-    rows.push([key, JSON.stringify(payload[key])]);
-  });
-
+  Object.keys(payload).forEach(key => { rows.push([key, JSON.stringify(payload[key])]); });
   sheet.getRange(1, 1, rows.length, 2).setValues(rows);
   return { status: "success", action: "updateSettings" };
 }
 
 function parsePostData_(e) {
   if (!e || !e.postData || !e.postData.contents) return {};
-
   const raw = e.postData.contents;
   let data = {};
-
-  try {
-    data = JSON.parse(raw);
-  } catch (err) {
+  try { data = JSON.parse(raw); }
+  catch (err) {
     raw.split("&").forEach(pair => {
       const parts = pair.split("=");
       const key = decodeURIComponent(parts[0] || "");
@@ -315,19 +342,12 @@ function parsePostData_(e) {
       if (key) data[key] = value;
     });
   }
-
   if (data.payload && typeof data.payload === "string") {
-    try {
-      data = Object.assign({}, JSON.parse(data.payload), data);
-    } catch (err) {}
+    try { data = Object.assign({}, JSON.parse(data.payload), data); } catch (err) {}
   }
-
   if (data.json && typeof data.json === "string") {
-    try {
-      data = Object.assign({}, JSON.parse(data.json), data);
-    } catch (err) {}
+    try { data = Object.assign({}, JSON.parse(data.json), data); } catch (err) {}
   }
-
   return data;
 }
 
@@ -345,10 +365,20 @@ function setSheetHeaders_(sheet, headers, color) {
   sheet.setFrozenRows(1);
 }
 
+function getPartnerTierDetailHeaders_() {
+  return [
+    "Tier", "Label", "Description", "Quarterly_Target", "Discount_Percent",
+    "Credit_Term", "Benefits", "Badge", "Sort_Order", "Updated_At"
+  ];
+}
+
+function setPartnerTierDetailHeaders_(sheet) {
+  setSheetHeaders_(sheet, getPartnerTierDetailHeaders_(), "#174a8b");
+}
+
 function ensureAdminColumns_(sheet) {
   const required = ["สถานะ", "กลุ่มลูกค้า", "Admin", "ฝ่ายขาย", "ข้อมูลการติดต่อลูกค้า"];
   const headers = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0];
-
   required.forEach(header => {
     if (headers.indexOf(header) === -1) {
       sheet.getRange(1, sheet.getLastColumn() + 1).setValue(header);
@@ -358,23 +388,18 @@ function ensureAdminColumns_(sheet) {
 
 function getHeaderMap_(headers) {
   const map = {};
-  headers.forEach((header, index) => {
-    map[String(header).trim()] = index;
-  });
+  headers.forEach((header, index) => { map[String(header).trim()] = index; });
   return map;
 }
 
 function setValueByHeader_(sheet, rowIndex, header, value) {
   if (value === undefined || value === null) return;
-
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   let colIndex = headers.indexOf(header) + 1;
-
   if (colIndex <= 0) {
     colIndex = sheet.getLastColumn() + 1;
     sheet.getRange(1, colIndex).setValue(header);
   }
-
   sheet.getRange(rowIndex, colIndex).setValue(value);
 }
 
