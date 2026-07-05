@@ -1,0 +1,168 @@
+    /* Dashboard View styles */
+    .dashboard-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+      padding: 40px;
+      width: 100%;
+    }
+    .dashboard-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .kpi-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 4px solid var(--gfs-blue);
+      transition: transform 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-card.kpi-approved { border-left-color: var(--gfs-success); }
+    .kpi-card.kpi-active { border-left-color: var(--gfs-warning); }
+    .kpi-card.kpi-onboarding { border-left-color: var(--gfs-navy); }
+    .kpi-title {
+      font-size: 14px;
+      color: var(--gfs-muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gfs-navy);
+      line-height: 1.2;
+    }
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--gfs-muted);
+      margin-top: 6px;
+    }
+
+    .dashboard-charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .chart-card {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+    }
+    .chart-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      margin: 0 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .bar-chart-list {
+      display: grid;
+      gap: 14px;
+    }
+    .bar-chart-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bar-label {
+      width: 160px;
+      font-size: 14px;
+      color: var(--gfs-ink);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-wrapper {
+      flex: 1;
+      height: 14px;
+      background: var(--gfs-soft);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gfs-blue), #007bff);
+      border-radius: inherit;
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bar-value {
+      width: 40px;
+      text-align: right;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gfs-navy);
+    }
+
+    /* Onboarding Funnel styling */
+    .funnel-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .funnel-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      padding: 0 10px;
+    }
+    .funnel-step:not(:last-child)::after {
+      content: '➔';
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%);
+      color: var(--gfs-line);
+      font-size: 16px;
+    }
+    .funnel-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gfs-sky);
+      color: var(--gfs-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      margin: 0 auto 8px;
+    }
+    .funnel-step.completed .funnel-num {
+      background: var(--gfs-success);
+      color: white;
+    }
+    .funnel-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      margin-bottom: 4px;
+    }
+    .funnel-count {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gfs-muted);
+    }

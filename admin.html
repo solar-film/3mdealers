@@ -448,22 +448,23 @@
     }
 
     .detail-header {
-      padding: 10px 26px 12px;
-      min-height: 0;
+      padding: 14px 72px 14px 26px;
+      min-height: 76px;
       background: #ffffff;
       color: var(--gfs-navy);
       position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(64px, 1fr);
+      align-items: center;
+      gap: 16px;
       border-bottom: 1px solid #e5edf6;
       overflow: visible;
     }
 
     .detail-header h2 {
-      margin: 0 0 2px;
-      font-size: 20px;
-      line-height: 1.45;
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.25;
       max-width: 100%;
     }
 
@@ -471,8 +472,15 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      max-width: calc(100% - 56px);
+      grid-column: 1;
+      max-width: 100%;
       min-width: 0;
+    }
+
+    #dhTags {
+      grid-column: 2;
+      justify-self: center;
+      margin-top: 0 !important;
     }
 
     .detail-header p {
@@ -485,6 +493,27 @@
 
     .detail-header #dhContact {
       display: none;
+    }
+
+    .detail-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--tag-tone) 24%, #ffffff);
+      background: color-mix(in srgb, var(--tag-tone) 10%, #ffffff);
+      color: var(--tag-tone);
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    .detail-tag-label {
+      color: #687891;
+      font-size: 11px;
+      font-weight: 800;
     }
 
     .close-btn {
@@ -535,6 +564,48 @@
       display: block;
     }
 
+    #saveEditBtn {
+      position: static !important;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      margin-top: 0;
+      padding: 0 !important;
+      font-size: 0 !important;
+      line-height: 1 !important;
+      border-radius: 999px !important;
+      background: #10a76a !important;
+      color: #ffffff !important;
+      border: 1px solid #10a76a !important;
+      box-shadow: 0 6px 14px rgba(16, 167, 106, 0.18) !important;
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    #saveEditBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(16, 167, 106, 0.24) !important;
+    }
+
+    #saveEditBtn svg {
+      width: 15px;
+      height: 15px;
+      display: block;
+    }
+
+    .detail-panel.is-editing #saveEditBtn {
+      display: inline-flex;
+    }
+
+    #saveEditBtn.is-saving {
+      opacity: .72;
+      pointer-events: none;
+    }
+
     .detail-panel.is-editing #editModeBtn {
       background: var(--gfs-warning) !important;
       color: var(--gfs-navy) !important;
@@ -557,15 +628,76 @@
 
     .detail-admin-column {
       margin: 0 !important;
-      padding: 24px !important;
-      border: 1px solid #dbe7f5 !important;
-      border-top: 3px solid var(--gfs-blue) !important;
-      border-radius: 16px !important;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08) !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
       position: sticky;
       top: 0;
       max-height: none;
       overflow: visible;
+      display: grid;
+      gap: 16px;
+    }
+
+    .admin-side-card {
+      padding: 24px;
+      border: 1px solid #dbe7f5;
+      border-top: 3px solid var(--gfs-blue);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #f4f9ff 0%, #e6f0fa 100%);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      position: relative;
+    }
+
+    .admin-side-card.contact-log-card {
+      border-top-color: var(--gfs-red);
+      border-color: #ffd5da;
+      background: linear-gradient(180deg, #fff7f8 0%, #ffe9ec 100%);
+    }
+
+    .admin-card-title {
+      margin: 0 44px 16px 0;
+      color: var(--gfs-navy);
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .admin-card-save-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #10a76a;
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(16, 167, 106, 0.22);
+      cursor: pointer;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .admin-card-save-icon:hover {
+      transform: translateY(-1px);
+      background: #0e9560;
+      box-shadow: 0 10px 22px rgba(16, 167, 106, 0.28);
+    }
+
+    .admin-card-save-icon svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    .admin-card-save-icon.is-saving {
+      opacity: .72;
+      pointer-events: none;
     }
 
     .admin-assignment-grid {
@@ -577,6 +709,90 @@
 
     .admin-assignment-field {
       min-width: 0;
+    }
+
+    .chat-history-panel {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(239, 51, 64, .16);
+    }
+
+    .chat-history-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--gfs-navy);
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .chat-history-count {
+      min-width: 24px;
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      background: #dbeafe;
+      color: #0b63ce;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .chat-history-list {
+      display: grid;
+      gap: 10px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .chat-history-item {
+      padding: 12px;
+      border: 1px solid #dbe7f5;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 5px 14px rgba(15, 23, 42, .035);
+    }
+
+    .chat-history-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+      color: #66758d;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .chat-history-admin {
+      color: #1b437c;
+      font-weight: 900;
+    }
+
+    .chat-history-detail {
+      color: #20314d;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .chat-history-empty {
+      padding: 14px 12px;
+      border: 1px dashed #cfd9e6;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .45);
+      color: #7b8aa3;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .select-helper-text {
@@ -698,175 +914,6 @@
     }
     .tab-panel.active {
       display: flex;
-    }
-
-    /* Dashboard View styles */
-    .dashboard-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      overflow-y: auto;
-      padding: 40px;
-      width: 100%;
-    }
-    .dashboard-kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-    .kpi-card {
-      background: white;
-      border-radius: var(--radius-md);
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-left: 4px solid var(--gfs-blue);
-      transition: transform 0.2s;
-    }
-    .kpi-card:hover {
-      transform: translateY(-2px);
-    }
-    .kpi-card.kpi-approved { border-left-color: var(--gfs-success); }
-    .kpi-card.kpi-active { border-left-color: var(--gfs-warning); }
-    .kpi-card.kpi-onboarding { border-left-color: var(--gfs-navy); }
-    .kpi-title {
-      font-size: 14px;
-      color: var(--gfs-muted);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .kpi-value {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--gfs-navy);
-      line-height: 1.2;
-    }
-    .kpi-desc {
-      font-size: 12px;
-      color: var(--gfs-muted);
-      margin-top: 6px;
-    }
-
-    .dashboard-charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    .chart-card {
-      background: white;
-      border-radius: var(--radius-md);
-      padding: 24px;
-      box-shadow: var(--shadow-soft);
-      display: flex;
-      flex-direction: column;
-    }
-    .chart-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--gfs-navy);
-      margin: 0 0 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .bar-chart-list {
-      display: grid;
-      gap: 14px;
-    }
-    .bar-chart-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .bar-label {
-      width: 160px;
-      font-size: 14px;
-      color: var(--gfs-ink);
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .bar-wrapper {
-      flex: 1;
-      height: 14px;
-      background: var(--gfs-soft);
-      border-radius: 99px;
-      overflow: hidden;
-      position: relative;
-    }
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gfs-blue), #007bff);
-      border-radius: inherit;
-      width: 0%;
-      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .bar-value {
-      width: 40px;
-      text-align: right;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gfs-navy);
-    }
-
-    /* Onboarding Funnel styling */
-    .funnel-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: white;
-      border-radius: var(--radius-md);
-      padding: 28px 24px;
-      box-shadow: var(--shadow-soft);
-      margin-bottom: 24px;
-      position: relative;
-    }
-    .funnel-step {
-      flex: 1;
-      text-align: center;
-      position: relative;
-      padding: 0 10px;
-    }
-    .funnel-step:not(:last-child)::after {
-      content: '➔';
-      position: absolute;
-      top: 50%;
-      right: -10px;
-      transform: translateY(-50%);
-      color: var(--gfs-line);
-      font-size: 16px;
-    }
-    .funnel-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--gfs-sky);
-      color: var(--gfs-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 15px;
-      margin: 0 auto 8px;
-    }
-    .funnel-step.completed .funnel-num {
-      background: var(--gfs-success);
-      color: white;
-    }
-    .funnel-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--gfs-navy);
-      margin-bottom: 4px;
-    }
-    .funnel-count {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--gfs-muted);
     }
 
     /* Settings View styles */
@@ -1251,6 +1298,15 @@
       color: #0b7ff3;
     }
 
+    .icon-button.is-loading {
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .icon-button.is-loading svg {
+      animation: refreshSpin .8s linear infinite;
+    }
+
     .icon-badge {
       position: absolute;
       top: 2px;
@@ -1304,6 +1360,10 @@
       color: #0b7ff3;
       border-color: #badbff;
       background: #f4f9ff;
+    }
+
+    @keyframes refreshSpin {
+      to { transform: rotate(360deg); }
     }
 
     .pipeline-kpis {
@@ -1457,11 +1517,32 @@
       padding: 12px;
     }
 
+    .pipeline-show-more {
+      width: calc(100% - 24px);
+      margin: 0 12px 12px;
+      min-height: 42px;
+      border: 1px dashed color-mix(in srgb, var(--stage-color) 34%, #cbd5e1);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--stage-color) 7%, #ffffff);
+      color: var(--stage-color);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: background .16s ease, border-color .16s ease, transform .16s ease;
+    }
+
+    .pipeline-show-more:hover {
+      background: color-mix(in srgb, var(--stage-color) 12%, #ffffff);
+      border-color: color-mix(in srgb, var(--stage-color) 48%, #cbd5e1);
+      transform: translateY(-1px);
+    }
+
     .lead-card {
       border: 1px solid #e5edf6;
       border-radius: 10px;
       background: #ffffff;
-      padding: 14px;
+      padding: 11px 12px;
       box-shadow: 0 8px 18px rgba(15, 23, 42, .045);
       cursor: pointer;
       transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
@@ -1482,15 +1563,15 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 7px;
     }
 
     .lead-name {
       color: #14213c;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 900;
-      line-height: 1.35;
+      line-height: 1.2;
       word-break: break-word;
     }
 
@@ -1500,6 +1581,7 @@
       border-radius: 999px;
       color: var(--tag-color);
       background: color-mix(in srgb, var(--tag-color) 12%, white);
+      border: 1px solid color-mix(in srgb, var(--tag-color) 22%, white);
       font-size: 11px;
       font-weight: 900;
       line-height: 1;
@@ -1507,22 +1589,26 @@
 
     .lead-meta {
       display: grid;
-      gap: 7px;
+      gap: 4px;
       color: #53647d;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 800;
+      line-height: 1.25;
     }
 
     .lead-meta-row {
       display: flex;
-      align-items: center;
-      gap: 7px;
+      align-items: flex-start;
+      gap: 6px;
       min-width: 0;
     }
 
     .lead-meta-row svg {
       flex: 0 0 auto;
       color: #60728f;
+      width: 13px;
+      height: 13px;
+      margin-top: 1px;
     }
 
     .lead-actions {
@@ -1640,12 +1726,25 @@
       }
       .detail-header {
         min-height: 0;
-        padding: 10px 18px 12px;
+        padding: 12px 58px 12px 18px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+      }
+      .detail-title-row,
+      #dhTags {
+        grid-column: 1;
+        justify-self: start;
       }
       .detail-header h2 {
-        font-size: 18px;
-        line-height: 1.45;
+        font-size: 20px;
+        line-height: 1.3;
         padding-right: 0;
+      }
+      .detail-tag-pill {
+        font-size: 12px;
+      }
+      .detail-tag-label {
+        font-size: 10px;
       }
       .detail-header p {
         font-size: 12px;
@@ -1695,6 +1794,7 @@
     }
     .custom-alert-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26,60,110,0.3); }
   </style>
+  <link rel="stylesheet" href="admin-dashboard.css">
 </head>
 <body>
   <!-- Sidebar (Extracted to admin-sidebar.js) -->
@@ -1809,7 +1909,7 @@
           <div class="pipeline-topbar">
             <div class="pipeline-title">
               <h2>Smart Partner Program</h2>
-              <p>บริหารลีด สมาชิก และพาร์ทเนอร์ในมุมมองเดียว</p>
+              <p>“เริ่มง่าย ขายคล่อง เปลี่ยนโอกาสหน้างาน ให้เป็นรายได้ที่ต่อยอดได้จริง”</p>
             </div>
             <label class="pipeline-search" for="searchInput">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
@@ -1820,8 +1920,8 @@
                 <span class="icon-badge" id="notificationCount">0</span>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8a6 6 0 0 0-12 0c0 4.499-1.411 5.956-2.738 7.326"></path></svg>
               </button>
-              <button class="icon-button" type="button" title="ช่วยเหลือ">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 2-3 4"></path><path d="M12 17h.01"></path></svg>
+              <button class="icon-button" id="refreshSheetBtn" type="button" title="รีเฟรชข้อมูลจากชีต" onclick="refreshSheetData()">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"></path><path d="M3 21v-5h5"></path><path d="M3 12A9 9 0 0 1 18.5 5.7L21 8"></path><path d="M21 3v5h-5"></path></svg>
               </button>
               <button class="icon-button" type="button" title="ตั้งค่า" onclick="switchTab('settings')">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.51a2 2 0 0 1 1-1.72l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
@@ -1831,7 +1931,7 @@
 
           <div class="pipeline-filters">
             <select id="filterDate" class="pipeline-filter" title="ช่วงวันที่สมัคร">
-              <option value="all" selected>วันที่</option>
+              <option value="all" selected>ทั้งหมด</option>
               <option value="this_month">เดือนนี้</option>
               <option value="last_month">เดือนที่ผ่านมา</option>
               <option value="last_3_months">3 เดือน</option>
@@ -1880,6 +1980,9 @@
               <button class="edit-mode-btn" onclick="toggleEditMode()" id="editModeBtn" title="แก้ไขข้อมูล" aria-label="แก้ไขข้อมูล" style="position: absolute; top: 16px; right: 60px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); box-shadow: none;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
               </button>
+              <button class="save-edit-icon-btn" onclick="saveDealerData()" id="saveEditBtn" title="บันทึกข้อมูล" aria-label="บันทึกข้อมูล">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>
+              </button>
             </div>
             <p id="dhContact" style="display:none;"></p>
             <div id="dhTags" style="display: flex; justify-content: center; gap: 8px; margin-top: 12px; flex-wrap: wrap;"></div>
@@ -1891,62 +1994,90 @@
               </div>
               
               <!-- ปุ่มบันทึกการแก้ไขข้อมูล (โชว์เฉพาะตอนกดแก้ไข) -->
-              <div id="saveEditContainer" style="display: none; margin-top: 20px; text-align: right; padding-bottom: 20px; border-bottom: 1px dashed var(--gfs-line);">
+              <div id="saveEditContainer" style="display: none;">
                   <button class="save-btn" onclick="saveDealerData()" style="padding: 10px 20px; font-size: 14px; border-radius: 8px; width: auto; display: inline-block;">💾 บันทึกการแก้ไขข้อมูล</button>
               </div>
             </div>
 
             <!-- Action Group -->
-            <div class="action-group detail-admin-column" style="background: linear-gradient(180deg, #f4f9ff 0%, #e6f0fa 100%); margin: 24px -24px -24px -24px; padding: 24px; border-top: 3px solid var(--gfs-blue); border-radius: 0 0 16px 16px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
-              <div class="admin-assignment-grid">
-                <div class="admin-assignment-field">
-                  <label for="adminName">แอดมิน</label>
-                  <select id="adminName" class="form-select">
-                    <option value="">-- ระบุชื่อแอดมิน --</option>
-                    <option value="Ket">Ket</option>
-                    <option value="Kow">Kow</option>
-                    <option value="Dow">Dow</option>
+            <div class="action-group detail-admin-column">
+              <section class="admin-side-card status-card">
+                <h3 class="admin-card-title">ข้อมูลแอดมินและสถานะ</h3>
+                <button class="admin-card-save-icon" id="saveStatusBtn" onclick="saveAdminData()" title="บันทึกสถานะ" aria-label="บันทึกสถานะ">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>
+                </button>
+                <div class="admin-assignment-grid">
+                  <div class="admin-assignment-field">
+                    <label for="adminName">แอดมิน</label>
+                    <select id="adminName" class="form-select">
+                      <option value="">-- ระบุชื่อแอดมิน --</option>
+                      <option value="Ket">Ket</option>
+                      <option value="Kow">Kow</option>
+                      <option value="Dow">Dow</option>
+                    </select>
+                  </div>
+                  <div class="admin-assignment-field">
+                    <label for="salesName">ฝ่ายขาย</label>
+                    <select id="salesName" class="form-select">
+                      <option value="">-- ระบุฝ่ายขาย --</option>
+                    </select>
+                  </div>
+                </div>
+
+                <label for="trackingStatus">สถานะการติดตาม (Tracking Status)</label>
+                <select id="trackingStatus" class="form-select" style="margin-bottom: 12px;" onchange="handleTrackingStatusChange()">
+                  <option value="รอดำเนินการ">รอดำเนินการ (โทร/ทักแล้วยังไม่ตอบ)</option>
+                  <option value="สำเร็จ">สำเร็จ (ติดต่อแล้วอัพเดตกลุ่มลูกค้า)</option>
+                  <option value="ยกเลิก">ยกเลิก (บอกเหตุผลด้วย)</option>
+                </select>
+
+                <div id="customerGroupContainer" style="display: none;">
+                  <label for="customerGroup">กลุ่มลูกค้า (Customer Group)</label>
+                  <select id="customerGroup" class="form-select" style="margin-bottom: 12px;" onchange="handleCustomerGroupChange()">
+                    <option value="" disabled selected>-- เลือกกลุ่มลูกค้า --</option>
+                    <option value="Target">Target (สอบถาม ต้องการข้อมูล ราคา แต่ยังไม่ตัดสินใจ)</option>
+                    <option value="Member">Member (สั่งซื้อราคาพิเศษ แต่ไม่สนใจสมัคร ไม่มีข้อผูกมัด)</option>
+                    <option value="Partner">Partner (สนใจสมัคร Partner จริง ตามเงื่อนไข)</option>
                   </select>
                 </div>
-                <div class="admin-assignment-field">
-                  <label for="salesName">ฝ่ายขาย</label>
-                  <select id="salesName" class="form-select">
-                    <option value="">-- ระบุฝ่ายขาย --</option>
+
+                <div id="tierContainer" style="display: none;">
+                  <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
+                  <select id="tierSelect" class="form-select" style="margin-bottom: 12px;">
+                    <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
+                    <option value="registered">Registered Partner</option>
+                    <option value="authorized">Authorized Partner</option>
+                    <option value="premium">Premium Partner</option>
                   </select>
                 </div>
-              </div>
 
-              <label for="trackingStatus">สถานะการติดตาม (Tracking Status)</label>
-              <select id="trackingStatus" class="form-select" style="margin-bottom: 12px;" onchange="handleTrackingStatusChange()">
-                <option value="รอดำเนินการ">รอดำเนินการ (โทร/ทักแล้วยังไม่ตอบ)</option>
-                <option value="สำเร็จ">สำเร็จ (ติดต่อแล้วอัพเดตกลุ่มลูกค้า)</option>
-                <option value="ยกเลิก">ยกเลิก (บอกเหตุผลด้วย)</option>
-              </select>
+              </section>
 
-              <div id="customerGroupContainer" style="display: none;">
-                <label for="customerGroup">กลุ่มลูกค้า (Customer Group)</label>
-                <select id="customerGroup" class="form-select" style="margin-bottom: 12px;" onchange="handleCustomerGroupChange()">
-                  <option value="" disabled selected>-- เลือกกลุ่มลูกค้า --</option>
-                  <option value="Target">Target (สอบถาม ต้องการข้อมูล ราคา แต่ยังไม่ตัดสินใจ)</option>
-                  <option value="Member">Member (สั่งซื้อราคาพิเศษ แต่ไม่สนใจสมัคร ไม่มีข้อผูกมัด)</option>
-                  <option value="Partner">Partner (สนใจสมัคร Partner จริง ตามเงื่อนไข)</option>
+              <section class="admin-side-card contact-log-card">
+                <h3 class="admin-card-title">บันทึกการติดต่อลูกค้า</h3>
+                <label for="contactAdminName">แอดมินที่คุยกับลูกค้า</label>
+                <select id="contactAdminName" class="form-select" style="margin-bottom: 12px;">
+                  <option value="" selected>-- ระบุชื่อแอดมิน --</option>
+                  <option value="Ket">Ket</option>
+                  <option value="Kow">Kow</option>
+                  <option value="Dow">Dow</option>
                 </select>
-              </div>
 
-              <div id="tierContainer" style="display: none;">
-                <label for="tierSelect">กำหนดระดับพาร์ทเนอร์ (Tier)</label>
-                <select id="tierSelect" class="form-select" style="margin-bottom: 12px;">
-                  <option value="pending">⏳ ยังไม่ได้กำหนด (Pending)</option>
-                  <option value="registered">Registered Partner</option>
-                  <option value="authorized">Authorized Partner</option>
-                  <option value="premium">Premium Partner</option>
-                </select>
-              </div>
-              
-              <label for="adminNotes">ข้อมูลการติดต่อลูกค้า</label>
-              <textarea id="adminNotes" class="form-textarea" placeholder="บันทึกรายละเอียดการติดต่อลูกค้า..."></textarea>
-              
-              <button class="save-btn" onclick="saveAdminData()">บันทึกและเก็บประวัติการติดต่อ</button>
+                <label for="adminNotes">ข้อมูลการติดต่อลูกค้า</label>
+                <textarea id="adminNotes" class="form-textarea" placeholder="บันทึกรายละเอียดการติดต่อลูกค้า..."></textarea>
+                
+                <button class="save-btn" id="saveContactLogBtn" onclick="saveContactLog()">บันทึกประวัติการติดต่อ</button>
+
+                <div class="chat-history-panel" aria-live="polite">
+                  <div class="chat-history-title">
+                    <span>ประวัติการติดต่อลูกค้า</span>
+                    <span class="chat-history-count" id="chatHistoryCount">0</span>
+                  </div>
+                  <div class="chat-history-list" id="chatHistoryList">
+                    <div class="chat-history-empty">ยังไม่มีประวัติการติดต่อ</div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -1993,10 +2124,6 @@
               </div>
             </div>
             <button class="save-btn" onclick="saveSystemSettings()" style="max-width:200px;margin-top:20px;">💾 บันทึกตั้งค่าระบบ</button>
-            <hr style="margin: 30px 0; border: none; border-top: 1px dashed var(--gfs-line);">
-            <div class="settings-section-title" style="color: var(--gfs-warning);">⚠️ โซนอันตราย (Danger Zone)</div>
-            <div style="color:var(--gfs-muted);margin-bottom:10px;font-size:14px;">ล้างข้อมูลที่บันทึกไว้ในเครื่องของคุณ (Local Storage) เช่น สถานะแอดมิน, โน้ตย่อ, หรือข้อมูลแคชที่ค้างอยู่</div>
-            <button class="save-btn" onclick="clearLocalData()" style="max-width:250px; background: var(--gfs-warning); color: white; border: none;">⚠️ ล้างข้อมูลระบบทั้งหมด (Reset Data)</button>
           </div>
 
 
@@ -2006,13 +2133,19 @@
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="admin-dashboard.js"></script>
   <script>
     let leadsData = [];
     let currentLeadId = null;
     let isEditMode = false;
     let salesOptions = [];
+    let chatLogsData = [];
+    let partnerTierMap = new Map();
+    let pipelineCurrentData = [];
+    let pipelineVisibleLimits = {};
+    const CARD_BATCH_SIZE = 15;
     const SPREADSHEET_ID = '1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q';
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxRkcB5wMQl0SL2t0Qz1gtYv9r_Flme2EtnrWDCThcTxYAXEPsZSeJrhcbCAJBoE9Hs/exec'; // Web App URL ของคุณ
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxISzq_YS5daW_u_kVNXi7SyIsjmqy8EZaOqXkxGzXO2-H1sSpT4X8Pgmd6JsKvyGA9/exec'; // Web App URL ของคุณ
     
     // Tab switching logic
     function switchTab(tabName) {
@@ -2089,16 +2222,142 @@
       return key !== undefined ? String(row[key] || '').trim() : '';
     }
 
+    function getFirstRowValue(row, keys) {
+      const normalizeKey = value => String(value || '').replace(/^\uFEFF/, '').trim().toLowerCase();
+      const wantedKeys = keys.map(normalizeKey);
+
+      for (const key of keys) {
+        if (row && row[key] !== undefined && String(row[key]).trim()) return String(row[key]).trim();
+      }
+
+      const matchedKey = Object.keys(row || {}).find(key => wantedKeys.includes(normalizeKey(key)));
+      return matchedKey && String(row[matchedKey]).trim() ? String(row[matchedKey]).trim() : '';
+    }
+
+    function normalizeMatchId(value) {
+      return String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function getDigitsOnly(value) {
+      return String(value || '').replace(/\D/g, '');
+    }
+
+    function normalizeChatLogRow(row) {
+      return {
+        logId: getFirstRowValue(row, ['Log_ID', 'logId', 'LOG_ID', 'Log ID']),
+        custId: getFirstRowValue(row, ['Cust_ID', 'CUST_ID', 'custId', 'customerId', 'Cust ID']),
+        admin: getFirstRowValue(row, ['Admin', 'admin', 'แอดมิน']),
+        detail: getFirstRowValue(row, ['รายละเอียด', 'detail', 'details', 'adminNotes', 'notes', 'บันทึก']),
+        loggedAt: getFirstRowValue(row, ['วันที่บันทึกข้อมูล', 'loggedAt', 'timestamp', 'date', 'วันที่']),
+        raw: row
+      };
+    }
+
+    function normalizeTierValue(value) {
+      const raw = String(value || '').trim();
+      const lowered = raw.toLowerCase();
+      if (!raw) return '';
+      if (['premium', 'premium partner'].includes(lowered)) return 'premium';
+      if (['authorized', 'authorized partner', 'authorised', 'authorised partner'].includes(lowered)) return 'authorized';
+      if (['registered', 'registered partner'].includes(lowered)) return 'registered';
+      if (['pending', 'ยังไม่ได้กำหนด', 'ยังไม่กำหนด'].some(item => lowered.includes(item))) return 'pending';
+      return lowered;
+    }
+
+    function normalizePartnerTierRow(row) {
+      const custId = getFirstRowValue(row, ['Cust_ID', 'CUST_ID', 'custId', 'customerId', 'Cust ID']);
+      const tier = getFirstRowValue(row, ['Tier', 'tier', 'Partner_Tier', 'Partner Tier', 'ระดับพาร์ทเนอร์', 'กำหนดระดับพาร์ทเนอร์']);
+      return { custId, tier: normalizeTierValue(tier), raw: row };
+    }
+
+    function buildPartnerTierMap(rows) {
+      const map = new Map();
+      (rows || []).forEach(row => {
+        const item = normalizePartnerTierRow(row);
+        if (!item.custId || !item.tier) return;
+
+        const normalized = normalizeMatchId(item.custId);
+        const digits = getDigitsOnly(item.custId);
+        if (normalized) map.set(normalized, item.tier);
+        if (digits && digits.length >= 6) map.set(digits, item.tier);
+      });
+      return map;
+    }
+
+    function getPartnerTierForLead(lead, fallback = 'pending') {
+      const ids = getLeadChatMatchIds(lead);
+      for (const id of ids) {
+        const tier = partnerTierMap.get(id);
+        if (tier) return tier;
+      }
+      return normalizeTierValue(fallback) || 'pending';
+    }
+
+    function getLeadChatMatchIds(lead) {
+      const raw = lead && lead.rawData ? lead.rawData : {};
+      const values = [
+        getLeadCustId(lead),
+        lead && lead.id,
+        raw['Cust_ID'],
+        raw['CUST_ID'],
+        raw['Cust ID'],
+        raw['cust_id']
+      ];
+
+      const ids = new Set();
+      values.forEach(value => {
+        const normalized = normalizeMatchId(value);
+        const digits = getDigitsOnly(value);
+        if (normalized) ids.add(normalized);
+        if (digits && digits.length >= 6) ids.add(digits);
+      });
+      return ids;
+    }
+
+    function getChatLogsForLead(lead) {
+      const matchIds = getLeadChatMatchIds(lead);
+      if (!matchIds.size) return [];
+
+      return chatLogsData
+        .map(normalizeChatLogRow)
+        .filter(log => {
+          const normalized = normalizeMatchId(log.custId);
+          const digits = getDigitsOnly(log.custId);
+          return (normalized && matchIds.has(normalized)) || (digits && matchIds.has(digits));
+        })
+        .sort((a, b) => {
+          const timeA = new Date(a.loggedAt).getTime() || 0;
+          const timeB = new Date(b.loggedAt).getTime() || 0;
+          return timeB - timeA;
+        });
+    }
+
+    function renderChatHistory(lead) {
+      const countEl = document.getElementById('chatHistoryCount');
+      const listEl = document.getElementById('chatHistoryList');
+      if (!countEl || !listEl) return;
+
+      const logs = lead ? getChatLogsForLead(lead) : [];
+      countEl.textContent = logs.length;
+
+      if (!logs.length) {
+        listEl.innerHTML = '<div class="chat-history-empty">ยังไม่มีประวัติการติดต่อ</div>';
+        return;
+      }
+
+      listEl.innerHTML = logs.map(log => `
+        <div class="chat-history-item">
+          <div class="chat-history-meta">
+            <span class="chat-history-admin">${escapeHtml(log.admin || 'ไม่ระบุแอดมิน')}</span>
+            <span>${escapeHtml(log.loggedAt || '')}</span>
+          </div>
+          <div class="chat-history-detail">${escapeHtml(log.detail || '-')}</div>
+        </div>
+      `).join('');
+    }
+
     function processRows(rows) {
       if (!rows || !Array.isArray(rows)) return;
-
-      const stored = localStorage.getItem('gfsAdminLeads');
-      let localData = {};
-      if (stored) {
-        try {
-          localData = JSON.parse(stored) || {};
-        } catch(e) {}
-      }
 
       leadsData = [];
       
@@ -2108,21 +2367,19 @@
         
         // Use timestamp as primary unique ID since phone numbers can be duplicated
         const id = timestamp || row['เบอร์โทรศัพท์'] || row['ชื่อ-นามสกุล'];
-        const localLead = localData[id] || {};
+        const rowCustId = getFirstRowValue(row, ['Cust_ID', 'CUST_ID', 'custId', 'customerId', 'Cust ID']);
         
-        // ผสานข้อมูล Local overrides เข้ากับข้อมูลดิบจาก CSV
         const mergedRawData = { ...row };
-        if(localLead.overrides) {
-           Object.assign(mergedRawData, localLead.overrides);
-        }
 
         const colAK = row['สถานะ'] !== undefined ? String(row['สถานะ']).trim() : '';
         const colAL = row['กลุ่มลูกค้า'] !== undefined ? String(row['กลุ่มลูกค้า']).trim() : '';
         const colAM = row['Admin'] !== undefined ? String(row['Admin']).trim() : '';
         const colAN = getRowValueByColumnIndex(row, 39);
+        const sheetTier = getFirstRowValue(row, ['tier', 'Tier', 'ระดับพาร์ทเนอร์', 'Partner Tier']);
 
         leadsData.push({
           id: id,
+          custId: rowCustId,
           rawData: mergedRawData,
           
           company: mergedRawData['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || mergedRawData['ชื่อ-นามสกุล'] || '-',
@@ -2136,12 +2393,12 @@
           team: mergedRawData['มีทีมช่างติดตั้งของตนเองหรือไม่'] || '-',
           date: String(timestamp).split(' ')[0].replace(/,/g, ''), 
           
-          customerGroup: localLead.customerGroup || (colAL !== '' ? colAL : 'ลูกค้าใหม่'),
-          trackingStatus: localLead.trackingStatus || (colAK !== '' ? colAK : 'รอดำเนินการ'),
-          adminName: localLead.adminName || (colAM !== '' ? colAM : ''),
-          salesName: localLead.salesName || (colAN && colAN.toLowerCase() !== 'sales' ? colAN : ''),
+          customerGroup: colAL !== '' ? colAL : 'ลูกค้าใหม่',
+          trackingStatus: colAK !== '' ? colAK : 'รอดำเนินการ',
+          adminName: colAM !== '' ? colAM : '',
+          salesName: colAN && colAN.toLowerCase() !== 'sales' ? colAN : '',
           notes: '',
-          tier: localLead.tier || 'pending'
+          tier: getPartnerTierForLead({ id, custId: rowCustId, rawData: mergedRawData }, sheetTier || 'pending')
         });
       });
       
@@ -2170,25 +2427,116 @@
       renderDashboard(); 
     }
 
-    function loadData() {
+    function getLeadCsvUrl() {
+      return `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=31340732&t=` + new Date().getTime();
+    }
+
+    function parseSheetCsv(url) {
+      return new Promise((resolve, reject) => {
+        Papa.parse(url, {
+          download: true,
+          header: true,
+          skipEmptyLines: true,
+          complete: results => resolve(results.data || []),
+          error: err => reject(err)
+        });
+      });
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function normalizeCellValue(value) {
+      return String(value === undefined || value === null ? '' : value).trim();
+    }
+
+    function findSheetRowForLead(rows, lead) {
+      const leadCustId = getLeadCustId(lead);
+      const leadPhone = getDigitsOnly(lead && lead.rawData ? lead.rawData['เบอร์โทรศัพท์'] : lead && lead.phone);
+      const leadTimestamp = normalizeCellValue(lead && lead.rawData ? (lead.rawData['ประทับเวลา'] || lead.rawData['Timestamp']) : lead && lead.id);
+
+      return (rows || []).find(row => {
+        const rowCustId = getFirstRowValue(row, ['Cust_ID', 'CUST_ID', 'custId', 'customerId', 'Cust ID']);
+        const rowPhone = getDigitsOnly(row['เบอร์โทรศัพท์']);
+        const rowTimestamp = normalizeCellValue(row['ประทับเวลา'] || row['Timestamp']);
+
+        if (leadCustId && rowCustId && rowCustId === leadCustId) return true;
+        if (leadTimestamp && rowTimestamp && rowTimestamp === leadTimestamp) return true;
+        if (leadPhone && rowPhone && rowPhone === leadPhone) return true;
+        return false;
+      });
+    }
+
+    async function verifyLeadUpdateInSheet(lead, updates) {
+      const keys = Object.keys(updates || {});
+      if (!keys.length) return true;
+
+      for (let attempt = 0; attempt < 10; attempt++) {
+        if (attempt > 0) await sleep(1500);
+        const rows = await parseSheetCsv(getLeadCsvUrl());
+        const row = findSheetRowForLead(rows, lead);
+        if (!row) continue;
+
+        const isUpdated = keys.every(key => normalizeCellValue(row[key]) === normalizeCellValue(updates[key]));
+        if (isUpdated) return true;
+      }
+
+      return false;
+    }
+
+    function loadData(onComplete) {
       loadSalesData();
-      const csvUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&gid=31340732&t=` + new Date().getTime();
+      const csvUrl = getLeadCsvUrl();
+      const chatLogsUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=chat_logs&t=` + new Date().getTime();
+      const partnerTierUrl = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=Partner_Tier&t=` + new Date().getTime();
       const emptyState = document.getElementById('emptyState');
 
-      Papa.parse(csvUrl, {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-        complete: function(results) {
-          if (results.data && results.data.length > 0) {
-            processRows(results.data);
-          } else {
-            if(emptyState) emptyState.style.display = 'flex';
-          }
-        },
-        error: function() {
-          emptyState.style.display = 'flex';
+      // โหลด chat logs แบบขนาน ไม่ต้องรอ (แสดงผลของตัวเองเมื่อพร้อม)
+      parseSheetCsv(chatLogsUrl).then(data => {
+        chatLogsData = (data || []).filter(row => normalizeChatLogRow(row).custId);
+        const openLead = leadsData.find(l => l.id === currentLeadId);
+        if (openLead) renderChatHistory(openLead);
+      }).catch(() => {
+        chatLogsData = [];
+        const openLead = leadsData.find(l => l.id === currentLeadId);
+        if (openLead) renderChatHistory(openLead);
+      });
+
+      // โหลด Partner_Tier และ leads พร้อมกัน (leads ต้องใช้ partnerTierMap จึงรอทั้งคู่ค่อย process)
+      const tierPromise = parseSheetCsv(partnerTierUrl).catch(() => null);
+      const leadsPromise = parseSheetCsv(csvUrl).then(data => data || []).catch(() => null);
+
+      Promise.all([tierPromise, leadsPromise]).then(([tierRows, leadRows]) => {
+        partnerTierMap = buildPartnerTierMap(tierRows || []);
+
+        if (leadRows === null) {
+          if (emptyState) emptyState.style.display = 'flex';
           customAlert('ไม่สามารถดึงข้อมูลจาก Google Sheets ได้ กรุณาลองรีเฟรชหน้าเว็บอีกครั้ง');
+        } else if (leadRows.length > 0) {
+          processRows(leadRows);
+        } else {
+          if (emptyState) emptyState.style.display = 'flex';
+        }
+
+        if (typeof onComplete === 'function') onComplete();
+      });
+    }
+
+    function refreshSheetData() {
+      const btn = document.getElementById('refreshSheetBtn');
+      if (btn) {
+        btn.classList.add('is-loading');
+        btn.disabled = true;
+        btn.title = 'กำลังรีเฟรชข้อมูล...';
+      }
+
+      pipelineVisibleLimits = {};
+      loadData(() => {
+        if (btn) {
+          btn.classList.remove('is-loading');
+          btn.disabled = false;
+          btn.title = 'รีเฟรชข้อมูลจากชีต';
         }
       });
     }
@@ -2237,23 +2585,31 @@
       });
     }
 
-    function createAppsScriptBody(payload) {
-      const jsonPayload = JSON.stringify(payload);
-      return JSON.stringify({
-        payload: jsonPayload,
-        json: jsonPayload,
-        ...payload
-      });
-    }
-
     async function postToAppsScript(payload) {
-      if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.startsWith('http')) return;
+      if (!APPS_SCRIPT_URL || !APPS_SCRIPT_URL.startsWith('http')) return null;
 
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: createAppsScriptBody(payload)
-      });
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({
+            payload: JSON.stringify(payload),
+            json: JSON.stringify(payload),
+            ...payload
+          })
+        });
+        const text = await response.text();
+        try {
+          return JSON.parse(text);
+        } catch (parseErr) {
+          return { status: 'success', raw: text };
+        }
+      } catch (err) {
+        console.error('postToAppsScript error:', err);
+        return null;
+      }
     }
 
     function handleTrackingStatusChange() {
@@ -2278,6 +2634,8 @@
 
     const editIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>';
     const cancelIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>';
+    const saveIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>';
+    const checkIconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>';
 
     function toggleEditMode() {
       isEditMode = !isEditMode;
@@ -2295,7 +2653,7 @@
          btn.style.background = 'var(--gfs-warning)';
          btn.style.color = 'var(--gfs-navy)';
          btn.style.border = 'none';
-         saveEditContainer.style.display = 'block';
+         saveEditContainer.style.display = 'none';
          inputs.forEach(input => {
             const key = input.getAttribute('data-key');
             const excludedKeys = ['ประทับเวลา', 'สถานะ', 'กลุ่มลูกค้า'];
@@ -2351,17 +2709,64 @@
 
     function getTierLabel(lead) {
       if (lead.customerGroup === 'Partner') {
-        if (lead.tier === 'premium') return 'Platinum';
-        if (lead.tier === 'authorized') return 'Gold';
-        if (lead.tier === 'registered') return 'Silver';
-        return 'Partner';
+        if (lead.tier === 'premium') return 'Premium';
+        if (lead.tier === 'authorized') return 'Authorized';
+        if (lead.tier === 'registered') return 'Registered';
+        return 'Pending';
       }
       return lead.customerGroup || 'สมัครใหม่';
     }
 
-    function getTagColor(stageKey) {
+    function getTagColor(leadOrStageKey, maybeStageKey) {
+      const lead = typeof leadOrStageKey === 'object' && leadOrStageKey !== null ? leadOrStageKey : null;
+      const stageKey = maybeStageKey || leadOrStageKey;
+
+      if (lead && lead.customerGroup === 'Partner') {
+        if (lead.tier === 'premium') return '#7c3aed';
+        if (lead.tier === 'authorized') return '#c0841a';
+        if (lead.tier === 'registered') return '#475569';
+        return '#94a3b8';
+      }
+      if (lead && lead.customerGroup === 'Member') return '#10a76a';
+      if (lead && lead.customerGroup === 'Target') return '#0ea5a3';
+
       const stage = pipelineStages.find(s => s.key === stageKey);
       return stage ? stage.color : '#0b7ff3';
+    }
+
+    function getTierDisplayLabel(tier) {
+      if (tier === 'premium') return 'Premium Partner';
+      if (tier === 'authorized') return 'Authorized Partner';
+      if (tier === 'registered') return 'Registered Partner';
+      return '';
+    }
+
+    function renderDetailTags(lead) {
+      const tagsContainer = document.getElementById('dhTags');
+      if (!tagsContainer || !lead) return;
+
+      const tags = [];
+      const trackingStatus = String(lead.trackingStatus || '').trim();
+      const customerGroup = String(lead.customerGroup || '').trim();
+      const tierLabel = getTierDisplayLabel(lead.tier);
+
+      if (trackingStatus) {
+        tags.push({ label: 'สถานะการติดตาม', value: trackingStatus, color: getTagColor(getPipelineStage(lead)) });
+      }
+      if (customerGroup && customerGroup !== 'ลูกค้าใหม่') {
+        tags.push({ label: 'กลุ่มลูกค้า', value: customerGroup, color: getTagColor(getPipelineStage({ ...lead, trackingStatus: 'สำเร็จ' })) });
+      }
+      if (tierLabel) {
+        tags.push({ label: 'ระดับพาร์ทเนอร์', value: tierLabel, color: getTagColor(lead, getPipelineStage(lead)) });
+      }
+
+      tagsContainer.innerHTML = tags.map(tag => `
+        <span class="detail-tag-pill" style="--tag-tone:${escapeHtml(tag.color)}">
+          <span class="detail-tag-label">${escapeHtml(tag.label)}:</span>
+          <span>${escapeHtml(tag.value)}</span>
+        </span>
+      `).join('');
+      tagsContainer.style.display = tags.length ? 'flex' : 'none';
     }
 
     function renderPipelineKpis(data) {
@@ -2412,9 +2817,11 @@
       const stageKey = getPipelineStage(lead);
       const tag = stageKey === 'cancelled' ? 'ยกเลิก' : getTierLabel(lead);
       const owner = lead.adminName || 'ยังไม่ระบุ';
+      const salesOwner = String(lead.salesName || '').trim();
+      const ownerLine = salesOwner ? `Admin: ${owner} | ฝ่ายขาย: ${salesOwner}` : `Admin: ${owner}`;
       const cardClass = stageKey === 'cancelled' ? 'lead-card cancelled' : 'lead-card';
       const safeId = escapeHtml(lead.id);
-      const tagColor = getTagColor(stageKey);
+      const tagColor = getTagColor(lead, stageKey);
 
       return `
         <article class="${cardClass}" data-lead-id="${safeId}" onclick="openPanel(this.dataset.leadId)">
@@ -2423,35 +2830,45 @@
             <span class="lead-tag" style="--tag-color:${tagColor};">${escapeHtml(tag)}</span>
           </div>
           <div class="lead-meta">
-            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l8-4v18"></path><path d="M19 21V11l-6-4"></path><path d="M9 9v.01"></path><path d="M9 12v.01"></path><path d="M9 15v.01"></path></svg><span>ร้าน/บริษัท: ${escapeHtml(lead.company || '-')}</span></div>
+            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V7l8-4v18"></path><path d="M19 21V11l-6-4"></path><path d="M9 9v.01"></path><path d="M9 12v.01"></path><path d="M9 15v.01"></path></svg><span>${escapeHtml(lead.company || '-')}</span></div>
             <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg><span>${escapeHtml(lead.province || '-')}</span></div>
-            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Admin: ${escapeHtml(owner)}</span></div>
+            <div class="lead-meta-row"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle></svg><span>${escapeHtml(ownerLine)}</span></div>
           </div>
 
         </article>
       `;
     }
 
+    function showMoreStageCards(stageKey, totalCount) {
+      const currentLimit = pipelineVisibleLimits[stageKey] || CARD_BATCH_SIZE;
+      pipelineVisibleLimits[stageKey] = Math.min(currentLimit + CARD_BATCH_SIZE, totalCount);
+      renderTable(pipelineCurrentData);
+    }
+
     function renderTable(data) {
       const board = document.getElementById('pipelineBoard');
       const emptyState = document.getElementById('emptyState');
       if (!board) return;
+      pipelineCurrentData = data || [];
 
-      renderPipelineKpis(data);
-      if (emptyState) emptyState.style.display = data.length === 0 ? 'flex' : 'none';
+      renderPipelineKpis(pipelineCurrentData);
+      if (emptyState) emptyState.style.display = pipelineCurrentData.length === 0 ? 'flex' : 'none';
 
       const grouped = pipelineStages.reduce((acc, stage) => {
         acc[stage.key] = [];
         return acc;
       }, {});
 
-      data.forEach(lead => {
+      pipelineCurrentData.forEach(lead => {
         const stage = getPipelineStage(lead);
         grouped[stage].push(lead);
       });
 
       board.innerHTML = pipelineStages.map(stage => {
         const leads = grouped[stage.key] || [];
+        const visibleLimit = pipelineVisibleLimits[stage.key] || CARD_BATCH_SIZE;
+        const visibleLeads = leads.slice(0, visibleLimit);
+        const remainingCount = Math.max(leads.length - visibleLeads.length, 0);
         return `
           <section class="pipeline-column" style="--stage-color:${stage.color};">
             <div class="pipeline-column-header">
@@ -2459,8 +2876,9 @@
               <div class="pipeline-count">${leads.length}</div>
             </div>
             <div class="pipeline-card-list">
-              ${leads.length ? leads.map(renderLeadCard).join('') : '<div class="pipeline-empty">ไม่มีรายการ</div>'}
+              ${visibleLeads.length ? visibleLeads.map(renderLeadCard).join('') : '<div class="pipeline-empty">ไม่มีรายการ</div>'}
             </div>
+            ${remainingCount ? `<button class="pipeline-show-more" type="button" onclick="showMoreStageCards('${escapeHtml(stage.key)}', ${leads.length})">ดูเพิ่มเติม ${remainingCount} รายการ</button>` : ''}
           </section>
         `;
       }).join('');
@@ -2477,6 +2895,14 @@
       document.getElementById('editModeBtn').style.background = 'rgba(255,255,255,0.2)';
       document.getElementById('editModeBtn').style.color = 'white';
       document.getElementById('editModeBtn').style.border = '1px solid rgba(255,255,255,0.4)';
+      const saveEditBtn = document.getElementById('saveEditBtn');
+      if (saveEditBtn) {
+        saveEditBtn.innerHTML = saveIconSvg;
+        saveEditBtn.classList.remove('is-saving');
+        saveEditBtn.disabled = false;
+        saveEditBtn.title = 'บันทึกข้อมูล';
+        saveEditBtn.setAttribute('aria-label', 'บันทึกข้อมูล');
+      }
 
       const lead = leadsData.find(l => l.id === id);
       if (!lead) return;
@@ -2493,23 +2919,7 @@
       const titleContact = lead.contact || '-';
       const titleCompany = lead.company || '-';
       document.getElementById('dhCompany').textContent = `${titleContact} | ${titleCompany}`;
-      
-      const tagsContainer = document.getElementById('dhTags');
-      tagsContainer.innerHTML = '';
-      
-      const tStatus = lead.trackingStatus || '';
-      const cGroup = lead.customerGroup || '';
-      const tier = lead.tier || '';
-      
-      if (tStatus) {
-         tagsContainer.innerHTML += `<span style="background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">สถานะ: ${escapeHtml(tStatus)}</span>`;
-      }
-      if (cGroup) {
-         tagsContainer.innerHTML += `<span style="background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">กลุ่มลูกค้า: ${escapeHtml(cGroup)}</span>`;
-      }
-      if (tier) {
-         tagsContainer.innerHTML += `<span style="background: rgba(255,255,255,0.2); color: white; padding: 4px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">พาร์ทเนอร์: ${escapeHtml(tier)}</span>`;
-      }
+      renderDetailTags(lead);
       
       // Render Dynamic Fields
       const container = document.getElementById('dynamicFieldsContainer');
@@ -2552,6 +2962,7 @@
       // Populate Action Group
       document.getElementById('trackingStatus').value = lead.trackingStatus;
       document.getElementById('adminName').value = lead.adminName || '';
+      document.getElementById('contactAdminName').value = '';
       populateSalesDropdown(lead.salesName || '');
       document.getElementById('customerGroup').value = lead.customerGroup;
       document.getElementById('tierSelect').value = lead.tier;
@@ -2560,6 +2971,7 @@
       adminNotesInput.dataset.originalValue = '';
       handleTrackingStatusChange();
       handleCustomerGroupChange();
+      renderChatHistory(lead);
 
       document.getElementById('detailModalOverlay').classList.add('open');
     }
@@ -2574,70 +2986,101 @@
 
     async function saveDealerData() {
       if(!currentLeadId) return;
-      const btn = document.querySelector('#saveEditContainer .save-btn');
-      const originalText = btn.textContent;
+      const btn = document.getElementById('saveEditBtn');
+      const originalHtml = btn ? btn.innerHTML : saveIconSvg;
       
-      btn.textContent = 'กำลังบันทึก...';
-      btn.style.opacity = '0.7';
+      if (btn) {
+        btn.innerHTML = checkIconSvg;
+        btn.classList.add('is-saving');
+        btn.disabled = true;
+        btn.title = 'กำลังบันทึก...';
+        btn.setAttribute('aria-label', 'กำลังบันทึก...');
+      }
 
       // Get overrides from dynamic fields
       const overrides = {};
+      const changedInputs = [];
       const inputs = document.getElementById('detailPanel').querySelectorAll('.dynamic-field-input');
       inputs.forEach(input => {
          if(input.value !== input.getAttribute('data-original')) {
             overrides[input.getAttribute('data-key')] = input.value;
-            input.setAttribute('data-original', input.value); // update original
+            changedInputs.push(input);
          }
       });
 
-      // Update local storage
-      const stored = localStorage.getItem('gfsAdminLeads');
-      let localData = {};
-      if (stored) {
-         try { localData = JSON.parse(stored); } catch(e){}
-      }
-      
-      if(!localData[currentLeadId]) localData[currentLeadId] = {};
-      if(Object.keys(overrides).length > 0) {
-         localData[currentLeadId].overrides = localData[currentLeadId].overrides || {};
-         Object.assign(localData[currentLeadId].overrides, overrides);
-      }
-      
-      localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
+      const currentLead = leadsData.find(l => l.id === currentLeadId);
+      const currentCustId = getLeadCustId(currentLead);
+      const currentPhone = currentLead && currentLead.rawData ? currentLead.rawData['เบอร์โทรศัพท์'] : '';
 
-      // Update in-memory data
-      const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
-      if(leadIndex > -1) {
-         if(Object.keys(overrides).length > 0) {
-            Object.assign(leadsData[leadIndex].rawData, overrides);
-         }
+      if (!Object.keys(overrides).length) {
+        if (btn) {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('is-saving');
+          btn.disabled = false;
+          btn.title = 'บันทึกข้อมูล';
+          btn.setAttribute('aria-label', 'บันทึกข้อมูล');
+        }
+        customAlert('ยังไม่มีข้อมูลที่เปลี่ยนแปลง', 'success');
+        return;
       }
+
+      const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
 
       // Send to Google Sheets (Web App)
       try {
          const payload = {
             action: 'updateLead',
             sheet: 'New Dealer Report',
+            targetSheet: 'New Dealer Report',
+            sourceSheet: 'New Dealer Report',
             id: currentLeadId,
+            rowId: currentLeadId,
+            timestamp: currentLeadId,
+            custId: currentCustId,
+            Cust_ID: currentCustId,
+            CUST_ID: currentCustId,
+            phone: currentPhone,
+            'เบอร์โทรศัพท์': currentPhone,
+            updates: overrides,
             ...overrides
          };
-         await postToAppsScript(payload);
+         const res = await postToAppsScript(payload);
+         if (res && res.status === 'error') {
+           throw new Error(res.message || 'บันทึกข้อมูลไม่สำเร็จ');
+         }
       } catch(e) {
          console.error('Error saving to Google Sheets:', e);
-         btn.textContent = 'บันทึกไม่สำเร็จ';
-         btn.style.background = 'var(--gfs-red)';
-         btn.style.opacity = '1';
-         customAlert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+         if (btn) {
+           btn.innerHTML = originalHtml;
+           btn.classList.remove('is-saving');
+           btn.disabled = false;
+           btn.title = 'บันทึกข้อมูล';
+           btn.setAttribute('aria-label', 'บันทึกข้อมูล');
+         }
+         customAlert('ยังไม่พบข้อมูลที่อัปเดตในชีตจริง กรุณาตรวจสอบว่า Apps Script ใช้โค้ดเวอร์ชันล่าสุดที่รองรับ updates แล้วกด Deploy ใหม่', 'error');
          return;
       }
 
-      btn.textContent = 'บันทึกสำเร็จ!';
-      btn.style.background = 'var(--gfs-success)';
-      btn.style.opacity = '1';
+      changedInputs.forEach(input => input.setAttribute('data-original', input.value));
+      if(leadIndex > -1) {
+         Object.assign(leadsData[leadIndex].rawData, overrides);
+      }
+
+      if (btn) {
+        btn.innerHTML = checkIconSvg;
+        btn.classList.remove('is-saving');
+        btn.disabled = false;
+        btn.title = 'บันทึกสำเร็จ';
+        btn.setAttribute('aria-label', 'บันทึกสำเร็จ');
+      }
+      customAlert('บันทึกข้อมูลลงชีตจริงเรียบร้อยแล้ว', 'success');
       
       setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
+        if (btn) {
+          btn.innerHTML = saveIconSvg;
+          btn.title = 'บันทึกข้อมูล';
+          btn.setAttribute('aria-label', 'บันทึกข้อมูล');
+        }
         toggleEditMode(); // ปิดโหมดแก้ไข
         applyFilters(); 
         renderDashboard(); 
@@ -2646,7 +3089,7 @@
 
     function getLeadCustId(lead) {
       const raw = lead && lead.rawData ? lead.rawData : {};
-      const value = raw['CUST_ID'] || raw['Cust_ID'] || raw['cust_id'] || raw['Cust ID'] || (lead && lead.id) || currentLeadId || '';
+      const value = (lead && lead.custId) || raw['CUST_ID'] || raw['Cust_ID'] || raw['cust_id'] || raw['Cust ID'] || (lead && lead.id) || currentLeadId || '';
       return String(value).trim();
     }
 
@@ -2684,51 +3127,40 @@
 
     async function saveAdminData() {
       if(!currentLeadId) return;
-      const btn = document.querySelector('.action-group .save-btn');
-      const originalText = btn.textContent;
+      const btn = document.getElementById('saveStatusBtn');
+      const originalHtml = btn.innerHTML;
       
-      btn.textContent = 'กำลังบันทึก...';
-      btn.style.opacity = '0.7';
+      btn.innerHTML = checkIconSvg;
+      btn.classList.add('is-saving');
+      btn.disabled = true;
+      btn.title = 'กำลังบันทึก...';
+      btn.setAttribute('aria-label', 'กำลังบันทึก...');
 
       const newTrackingStatus = document.getElementById('trackingStatus').value;
       const newAdminName = document.getElementById('adminName').value;
       const newSalesName = document.getElementById('salesName').value;
-      const adminNotesInput = document.getElementById('adminNotes');
       
       if (!newTrackingStatus) {
          customAlert('กรุณาระบุ "สถานะการติดตาม"', 'error');
-         btn.textContent = originalText;
-         btn.style.opacity = '1';
+         btn.innerHTML = originalHtml;
+         btn.classList.remove('is-saving');
+         btn.disabled = false;
+         btn.title = 'บันทึกสถานะ';
+         btn.setAttribute('aria-label', 'บันทึกสถานะ');
          return;
       }
       if (!newAdminName) {
          customAlert('กรุณาระบุ "แอดมินที่ติดต่อลูกค้า"', 'error');
-         btn.textContent = originalText;
-         btn.style.opacity = '1';
+         btn.innerHTML = originalHtml;
+         btn.classList.remove('is-saving');
+         btn.disabled = false;
+         btn.title = 'บันทึกสถานะ';
+         btn.setAttribute('aria-label', 'บันทึกสถานะ');
          return;
       }
 
       const newCustomerGroup = document.getElementById('customerGroup').value;
       const newTier = document.getElementById('tierSelect').value;
-      const newNotes = adminNotesInput.value;
-      const trimmedNotes = String(newNotes || '').trim();
-      const shouldCreateChatLog = Boolean(trimmedNotes);
-
-      // Update local storage (Only Admin Data)
-      const stored = localStorage.getItem('gfsAdminLeads');
-      let localData = {};
-      if (stored) {
-         try { localData = JSON.parse(stored); } catch(e){}
-      }
-      
-      if(!localData[currentLeadId]) localData[currentLeadId] = {};
-      localData[currentLeadId].trackingStatus = newTrackingStatus;
-      localData[currentLeadId].adminName = newAdminName;
-      localData[currentLeadId].salesName = newSalesName;
-      localData[currentLeadId].customerGroup = newCustomerGroup;
-      localData[currentLeadId].tier = newTier;
-      
-      localStorage.setItem('gfsAdminLeads', JSON.stringify(localData));
 
       // Update in-memory data
       const leadIndex = leadsData.findIndex(l => l.id === currentLeadId);
@@ -2738,16 +3170,24 @@
         leadsData[leadIndex].salesName = newSalesName;
         leadsData[leadIndex].customerGroup = newCustomerGroup;
         leadsData[leadIndex].tier = newTier;
+        renderDetailTags(leadsData[leadIndex]);
       }
 
       // Send to Google Sheets (Web App)
       try {
          const currentLead = leadsData.find(l => l.id === currentLeadId);
+         const currentPhone = currentLead && currentLead.rawData ? currentLead.rawData['เบอร์โทรศัพท์'] : '';
          const payload = {
             action: 'updateLead',
             sheet: 'New Dealer Report',
+            targetSheet: 'New Dealer Report',
+            sourceSheet: 'New Dealer Report',
             id: currentLeadId,
             custId: getLeadCustId(currentLead),
+            Cust_ID: getLeadCustId(currentLead),
+            CUST_ID: getLeadCustId(currentLead),
+            phone: currentPhone,
+            'เบอร์โทรศัพท์': currentPhone,
             trackingStatus: newTrackingStatus,
             status: newTrackingStatus,
             'สถานะ': newTrackingStatus,
@@ -2764,35 +3204,46 @@
             colAN: newSalesName
          };
          
-         await postToAppsScript(payload);
+         const statusRes = await postToAppsScript(payload);
+         if (statusRes && statusRes.status === 'error') {
+           throw new Error(statusRes.message || 'บันทึกสถานะไม่สำเร็จ');
+         }
 
          const tierPayload = {
             action: 'updateTier',
+            sheet: 'Partner_Tier',
             custId: getLeadCustId(currentLead),
-            tier: newTier
+            id: currentLeadId,
+            Cust_ID: getLeadCustId(currentLead),
+            tier: newTier,
+            Tier: newTier,
+            partnerTier: newTier,
+            tierLabel: getTierDisplayLabel(newTier)
          };
          await postToAppsScript(tierPayload);
-
-         if (shouldCreateChatLog) {
-           await postToAppsScript(createChatLogPayload(currentLead, newAdminName, trimmedNotes));
-           adminNotesInput.dataset.originalValue = newNotes || '';
-         }
+         getLeadChatMatchIds(currentLead).forEach(id => partnerTierMap.set(id, normalizeTierValue(newTier)));
       } catch(e) {
          console.error('Error saving to Google Sheets:', e);
-         btn.textContent = 'บันทึกไม่สำเร็จ';
-         btn.style.background = 'var(--gfs-red)';
-         btn.style.opacity = '1';
-         customAlert('บันทึกลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+         btn.innerHTML = originalHtml;
+         btn.classList.remove('is-saving');
+         btn.disabled = false;
+         btn.title = 'บันทึกสถานะ';
+         btn.setAttribute('aria-label', 'บันทึกสถานะ');
+         customAlert('ยังไม่พบข้อมูลสถานะ/Admin/ฝ่ายขายที่อัปเดตในชีตจริง กรุณาตรวจสอบ Apps Script แล้วลองใหม่อีกครั้ง', 'error');
          return;
       }
 
-      btn.textContent = 'บันทึกสำเร็จ!';
-      btn.style.background = 'var(--gfs-success)';
-      btn.style.opacity = '1';
+      btn.innerHTML = checkIconSvg;
+      btn.classList.remove('is-saving');
+      btn.disabled = false;
+      btn.title = 'บันทึกสำเร็จ';
+      btn.setAttribute('aria-label', 'บันทึกสำเร็จ');
+      customAlert('บันทึกสถานะลงชีตจริงเรียบร้อยแล้ว', 'success');
       
       setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
+        btn.innerHTML = originalHtml;
+        btn.title = 'บันทึกสถานะ';
+        btn.setAttribute('aria-label', 'บันทึกสถานะ');
         
         // Reset to the full board view.
         const statusFilter = document.getElementById('filterStatus');
@@ -2807,7 +3258,59 @@
         
         applyFilters(); 
         renderDashboard(); 
-        closePanel();
+      }, 1000);
+    }
+
+    async function saveContactLog() {
+      if(!currentLeadId) return;
+      const btn = document.getElementById('saveContactLogBtn');
+      const originalText = btn.textContent;
+      const adminName = document.getElementById('contactAdminName').value;
+      const adminNotesInput = document.getElementById('adminNotes');
+      const detail = String(adminNotesInput.value || '').trim();
+
+      if (!adminName) {
+        customAlert('กรุณาระบุแอดมินที่คุยกับลูกค้า', 'error');
+        return;
+      }
+      if (!detail) {
+        customAlert('กรุณาบันทึกรายละเอียดการติดต่อลูกค้า', 'error');
+        return;
+      }
+
+      btn.textContent = 'กำลังบันทึก...';
+      btn.style.opacity = '0.7';
+
+      try {
+        const currentLead = leadsData.find(l => l.id === currentLeadId);
+        const chatPayload = createChatLogPayload(currentLead, adminName, detail);
+        await postToAppsScript(chatPayload);
+        chatLogsData.push({
+          Log_ID: chatPayload.Log_ID,
+          Cust_ID: chatPayload.Cust_ID,
+          Admin: chatPayload.Admin,
+          'รายละเอียด': chatPayload['รายละเอียด'],
+          'วันที่บันทึกข้อมูล': chatPayload['วันที่บันทึกข้อมูล']
+        });
+        adminNotesInput.value = '';
+        document.getElementById('contactAdminName').value = '';
+        renderChatHistory(currentLead);
+      } catch(e) {
+        console.error('Error saving contact log to Google Sheets:', e);
+        btn.textContent = 'บันทึกไม่สำเร็จ';
+        btn.style.background = 'var(--gfs-red)';
+        btn.style.opacity = '1';
+        customAlert('บันทึกประวัติการติดต่อลงชีตไม่สำเร็จ กรุณาลองใหม่อีกครั้ง', 'error');
+        return;
+      }
+
+      btn.textContent = 'บันทึกสำเร็จ!';
+      btn.style.background = 'var(--gfs-success)';
+      btn.style.opacity = '1';
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
       }, 1000);
     }
 
@@ -2890,156 +3393,12 @@
       printWindow.document.close();
     }
 
-    // Dashboard Calculations
-    function renderDashboard() {
-      if (leadsData.length === 0) return;
-
-      // 1. KPI cards calculations
-      const totalCount = leadsData.length;
-      const approvedCount = leadsData.filter(l => l.status === 'approved').length;
-      
-      // Active Rate: approved / total
-      const activePct = totalCount ? Math.round((approvedCount / totalCount) * 100) : 0;
-
-      // Onboarding Completion rate
-      let totalStepsCompleted = 0;
-      leadsData.forEach(l => {
-        const chk = l.checklist || [true, false, false, false, false, false, false];
-        totalStepsCompleted += chk.filter(Boolean).length;
-      });
-      const avgOnboardingPct = totalCount ? Math.round((totalStepsCompleted / (totalCount * 7)) * 100) : 0;
-
-      document.getElementById('kpi-total-leads').textContent = totalCount;
-      document.getElementById('kpi-approved-leads').textContent = approvedCount;
-      document.getElementById('kpi-active-rate').textContent = activePct + '%';
-      document.getElementById('kpi-avg-onboarding').textContent = avgOnboardingPct + '%';
-
-      // 2. Funnel Step Count Calculations
-      const stepCounts = [0, 0, 0, 0, 0, 0, 0];
-      leadsData.forEach(l => {
-        const chk = l.checklist || [true, false, false, false, false, false, false];
-        chk.forEach((checked, idx) => {
-          if (checked) stepCounts[idx]++;
-        });
-      });
-
-      for (let i = 1; i <= 7; i++) {
-        const stepEl = document.getElementById('funnel-s' + i);
-        const countEl = document.getElementById('fun-count-' + i);
-        if (countEl) countEl.textContent = stepCounts[i-1];
-        
-        // Visual indicator
-        if (stepCounts[i-1] > 0) {
-          stepEl.classList.add('completed');
-        } else {
-          stepEl.classList.remove('completed');
-        }
-      }
-
-      // 3. Business Type Distribution Chart
-      const businessCounts = {};
-      leadsData.forEach(l => {
-        const bizList = l.business.split(', ');
-        bizList.forEach(biz => {
-          if (biz && biz !== '-') {
-            businessCounts[biz] = (businessCounts[biz] || 0) + 1;
-          }
-        });
-      });
-
-      // Render Business Chart
-      const bizChartEl = document.getElementById('chart-business-type');
-      bizChartEl.innerHTML = '';
-      const sortedBiz = Object.entries(businessCounts).sort((a,b) => b[1] - a[1]);
-      
-      document.getElementById('lbl-total-biz').textContent = sortedBiz.length + ' หมวดหมู่';
-
-      sortedBiz.forEach(([bizName, count]) => {
-        const row = document.createElement('div');
-        row.className = 'bar-chart-row';
-        const percent = Math.round((count / totalCount) * 100);
-        
-        row.innerHTML = `
-          <div class="bar-label" title="${bizName}">${bizName}</div>
-          <div class="bar-wrapper">
-            <div class="bar-fill" style="width: ${percent}%;"></div>
-          </div>
-          <div class="bar-value">${count}</div>
-        `;
-        bizChartEl.appendChild(row);
-      });
-
-      // 4. Province Distribution Chart
-      const provinceCounts = {};
-      leadsData.forEach(l => {
-        let detectedProv = String(l.province || '').trim();
-        if (!detectedProv || detectedProv === '-') {
-          // fallback to address parsing if province is missing
-          const addr = String(l.address || '');
-          const typicalProvinces = ['เชียงใหม่', 'ชลบุรี', 'ภูเก็ต', 'นนทบุรี', 'ขอนแก่น', 'ระยอง', 'ปทุมธานี', 'สมุทรปราการ', 'นครราชสีมา'];
-          const matched = typicalProvinces.find(p => addr.includes(p));
-          if (matched) {
-            detectedProv = matched;
-          } else if (addr.includes('กรุงเทพ') || addr.includes('กทม')) {
-            detectedProv = 'กรุงเทพมหานคร';
-          } else {
-            detectedProv = 'กรุงเทพมหานคร'; // default fallback
-          }
-        }
-        
-        if (detectedProv.length > 20) detectedProv = detectedProv.slice(0, 15) + '...';
-        provinceCounts[detectedProv] = (provinceCounts[detectedProv] || 0) + 1;
-      });
-
-      // Render Province Chart
-      const provChartEl = document.getElementById('chart-province');
-      provChartEl.innerHTML = '';
-      const sortedProvs = Object.entries(provinceCounts).sort((a,b) => b[1] - a[1]).slice(0, 5); // top 5
-      
-      document.getElementById('lbl-total-province').textContent = Object.keys(provinceCounts).length + ' จังหวัด';
-
-      sortedProvs.forEach(([provName, count]) => {
-        const row = document.createElement('div');
-        row.className = 'bar-chart-row';
-        const percent = Math.round((count / totalCount) * 100);
-        
-        row.innerHTML = `
-          <div class="bar-label">${provName}</div>
-          <div class="bar-wrapper">
-            <div class="bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, var(--gfs-navy), var(--gfs-blue));"></div>
-          </div>
-          <div class="bar-value">${count}</div>
-        `;
-        provChartEl.appendChild(row);
-      });
-    }
-
     // Commercial Terms Settings Management
     function loadSystemSettings() {
-      const stored = localStorage.getItem('gfsAdminSettings');
-      if (stored) {
-        try {
-          const settings = JSON.parse(stored);
-          if (settings.registered) {
-            document.getElementById('set-reg-target').value = settings.registered.target;
-            document.getElementById('set-reg-discount').value = settings.registered.discount;
-            document.getElementById('set-reg-credit').value = settings.registered.credit;
-          }
-          if (settings.authorized) {
-            document.getElementById('set-auth-target').value = settings.authorized.target;
-            document.getElementById('set-auth-discount').value = settings.authorized.discount;
-            document.getElementById('set-auth-credit').value = settings.authorized.credit;
-          }
-          if (settings.premium) {
-            document.getElementById('set-prem-target').value = settings.premium.target;
-            document.getElementById('set-prem-discount').value = settings.premium.discount;
-            document.getElementById('set-prem-credit').value = settings.premium.credit;
-          }
-        } catch(e) {}
-      }
+      // Settings are not stored in browser storage. Defaults remain in the form until sheet-backed settings are available.
     }
 
-    function saveSystemSettings() {
+    async function saveSystemSettings() {
       const settings = {
         registered: {
           target: document.getElementById('set-reg-target').value,
@@ -3058,13 +3417,28 @@
         }
       };
 
-      localStorage.setItem('gfsAdminSettings', JSON.stringify(settings));
-
       const btn = document.querySelector('#panel-settings .save-btn');
       const originalText = btn.textContent;
+      btn.textContent = 'กำลังบันทึก...';
+      btn.style.opacity = '0.7';
+
+      try {
+        await postToAppsScript({
+          action: 'saveSystemSettings',
+          sheet: 'settings',
+          settings
+        });
+      } catch(e) {
+        console.error('Error saving settings to Google Sheets:', e);
+        btn.textContent = originalText;
+        btn.style.opacity = '1';
+        customAlert('บันทึกตั้งค่าลงชีตไม่สำเร็จ กรุณาตรวจสอบ Apps Script', 'error');
+        return;
+      }
       
       btn.textContent = 'บันทึกสำเร็จ!';
       btn.style.background = 'var(--gfs-success)';
+      btn.style.opacity = '1';
       
       setTimeout(() => {
         btn.textContent = originalText;
@@ -3154,19 +3528,6 @@
         }
       ];
 
-      // Generate seed statuses in localStorage
-      const seedLocal = {
-        '089-111-2222': { status: 'new', notes: 'ร้านผ้าม่านขนาดใหญ่น่าสนใจมาก', tier: 'pending', checklist: [true, false, false, false, false, false, false] },
-        '053-444-555': { status: 'approved', notes: 'อนุมัติเรียบร้อย ได้รับชุดคิตแล้ว', tier: 'registered', checklist: [true, true, true, true, true, false, false] },
-        '081-333-4444': { status: 'approved', notes: 'ปิดยอดบิลแรกเรียบร้อย สั่ง Premium สิ้นเดือน', tier: 'premium', checklist: [true, true, true, true, true, true, true] },
-        '085-555-6666': { status: 'inprogress', notes: 'กำลังคุยเงื่อนไขเครดิต 30 วัน', tier: 'authorized', checklist: [true, true, true, true, false, false, false] },
-        '087-777-8888': { status: 'contacting', notes: 'โทรติดครั้งแรก ยังติดงานสัปดาห์หน้า', tier: 'pending', checklist: [true, true, false, false, false, false, false] },
-        '076-222-333': { status: 'new', notes: 'พิกัดดีในโซนภูเก็ต', tier: 'pending', checklist: [true, false, false, false, false, false, false] },
-        '082-999-0000': { status: 'rejected', notes: 'ไม่รับเงื่อนไขประกันฟิล์ม 3M', tier: 'pending', checklist: [true, false, false, false, false, false, false] }
-      };
-
-      localStorage.setItem('gfsAdminLeads', JSON.stringify(seedLocal));
-      sessionStorage.setItem('gfsAdminCachedRows', JSON.stringify(mockRows));
       processRows(mockRows);
 
       customAlert('นำเข้าข้อมูลพาร์ทเนอร์ B2B จำลองจำนวน 7 รายการสำเร็จ! <br> <span style="font-size:13px">(หน้า Dashboard และ Leads จะเปลี่ยนแสดงผลตามข้อมูลนี้)</span>', 'success');
@@ -3174,16 +3535,7 @@
     }
 
     function clearLocalData() {
-      customConfirm('คุณต้องการล้างข้อมูลตั้งค่าระบบ, สถานะพาร์ทเนอร์ และ Checklist ทั้งหมดใช่หรือไม่?<br><span style="font-size:13px;color:var(--gfs-muted);">(ประวัติการคัดกรองจะถูกรีเซ็ตกลับเป็นค่าเริ่มต้น)</span>', () => {
-        localStorage.removeItem('gfsAdminLeads');
-        localStorage.removeItem('gfsAdminSettings');
-        sessionStorage.removeItem('gfsAdminCachedRows');
-        leadsData = [];
-        loadData();
-        loadSystemSettings();
-        customAlert('ล้างข้อมูลเรียบร้อย ระบบทำการรีโหลด...', 'success');
-        setTimeout(() => window.location.reload(), 1500);
-      });
+      customAlert('ระบบนี้ไม่เก็บข้อมูลในเครื่องแล้ว กรุณาใช้ปุ่มรีเฟรชเพื่อดึงข้อมูลล่าสุดจากชีต', 'success');
     }
 
     function populateProvinceFilter() {
@@ -3319,6 +3671,7 @@
          
          return matchSearch && matchStatus && matchAdmin && matchProvince && matchMemberType && matchDate;
       });
+      pipelineVisibleLimits = {};
       renderTable(filtered);
     }
 
