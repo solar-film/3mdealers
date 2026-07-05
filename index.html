@@ -1159,17 +1159,17 @@
     }
     
     .tier-left {
-      width: 45%;
-      padding: 24px;
+      width: 53%;
+      padding: 24px 20px;
       display: flex;
       flex-direction: column;
       position: relative;
     }
     
     .tier-right {
-      width: 55%;
+      width: 47%;
       background: #ffffff;
-      padding: 24px;
+      padding: 24px 20px 24px 16px;
       display: flex;
       align-items: center;
     }
@@ -1177,8 +1177,8 @@
     .tier-header {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 30px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
     
     .tier-icon {
@@ -1217,9 +1217,9 @@
       align-items: center;
       gap: 4px;
       color: white;
-      padding: 6px 12px;
+      padding: 4px 10px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 10.5px;
       font-weight: 700;
       white-space: nowrap;
       height: fit-content;
@@ -1236,15 +1236,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 12px;
+      gap: 8px;
     }
     .tier-stat-item .stat-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       color: #475569;
+      white-space: nowrap;
     }
-    .tier-stat-item svg { width: 16px; height: 16px; opacity: 0.8; flex-shrink: 0; }
+    .tier-stat-item svg { width: 14px; height: 14px; opacity: 0.8; flex-shrink: 0; }
     .tier-stat-item .stat-value { font-weight: 700; color: #0f172a; text-align: right; white-space: nowrap; flex-shrink: 0; }
     
     .tier-benefits {
@@ -1257,8 +1259,8 @@
     }
     .tier-benefits li {
       position: relative;
-      padding-left: 16px;
-      font-size: 13px;
+      padding-left: 14px;
+      font-size: 12px;
       color: #1e293b;
       line-height: 1.4;
     }
@@ -1267,7 +1269,7 @@
       position: absolute;
       left: 0;
       top: 0;
-      font-size: 16px;
+      font-size: 14px;
     }
     
     /* Colors */
@@ -1303,25 +1305,26 @@
     .tier-premium .tier-benefits li::before { color: #ef4444; }
     
     .tier-note {
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 8px;
       margin-top: 30px;
       font-size: 13px;
       color: #64748b;
-      background: #f8fafc;
-      padding: 12px 20px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 100%;
+      text-align: center;
+    }
+    .tier-note span {
+      display: inline-block;
+      text-align: center;
     }
     .tier-note svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       color: #3b82f6;
       flex-shrink: 0;
+      margin-top: 2px;
     }
     
     /* Responsive overrides for new marketing sections */
@@ -1566,7 +1569,7 @@
               </div>
               <div class="tier-title-area">
                 <h4>Member</h4>
-                <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่<br>ผ่านการคัดกรองแล้ว</p>
+                <p class="tier-subtitle">กลุ่มเริ่มต้นสำหรับผู้สมัครที่ผ่านการคัดกรองแล้ว</p>
               </div>
               <span class="tier-badge">เริ่มต้น</span>
             </div>
@@ -1614,7 +1617,7 @@
               </div>
               <div class="tier-title-area">
                 <h4>Registered Partner</h4>
-                <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อ<br>และร่วมขายอย่างเป็นระบบ</p>
+                <p class="tier-subtitle">ระดับเริ่มต้นสำหรับผู้ที่เริ่มสั่งซื้อและร่วมขายอย่างเป็นระบบ</p>
               </div>
             </div>
             <div class="tier-stats">
@@ -1662,7 +1665,7 @@
               </div>
               <div class="tier-title-area">
                 <h4>Authorized Partner</h4>
-                <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner<br>ที่มียอดสั่งซื้อสม่ำเสมอ</p>
+                <p class="tier-subtitle">ระดับมาตรฐานสำหรับ Partner ที่มียอดสั่งซื้อสม่ำเสมอ</p>
               </div>
               <span class="tier-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> ยอดนิยม</span>
             </div>
@@ -1711,7 +1714,7 @@
               </div>
               <div class="tier-title-area">
                 <h4>Premium Partner</h4>
-                <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง<br>รองรับงานโครงการและงานขนาดใหญ่</p>
+                <p class="tier-subtitle">ระดับสูงสุดสำหรับ Partner ศักยภาพสูง รองรับงานโครงการและงานขนาดใหญ่</p>
               </div>
               <span class="tier-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg> ระดับสูงสุด</span>
             </div>
@@ -1753,7 +1756,7 @@
       </div>
       
       <div class="tier-note">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        <svg viewBox="0 0 24 24" fill="#eff6ff" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
         <span>*หมายเหตุ: สิทธิ์ส่วนลด เครดิตการค้า การส่งต่อ Lead และสิทธิ์ทางการตลาด ขึ้นอยู่กับระดับ Partner ประวัติการสั่งซื้อ ความพร้อมในการให้บริการ และการอนุมัติของบริษัท</span>
       </div>
     </section>
