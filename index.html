@@ -426,7 +426,8 @@
 
     .gfs-form-head p {
       margin: 0;
-      color: var(--gfs-muted);
+      color: var(--gfs-ink);
+      font-weight: 500;
       font-size: 16px;
     }
 
@@ -2978,7 +2979,9 @@
         });
 
         Promise.all(filePromises).then(() => {
-          const webAppUrl = "https://script.google.com/macros/s/AKfycbxs6xbTNHtuCzZgXRjfF0pspGbGVBPgzCNz3zKLSKqrR4HDd9cEZJQiLng0bC5t7noL/exec"; 
+          data.action = 'createNewDealer';
+          data.sheet = 'Cust_Data';
+          const webAppUrl = "https://script.google.com/macros/s/AKfycbwJCGjqlcDng8H5FAxO-38WicjYIDdVfIaGFjTqAw19DhLqyWl7LNa9UxQEKZ70GGDq/exec";
           
           if (webAppUrl === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
             console.log('Dealer Registration Payload (Preview):', data);
@@ -2992,22 +2995,18 @@
 
           fetch(webAppUrl, {
             method: 'POST',
+            mode: 'no-cors',
             body: JSON.stringify(data),
             headers: {
               'Content-Type': 'text/plain;charset=utf-8'
             }
           })
-          .then(response => response.json())
-          .then(res => {
-            if (res.status === 'success') {
-              successBox.innerHTML = '✅ ส่งข้อมูลลงทะเบียนสำเร็จ! ทีมงานจะติดต่อกลับโดยเร็วที่สุด';
-              successBox.style.display = 'block';
-              successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              form.reset();
-              updateProgress();
-            } else {
-              alert('เกิดข้อผิดพลาดในการส่งข้อมูล: ' + res.message);
-            }
+          .then(() => {
+            successBox.innerHTML = '✅ ส่งข้อมูลลงทะเบียนสำเร็จ! ทีมงานจะติดต่อกลับโดยเร็วที่สุด';
+            successBox.style.display = 'block';
+            successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            form.reset();
+            updateProgress();
           })
           .catch(error => {
             alert('ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่อีกครั้ง');
