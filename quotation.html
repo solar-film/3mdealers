@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ออกใบเสนอราคา | GOODFILM Admin</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSIjZTMxYjIzIiAvPgogIDx0ZXh0IHg9IjUwIiB5PSI3MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwgLWFwcGxlLXN5c3RlbSwgJ0hlbHZldGljYSBOZXVlJywgSGVsdmV0aWNhLCBBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjkwMCIgZm9udC1zaXplPSI2MiIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9Ii01Ij4zTTwvdGV4dD4KPC9zdmc+">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="admin-dashboard.css">
+  <style>
+    :root {
+      --gfs-navy: #1b437c;
+      --gfs-blue: #005eb8;
+      --gfs-sky: #eaf4ff;
+      --gfs-red: #e31b23;
+      --gfs-ink: #162033;
+      --gfs-muted: #64748b;
+      --gfs-soft: #f5f8fc;
+      --gfs-card: #ffffff;
+      --gfs-line: #dbe7f5;
+      --gfs-success: #0f9f6e;
+      --gfs-warning: #f59e0b;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --shadow: 0 18px 45px rgba(27, 67, 124, .13);
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Sarabun', Arial, Helvetica, sans-serif;
+      color: var(--gfs-ink);
+      background: var(--gfs-soft);
+      line-height: 1.65;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .spinner {
+      border: 3px solid rgba(0, 94, 184, 0.1);
+      border-top: 3px solid var(--gfs-blue);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Quill Editor Customizations */
+    .ql-toolbar.ql-snow {
+      border: 1px solid #cbd5e1;
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      background: #f8fafc;
+      padding: 4px;
+    }
+    .ql-container.ql-snow {
+      border: 1px solid #cbd5e1;
+      border-radius: 0 0 4px 4px;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 14px;
+      background: #fff;
+    }
+    .ql-editor {
+      min-height: 80px;
+      padding: 8px 12px;
+    }
+    .ql-editor p { margin: 0; }
+
+    /* Admin Sidebar overrides */
+    .admin-sidebar {
+      width: 258px;
+      background: #ffffff;
+      color: #263650;
+      display: flex;
+      flex-direction: column;
+      padding: 26px 18px 20px;
+      border-right: 1px solid #e7edf5;
+      box-shadow: 8px 0 26px rgba(15, 23, 42, .04);
+      z-index: 10;
+      position: relative;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .admin-sidebar.collapsed { width: 88px; }
+    .sidebar-expand-toggle {
+      position: absolute; top: 22px; right: -15px; width: 30px; height: 30px;
+      border: 1px solid #dbe7f5; border-radius: 999px; background: #ffffff; color: #1b437c;
+      display: grid; place-items: center; cursor: pointer;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, .12); z-index: 20;
+    }
+    .sidebar-expand-icon { grid-area: 1 / 1; }
+    .sidebar-icon-expand { display: none; }
+    .admin-sidebar.collapsed .sidebar-icon-collapse { display: none; }
+    .admin-sidebar.collapsed .sidebar-icon-expand { display: block; }
+    .admin-brand {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding: 0 0 22px;
+      border-bottom: 1px solid #eef3f8; overflow: hidden; white-space: nowrap;
+    }
+    .admin-brand img { width: 190px; height: auto; max-height: 54px; object-fit: contain; flex-shrink: 0; }
+    .admin-sidebar.collapsed .admin-brand span, .admin-sidebar.collapsed .admin-nav-item span { opacity: 0; width: 0; pointer-events: none; }
+    .admin-sidebar.collapsed .admin-brand img { width: 48px; max-width: 48px; }
+    .admin-sidebar.collapsed .admin-nav-heading, .admin-sidebar.collapsed .admin-nav-subitem, .admin-sidebar.collapsed .admin-user-card div:not(.admin-avatar) { display: none; }
+    .admin-nav { display: flex; flex-direction: column; gap: 18px; flex: 1; overflow-y: auto; scrollbar-width: none; }
+    .admin-nav::-webkit-scrollbar { display: none; }
+    .admin-nav-section { display: grid; gap: 6px; }
+    .admin-nav-heading { padding: 0 12px 3px; color: #7b8aa3; font-size: 13px; font-weight: 800; }
+    .admin-nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 8px 12px; border-radius: 12px;
+      color: #43526b; text-decoration: none; font-weight: 800; transition: all 0.2s ease; cursor: pointer; white-space: nowrap;
+    }
+    .admin-nav-item:hover, .admin-nav-item.active { background: #eef5fc; color: #005eb8; }
+    .admin-nav-icon { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .admin-nav-subitem { padding: 6px 12px 6px 46px; color: #6b7a99; font-size: 14px; text-decoration: none; display: block; transition: color 0.2s; cursor: pointer; white-space: nowrap; }
+    .admin-nav-subitem:hover, .admin-nav-subitem.active { color: #005eb8; font-weight: 700; }
+    .admin-user-card { margin-top: auto; padding: 14px; background: #f8fafc; border-radius: 16px; display: flex; align-items: center; gap: 12px; border: 1px solid #eef3f8; overflow: hidden; white-space: nowrap; transition: padding 0.3s; }
+    .admin-sidebar.collapsed .admin-user-card { padding: 14px 10px; justify-content: center; background: transparent; border-color: transparent; }
+    .admin-avatar { width: 36px; height: 36px; border-radius: 999px; background: #1b437c; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+    .admin-user-card div { display: flex; flex-direction: column; }
+    .admin-user-card strong { font-size: 14px; color: #1e293b; line-height: 1.2; }
+    .admin-user-card span { font-size: 12px; color: #64748b; }
+
+    .admin-main {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    }
+    .admin-header {
+      background: #ffffff; padding: 16px 32px; border-bottom: 1px solid #eef3f8;
+      display: flex; align-items: center; justify-content: space-between; z-index: 5;
+    }
+    .admin-page-title {
+      font-size: 20px; font-weight: 800; color: #162033; margin: 0;
+    }
+    .admin-content {
+      flex: 1; overflow-y: auto; padding: 32px; background: var(--gfs-soft);
+    }
+
+    /* Quotation Form Specifics */
+    .quotation-card {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 14px;
+      color: var(--gfs-muted);
+    }
+    .form-control {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--gfs-line);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--gfs-blue);
+      box-shadow: 0 0 0 3px rgba(0, 94, 184, 0.1);
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gfs-navy);
+      margin-top: 0;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gfs-line);
+    }
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+    }
+    .items-table th {
+      background: var(--gfs-navy);
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-size: 14px;
+    }
+    .items-table th:first-child { border-top-left-radius: 8px; }
+    .items-table th:last-child { border-top-right-radius: 8px; }
+    .items-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--gfs-line);
+      vertical-align: top;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--gfs-blue); color: white; }
+    .btn-primary:hover { background: #004a94; }
+    .btn-secondary { background: #e2e8f0; color: #475569; }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-danger { background: #fee2e2; color: #ef4444; padding: 6px 12px; font-size: 14px;}
+    .btn-danger:hover { background: #fecaca; }
+    
+    .summary-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+    .summary-box {
+      width: 300px;
+      background: var(--gfs-sky);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+    .summary-row.total {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--gfs-navy);
+      border-top: 2px solid #fff;
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+    .text-right { text-align: right; }
+    .action-bar {
+      margin-top: 32px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+
+    .cust-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: white;
+      border: 1px solid var(--gfs-line);
+      border-radius: 8px;
+      box-shadow: var(--shadow-soft);
+      max-height: 250px;
+      overflow-y: auto;
+      z-index: 100;
+      margin-top: 4px;
+    }
+    .cust-dropdown-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+    }
+    .cust-dropdown-item:hover {
+      background: var(--gfs-sky);
+    }
+    .cust-dropdown-item:last-child {
+      border-bottom: none;
+    }
+    .cust-dropdown-item strong {
+      display: block;
+      color: var(--gfs-navy);
+      margin-bottom: 2px;
+    }
+    .cust-dropdown-item small {
+      color: var(--gfs-muted);
+      font-size: 12px;
+    }
+
+    /* Override switchTab for this standalone page */
+    .admin-sidebar a#nav-quotation {
+      background: #eef5fc;
+      color: #005eb8;
+    }
+
+    /* Print Styles - Premium & Rounded */
+    .print-container { display: none; }
+    @media print {
+      body * { visibility: hidden; }
+      .print-container, .print-container * { visibility: visible; }
+      .print-container {
+        display: block; position: absolute; left: 0; top: 0; width: 100%; padding: 0;
+        background: white; color: #1e293b;
+        font-family: 'Sarabun', 'Tahoma', 'Leelawadee UI', 'Segoe UI', sans-serif !important;
+      }
+      .print-header { display: flex; justify-content: space-between; border-bottom: 2px solid #005eb8; padding-bottom: 15px; margin-bottom: 25px; align-items: center; }
+      .print-company-info { flex: 1; margin-left: 20px; }
+      .print-company-info h3 { margin: 0 0 6px 0; font-size: 18px; font-weight: bold; color: #005eb8; }
+      .print-company-info p { margin: 2px 0; font-size: 13px; color: #475569; }
+      .print-doc-title { text-align: right; }
+      .print-doc-title h2 { margin: 0; font-size: 26px; color: #005eb8; font-weight: 800; letter-spacing: 0.5px; }
+      .print-doc-title h4 { margin: 4px 0 0 0; font-size: 14px; color: #64748b; font-weight: 600; letter-spacing: 1px; }
+      
+      .print-meta-grid { display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 13px; line-height: 1.6; }
+      .print-cust-info { flex: 1; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-right: 15px; background: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .print-doc-info { width: 300px; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; background: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .print-meta-grid p { margin: 4px 0; }
+      
+      .print-items-table { width: 100%; margin-bottom: 25px; font-size: 13px; font-family: inherit; border-collapse: separate; border-spacing: 0; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; }
+      .print-items-table th, .print-items-table td { padding: 10px 12px; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1; }
+      .print-items-table th:last-child, .print-items-table td:last-child { border-right: none; }
+      .print-items-table tr:last-child td { border-bottom: none; }
+      .print-items-table td p { margin: 0; color: #475569; }
+      .print-items-table th { background: #f1f5f9 !important; text-align: center; font-weight: 600; color: #334155; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      
+      .print-summary-grid { display: flex; justify-content: space-between; align-items: flex-start; font-size: 13px; page-break-inside: avoid; }
+      .print-remarks { flex: 1; padding: 0; margin-right: 20px; line-height: 1.5; color: #475569; }
+      .print-totals { width: 300px; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; }
+      .print-totals .p-row { display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #cbd5e1; }
+      .print-totals .p-row:last-child { border-bottom: none; }
+      .print-totals .p-grand-total { font-weight: bold; font-size: 14px; background: #eef5fc !important; color: #005eb8; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      
+      .print-signatures { display: flex; justify-content: space-around; margin-top: 60px; font-size: 13px; text-align: center; page-break-inside: avoid; color: #475569; }
+      .print-signatures .sign-box { width: 220px; }
+      .print-signatures .sign-line { border-bottom: 1px solid #94a3b8; margin-bottom: 12px; height: 35px; }
+    }
+    /* Hide number input spinners */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body>
+
+  <script src="admin-sidebar.js?v=7"></script>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1 class="admin-page-title">ระบบออกใบเสนอราคา (Quotation)</h1>
+      <div>
+        <button type="button" class="btn btn-secondary" onclick="window.location.reload()" style="background: #eef5fc; color: #005eb8; font-weight: 600;">+ สร้างใบเสนอราคาใหม่</button>
+        <a href="admin.html" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        กลับไปหน้าแรก
+      </a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="quotation-card">
+        <form id="quotationForm">
+          <!-- Hidden field for Q_ID when updating -->
+          <input type="hidden" id="qId">
+          
+          <!-- Search Old Quotation -->
+          <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 24px; border: 1px solid #eef3f8;">
+            <h3 class="section-title" style="margin-bottom: 12px; border: none; font-size: 16px;">ค้นหาใบเสนอราคาที่เคยบันทึก</h3>
+            <div id="oldQuotationSearchWrapper" style="position: relative;">
+              <input type="text" class="form-control" id="oldQuotationSearch" list="oldQuotationDatalist" placeholder="พิมพ์เลขที่ใบเสนอราคา หรือชื่อลูกค้า เพื่อค้นหา..." autocomplete="off">
+              <datalist id="oldQuotationDatalist"></datalist>
+              <div class="cust-dropdown" id="oldQuotationsDropdown" style="display: none !important;"></div>
+            </div>
+          </div>
+          
+          <div class="grid-2">
+            <!-- Customer Info -->
+            <div>
+              <h3 class="section-title">ข้อมูลลูกค้า (Customer Info)</h3>
+              <div class="form-group" style="position: relative;">
+                <label>เลือกลูกค้า หรือ พิมพ์ค้นหา (Cust_ID / ชื่อ)</label>
+                <div id="custIdSearchWrapper" style="position: relative;">
+                  <input type="text" class="form-control" id="custIdSearch" list="custDatalist" placeholder="พิมพ์เพื่อค้นหาลูกค้า..." autocomplete="off">
+                  <datalist id="custDatalist"></datalist>
+                </div>
+                <input type="hidden" id="custId">
+                <div id="custDropdown" class="cust-dropdown" style="display: none !important;">
+                  <!-- Dropdown items will be injected here -->
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>ชื่อลูกค้า / บริษัท</label>
+                  <input type="text" class="form-control" id="custName" required placeholder="ชื่อบริษัทลูกค้า">
+                </div>
+                <div class="form-group">
+                  <label>เลขประจำตัวผู้เสียภาษี</label>
+                  <input type="text" class="form-control" id="taxId" placeholder="13 หลัก">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>ที่อยู่</label>
+                <textarea class="form-control" id="address" rows="2"></textarea>
+              </div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>ชื่อผู้ติดต่อ</label>
+                  <input type="text" class="form-control" id="contactName">
+                </div>
+                <div class="form-group">
+                  <label>เบอร์โทรศัพท์</label>
+                  <input type="text" class="form-control" id="phone">
+                </div>
+              </div>
+            </div>
+
+            <!-- Quotation Info -->
+            <div>
+              <h3 class="section-title">ข้อมูลเอกสาร (Document Info)</h3>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>เลขที่ใบเสนอราคา</label>
+                  <input type="text" class="form-control" id="quotationNo" required placeholder="ระบบสร้างให้อัตโนมัติ" readonly style="background-color: #f1f5f9; cursor: not-allowed; color: var(--gfs-navy); font-weight: 500;">
+                </div>
+                <div class="form-group">
+                  <label>วันที่เสนอราคา</label>
+                  <input type="date" class="form-control" id="quotationDate" required>
+                </div>
+              </div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label>กำหนดยืนราคา</label>
+                  <input type="text" class="form-control" id="validUntil" placeholder="เช่น 15 วัน">
+                </div>
+                <div class="form-group">
+                  <label>เครดิตเทอม</label>
+                  <input type="text" class="form-control" id="creditTerm" placeholder="-">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Items Table -->
+          <h3 class="section-title" style="margin-top: 32px;">รายการสินค้า (Items)</h3>
+          <table class="items-table" id="itemsTable">
+            <thead>
+              <tr>
+                <th width="5%">No.</th>
+                <th width="45%">รายการ (Description)</th>
+                <th width="10%">จำนวน (Qty)</th>
+                <th width="10%">หน่วย (Unit)</th>
+                <th width="15%">ราคา/หน่วย (Price)</th>
+                <th width="15%">จำนวนเงิน (Amount)</th>
+                <th width="5%"></th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody">
+              <!-- JS will populate rows -->
+            </tbody>
+          </table>
+
+          <div style="margin-top: 16px;">
+            <button type="button" class="btn btn-secondary" onclick="addItemRow()">+ เพิ่มรายการสินค้า</button>
+          </div>
+
+          <!-- Summary -->
+          <div class="summary-section">
+            <div class="summary-box">
+              <div class="summary-row">
+                <span>ยอดรวมทั้งสิ้น (Total)</span>
+                <span id="sumTotal">0.00</span>
+              </div>
+              <div class="summary-row" style="align-items: center;">
+                <span>ส่วนลด (Discount)</span>
+                <input type="number" class="form-control text-right" id="discount" value="0" style="width: 100px; padding: 4px;" oninput="calculateTotal()">
+              </div>
+              <div class="summary-row">
+                <span>ยอดหลังหักส่วนลด</span>
+                <span id="afterDiscount">0.00</span>
+              </div>
+              <div class="summary-row">
+                <span>ภาษีมูลค่าเพิ่ม 7% (VAT)</span>
+                <span id="vatAmount">0.00</span>
+              </div>
+              <div class="summary-row total">
+                <span>จำนวนเงินทั้งสิ้น</span>
+                <span id="grandTotal">0.00</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Remarks -->
+          <div class="form-group" style="margin-top: 24px;">
+            <label>หมายเหตุและเงื่อนไข (Remarks)</label>
+            <textarea class="form-control" id="remarks" rows="6">1. ราคานี้เป็นราคาพิเศษสำหรับ Member / Partner สำหรับซื้อฟิล์มไปติดตั้งเอง ไม่รวมค่าติดตั้ง ค่าแรงช่าง อุปกรณ์ติดตั้ง และค่าจัดส่ง เว้นแต่ระบุไว้ในใบเสนอราคา
+2. ลูกค้าเป็นผู้รับผิดชอบการวัดขนาดกระจก รุ่นฟิล์ม จำนวนพื้นที่ และความเหมาะสมของหน้างานก่อนสั่งซื้อ
+3. กรณีฟิล์มถูกตัดตามขนาด ใช้งาน ลอกไลเนอร์ หรือเริ่มติดตั้งแล้ว บริษัทฯ ขอสงวนสิทธิ์ไม่รับเปลี่ยนหรือคืนสินค้า
+4. การรับประกันครอบคลุมเฉพาะคุณภาพฟิล์มตามเงื่อนไขของสินค้า ไม่รวมปัญหาหรือความเสียหายที่เกิดจากการติดตั้งเอง เช่น ฝุ่น ฟองอากาศ รอยรีด รอยยับ รอยขีดข่วน ขอบเด้ง คราบน้ำ หรือความเสียหายจากสภาพหน้างาน
+5. บริษัทฯ สามารถให้คำแนะนำเบื้องต้นได้ แต่ผลลัพธ์ของงานติดตั้งขึ้นอยู่กับทักษะช่าง เครื่องมือ สภาพกระจก และสภาพแวดล้อมขณะติดตั้ง</textarea>
+          </div>
+
+          <div class="action-bar">
+            <button type="button" class="btn btn-secondary" onclick="window.location.reload()">ล้างข้อมูลฟอร์ม</button>
+            <button type="button" class="btn btn-secondary" onclick="prepareAndPrint()" style="background: #e2e8f0; color: #475569; margin-right: auto; margin-left: 12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              พิมพ์ใบเสนอราคา
+            </button>
+            <button type="submit" class="btn btn-primary" id="btnSubmit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"></path><path d="M17 21v-8H7v8"></path><path d="M7 3v5h8"></path></svg>
+              <span id="btnSubmitText">บันทึกใบเสนอราคา</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Print Container -->
+  <div id="printContainer" class="print-container">
+    <div class="print-header">
+      <div class="print-logo" style="width: 150px;">
+        <img src="images/LOGO-GFS2024.png" alt="GOODFILM Logo" style="max-width: 150px; height: auto;">
+      </div>
+      <div class="print-company-info">
+        <h3>บริษัท กู๊ดฟิล์ม จำกัด (สำนักงานใหญ่)</h3>
+        <p>914/10-11 ถนนลาชาล แขวงบางนา เขตบางนา กรุงเทพ 10260</p>
+        <p>เลขประจำตัวผู้เสียภาษี : 0105554060900</p>
+        <p>Call Center : 02-096-3424 &nbsp;|&nbsp; Mobile : 097-097 2103</p>
+        <p>Email : goodfilmshop@gmail.com &nbsp;|&nbsp; LineID : @goodfilm</p>
+      </div>
+      <div class="print-doc-title">
+        <h2>ใบเสนอราคา</h2>
+        <h4>QUOTATION</h4>
+      </div>
+    </div>
+    
+    <div class="print-meta-grid">
+      <div class="print-cust-info">
+        <p><strong>ชื่อลูกค้า:</strong> <span id="pCustName"></span></p>
+        <p><strong>ที่อยู่:</strong> <span id="pAddress"></span></p>
+        <p><strong>เลขประจำตัวผู้เสียภาษี:</strong> <span id="pTaxId"></span></p>
+        <p><strong>ผู้ติดต่อ:</strong> <span id="pContact"></span> <strong>โทร:</strong> <span id="pPhone"></span></p>
+      </div>
+      <div class="print-doc-info">
+        <p><strong>เลขที่ (No.):</strong> <span id="pDocNo"></span></p>
+        <p><strong>วันที่ (Date):</strong> <span id="pDocDate"></span></p>
+        <p><strong>กำหนดยืนราคา:</strong> <span id="pValidUntil"></span></p>
+        <p><strong>เครดิตเทอม:</strong> <span id="pCreditTerm"></span></p>
+      </div>
+    </div>
+    
+    <table class="print-items-table">
+      <thead>
+        <tr>
+          <th style="width: 5%;">ลำดับ<br>No.</th>
+          <th style="width: 50%;">รายการสินค้า<br>Description</th>
+          <th style="width: 10%; text-align: center;">จำนวน<br>Qty</th>
+          <th style="width: 10%;">หน่วย<br>Unit</th>
+          <th style="width: 10%;">ราคา/หน่วย<br>Unit Price</th>
+          <th style="width: 15%;">จำนวนเงิน<br>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="pItemsBody">
+        <!-- Rendered via JS -->
+      </tbody>
+    </table>
+    
+    <div class="print-summary-grid">
+      <div class="print-remarks">
+        <p style="margin-top: 0; margin-bottom: 0;"><strong>หมายเหตุ / เงื่อนไข (Remarks):</strong></p>
+        <div id="pRemarks" style="margin-top: 2px; white-space: pre-wrap;"></div>
+      </div>
+      <div class="print-totals">
+        <div class="p-row"><span>รวมเป็นเงิน</span><span id="pSumTotal">0.00</span></div>
+        <div class="p-row"><span>ส่วนลด (Discount)</span><span id="pDiscount">0.00</span></div>
+        <div class="p-row"><span>ยอดหลังหักส่วนลด</span><span id="pAfterDiscount">0.00</span></div>
+        <div class="p-row"><span>ภาษีมูลค่าเพิ่ม 7%</span><span id="pVat">0.00</span></div>
+        <div class="p-row p-grand-total"><span>จำนวนเงินทั้งสิ้น</span><span id="pGrandTotal">0.00</span></div>
+      </div>
+    </div>
+    
+    <div class="print-signatures">
+      <div class="sign-box">
+        <div class="sign-line"></div>
+        <p>ผู้เสนอราคา</p>
+        <p>วันที่ ........................................</p>
+      </div>
+      <div class="sign-box">
+        <div class="sign-line"></div>
+        <p>ผู้อนุมัติสั่งซื้อ</p>
+        <p>วันที่ ........................................</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Overlay (Similar to admin.html) -->
+  <div class="custom-alert-overlay" id="customAlertOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; place-items:center;">
+    <div class="custom-alert-box" style="background:#fff; padding:24px; border-radius:16px; width:320px; text-align:center;">
+      <div id="customAlertMsg" style="margin-bottom:20px; font-weight:600;"></div>
+      <button class="btn btn-primary" onclick="document.getElementById('customAlertOverlay').style.display='none'">ตกลง</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js?v=7"></script>
+  <script src="quotation.js?v=7"></script>
+  
+  <datalist id="productDatalist"></datalist>
+
+  <script>
+    (function() {
+      const quotationProductSheetId = '1JurlL9VL4v0RRt_E3IJY1n51O4aEr_Rz9JcMu8QR69Q';
+      const quotationProductSheetName = 'รายการสินค้า';
+      const productNameHeaders = ['รายการสินค้า', 'ชื่อสินค้า', 'สินค้า', 'Product', 'Description', 'Item'];
+      const productUnitHeaders = ['หน่วย', 'Unit'];
+      const productPriceHeaders = ['ราคา', 'ราคาต่อหน่วย', 'Price', 'Unit Price'];
+      const productDetailHeaders = ['รายละเอียดสินค้า', 'รายละเอียด', 'Detail', 'Details'];
+      const productWidthHeaders = ['หน้ากว้าง', 'Width'];
+      const productLengthHeaders = ['ความยาว', 'Length'];
+      let quotationProductsReady = null;
+      let quotationProducts = [];
+      let quotationProductByName = new Map();
+
+      function getProductCell(row, headers) {
+        for (const header of headers) {
+          if (Object.prototype.hasOwnProperty.call(row, header)) {
+            return String(row[header] || '').trim();
+          }
+        }
+
+        const normalizedHeaders = headers.map(header => header.toLowerCase());
+        for (const key of Object.keys(row)) {
+          if (normalizedHeaders.includes(String(key).trim().toLowerCase())) {
+            return String(row[key] || '').trim();
+          }
+        }
+
+        return '';
+      }
+
+      function getProductName(row) {
+        return getProductCell(row, productNameHeaders);
+      }
+
+      function buildProductDetails(row) {
+        let details = getProductCell(row, productDetailHeaders);
+        const width = getProductCell(row, productWidthHeaders);
+        const length = getProductCell(row, productLengthHeaders);
+        if (width || length) {
+          details += `${details ? '<br>' : ''}ขนาด: ${width}" x ${length}'`;
+        }
+        return details;
+      }
+
+      function syncProductDatalist() {
+        const datalist = document.getElementById('productDatalist');
+        if (!datalist) return;
+
+        datalist.innerHTML = '';
+        quotationProductByName = new Map();
+
+        quotationProducts.forEach(row => {
+          const name = getProductName(row);
+          if (!name || quotationProductByName.has(name)) return;
+
+          quotationProductByName.set(name, row);
+          const option = document.createElement('option');
+          option.value = name;
+          datalist.appendChild(option);
+        });
+      }
+
+      async function loadQuotationProducts() {
+        if (quotationProductsReady) return quotationProductsReady;
+
+        quotationProductsReady = new Promise((resolve) => {
+          const url = `https://docs.google.com/spreadsheets/d/${quotationProductSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(quotationProductSheetName)}&t=${Date.now()}`;
+
+          Papa.parse(url, {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+              quotationProducts = (results.data || []).map(row => ({
+                ...row,
+                'รายการสินค้า': getProductCell(row, productNameHeaders),
+                'หน่วย': getProductCell(row, productUnitHeaders),
+                'ราคา': getProductCell(row, productPriceHeaders),
+                'รายละเอียดสินค้า': getProductCell(row, productDetailHeaders),
+                'หน้ากว้าง': getProductCell(row, productWidthHeaders),
+                'ความยาว': getProductCell(row, productLengthHeaders)
+              })).filter(row => getProductName(row));
+              syncProductDatalist();
+              try {
+                if (typeof allProducts !== 'undefined' && quotationProducts.length) {
+                  allProducts = quotationProducts;
+                }
+              } catch (err) {
+                console.warn('Cannot sync product data with quotation.js:', err);
+              }
+              resolve(quotationProducts);
+            },
+            error: function(err) {
+              console.error('Product sheet load error:', err);
+              resolve([]);
+            }
+          });
+        });
+
+        return quotationProductsReady;
+      }
+
+      function applyProductToRow(input) {
+        const row = input.closest('tr');
+        const product = quotationProductByName.get(input.value);
+        if (!row || !product) return;
+
+        const unitInput = row.querySelector('.item-unit');
+        const priceInput = row.querySelector('.item-price');
+        const unit = getProductCell(product, productUnitHeaders);
+        const price = getProductCell(product, productPriceHeaders).replace(/,/g, '');
+
+        if (unitInput) unitInput.value = unit;
+        if (priceInput) priceInput.value = parseFloat(price) || 0;
+
+        const details = buildProductDetails(product);
+        if (details && row.quillInstance && row.quillInstance.getText().trim() === '') {
+          row.quillInstance.root.innerHTML = details;
+        }
+
+        if (typeof calculateRow === 'function' && priceInput) {
+          calculateRow(priceInput);
+        }
+      }
+
+      function enhanceProductInput(input) {
+        if (!input || input.dataset.productDatalistReady === '1') return;
+
+        input.removeAttribute('list');
+        input.setAttribute('autocomplete', 'off');
+        input.dataset.productDatalistReady = '1';
+
+        input.addEventListener('input', () => applyProductToRow(input));
+        input.addEventListener('change', () => applyProductToRow(input));
+      }
+
+      function enhanceProductInputs() {
+        document.querySelectorAll('.item-desc').forEach(enhanceProductInput);
+      }
+
+      const originalAddItemRow = window.addItemRow;
+      if (typeof originalAddItemRow === 'function') {
+        window.addItemRow = function(...args) {
+          const result = originalAddItemRow.apply(this, args);
+          enhanceProductInputs();
+          loadQuotationProducts().then(enhanceProductInputs);
+          return result;
+        };
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        enhanceProductInputs();
+        loadQuotationProducts().then(enhanceProductInputs);
+      });
+    })();
+  </script>
+  
+  <!-- Injected script to handle Customer Datalist without modifying quotation.js -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const datalist = document.getElementById('custDatalist');
+      const input = document.getElementById('custIdSearch');
+      
+      // Poll until allCustomers is populated by quotation.js
+      const checkInterval = setInterval(() => {
+        if (typeof allCustomers !== 'undefined' && allCustomers.length > 0) {
+          clearInterval(checkInterval);
+          allCustomers.forEach(row => {
+            const id = row['Cust_ID'] || '';
+            const companyName = String(row['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || '').trim();
+            const contactName = String(row['ชื่อ-นามสกุล'] || '').trim();
+            let displayName = companyName || contactName || 'ไม่มีชื่อ';
+            if (companyName && contactName && companyName !== contactName) {
+              displayName = `${contactName} | ${companyName}`;
+            }
+            if (id) {
+              const option = document.createElement('option');
+              option.value = displayName ? `${displayName} (${id})` : id;
+              datalist.appendChild(option);
+            }
+          });
+        }
+      }, 500);
+
+      input.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (typeof allCustomers !== 'undefined' && allCustomers.length > 0) {
+          const row = allCustomers.find(r => {
+            const companyName = String(r['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || '').trim();
+            const contactName = String(r['ชื่อ-นามสกุล'] || '').trim();
+            let displayName = companyName || contactName || 'ไม่มีชื่อ';
+            if (companyName && contactName && companyName !== contactName) {
+              displayName = `${contactName} | ${companyName}`;
+            }
+            const expectedVal = displayName ? `${displayName} (${r['Cust_ID']})` : r['Cust_ID'];
+            return expectedVal === val;
+          });
+          
+          if (row) {
+            const id = row['Cust_ID'] || '';
+            const companyName = String(row['ชื่อบริษัท/ร้านค้า/ทีมงาน'] || '').trim();
+            const contactName = String(row['ชื่อ-นามสกุล'] || '').trim();
+            const displayName = (companyName && contactName && companyName !== contactName) ? `${contactName} | ${companyName}` : (companyName || contactName || '');
+            
+            document.getElementById('custId').value = id;
+            document.getElementById('custName').value = displayName;
+            document.getElementById('taxId').value = row['เลขประจำตัวผู้เสียภาษี'] || '';
+            document.getElementById('address').value = row['ที่อยู่สำหรับจัดส่งเอกสาร'] || '';
+            document.getElementById('contactName').value = row['ชื่อ-นามสกุล'] || '';
+            document.getElementById('phone').value = row['เบอร์โทรศัพท์'] || '';
+          }
+        }
+      });
+
+      // Old Quotations Datalist Logic
+      const oldDatalist = document.getElementById('oldQuotationDatalist');
+      const oldInput = document.getElementById('oldQuotationSearch');
+      
+      const oldCheckInterval = setInterval(() => {
+        if (typeof allQuotations !== 'undefined' && allQuotations.length > 0) {
+          clearInterval(oldCheckInterval);
+          allQuotations.forEach(q => {
+            const option = document.createElement('option');
+            const no = q.qNo || '';
+            const cId = q.custId || '';
+            option.value = `${no} - ${cId}`;
+            oldDatalist.appendChild(option);
+          });
+        }
+      }, 500);
+
+      oldInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (typeof allQuotations !== 'undefined' && allQuotations.length > 0) {
+          const q = allQuotations.find(row => {
+            const no = row.qNo || '';
+            const cId = row.custId || '';
+            return `${no} - ${cId}` === val;
+          });
+          
+          if (q && typeof selectSavedQuotation === 'function') {
+            selectSavedQuotation(q);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

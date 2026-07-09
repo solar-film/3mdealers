@@ -30,6 +30,8 @@ function setHeaders() {
   setPartnerTierDetailHeaders_(tierDetailSheet);
 
   const chatSheet = getOrCreateSheet_(ss, "chat_logs");
+  const quotationSheet = getOrCreateSheet_(ss, "Quotation");
+  ensureSheetHeaders_(quotationSheet, getQuotationHeaders_(), "#0a58ca");
   setSheetHeaders_(chatSheet, ["Log_ID", "Cust_ID", "Admin", "รายละเอียด", "วันที่บันทึกข้อมูล"], "#1a3c6e");
 }
 
@@ -240,8 +242,8 @@ function updateTier_(ss, data) {
 }
 
 function createQuotation_(ss, data, existingQid) {
-  const sheet = ss.getSheetByName("Quotation");
-  if (!sheet) throw new Error("ไม่พบชีต Quotation");
+  const sheet = getOrCreateSheet_(ss, "Quotation");
+  const headers = ensureSheetHeaders_(sheet, getQuotationHeaders_(), "#0a58ca");
 
   const qId = existingQid || Utilities.getUuid();
   const timestamp = new Date();
@@ -254,9 +256,6 @@ function createQuotation_(ss, data, existingQid) {
     throw new Error("ไม่มีรายการสินค้า");
   }
 
-  const values = sheet.getDataRange().getValues();
-  const headers = values[0] || [];
-  
   const colIndex = {
     qId: headers.indexOf("Q_ID"),
     custId: headers.indexOf("Cust_ID"),
@@ -317,14 +316,13 @@ function createQuotation_(ss, data, existingQid) {
 }
 
 function updateQuotation_(ss, data) {
-  const sheet = ss.getSheetByName("Quotation");
-  if (!sheet) throw new Error("ไม่พบชีต Quotation");
+  const sheet = getOrCreateSheet_(ss, "Quotation");
+  const headers = ensureSheetHeaders_(sheet, getQuotationHeaders_(), "#0a58ca");
 
   const qId = String(data.quotation.id || data.qId).trim();
   if (!qId || qId === 'undefined') throw new Error("Missing Q_ID for update");
 
   const values = sheet.getDataRange().getValues();
-  const headers = values[0] || [];
   const idColIdx = headers.findIndex(h => String(h).trim() === "Q_ID");
   
   if (idColIdx >= 0 && values.length > 1) {
@@ -533,6 +531,34 @@ function parsePostData_(e) {
 
 function getOrCreateSheet_(ss, name) {
   return ss.getSheetByName(name) || ss.insertSheet(name);
+}
+
+function getQuotationHeaders_() {
+  return [
+    "Q_ID", "Cust_ID", "เลขที่ใบเสนอราคา", "วันที่เสนอราคา", "รายการสินค้า",
+    "จำนวน", "หน่วย", "ราคาต่อสินค้า", "ยอดรวม", "ส่วนลด", "ยอดสุทธิ",
+    "ยืนราคา", "เครดิตเทอม", "หมายเหตุ", "สถานะ", "วันที่บันทึกข้อมูล", "Update"
+  ];
+}
+
+function ensureSheetHeaders_(sheet, requiredHeaders, color) {
+  const lastColumn = Math.max(sheet.getLastColumn(), requiredHeaders.length, 1);
+  let headers = sheet.getRange(1, 1, 1, lastColumn).getValues()[0]
+    .map(header => String(header || "").trim());
+  if (!headers.some(Boolean)) headers = requiredHeaders.slice();
+
+  requiredHeaders.forEach(header => {
+    if (!headers.includes(header)) headers.push(header);
+  });
+
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  const range = sheet.getRange(1, 1, 1, headers.length);
+  range.setFontWeight("bold");
+  range.setBackground(color);
+  range.setFontColor("#ffffff");
+  range.setHorizontalAlignment("center");
+  sheet.setFrozenRows(1);
+  return headers;
 }
 
 function setSheetHeaders_(sheet, headers, color) {
